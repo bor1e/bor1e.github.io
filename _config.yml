@@ -26,7 +26,6 @@ words_per_minute: 265
 
 # Build settings
 markdown: kramdown
-theme: minimal-mistakes-jekyll
 plugins:
   - jekyll-feed
   - jekyll-archives

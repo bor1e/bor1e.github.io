@@ -1,10 +1,18 @@
 ---
-layout: page
 title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+# Dear Visitor,
+on these pages you can find some of my work past and present which I found worthy to be published.
+
+I am always happy to know if somebody finds my work useful or can profit from my previous efforts. I am equally thankful about any comment on the stuff you find here. You can contact me via email to elyahu.de @ gmail.com. 
+
+I am always looking for interesting projects and offers. Take a look at my my GitHub profile and at my LinkedIn and XING. A formal CV is available upon request.
+
+This homepage serves as a link center to my Open Source projects and other publications. 
+
+Like my work? Let me know.
 
 You can find the source code for Minima at GitHub:
 [jekyll][jekyll-organization] /

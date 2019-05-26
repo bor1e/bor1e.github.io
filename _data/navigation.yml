@@ -1,0 +1,11 @@
+main:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+#  - title: Blog
+#    url: /blog/
+#  - title: Quotes
+#    url: /quotes/
+#  - title: Utils
+#    url: /utils/

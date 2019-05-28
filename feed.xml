@@ -1,6 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-05-28T11:50:45+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Elyahu’s Portfolio</title><subtitle>Data Science, </subtitle><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><entry><title type="html">Code Snippets</title><link href="http://localhost:4000/design/code-snippets/" rel="alternate" type="text/html" title="Code Snippets" /><published>2019-05-27T00:00:00+02:00</published><updated>2019-05-27T00:00:00+02:00</updated><id>http://localhost:4000/design/code-snippets</id><content type="html" xml:base="http://localhost:4000/design/code-snippets/">&lt;p&gt;Whenever you need to post a code snippet, use the liquid tags &lt;code class=&quot;highlighter-rouge&quot;&gt;hilight&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;endhilight&lt;/code&gt; like this:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-05-29T00:43:27+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">elyahu.de</title><subtitle>Data Science, Machine Learning and DevOps - Blog with personal insights and current projects.</subtitle><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><entry><title type="html">Ansible and Build Automation</title><link href="http://localhost:4000/devops/ansible-and-build-automation/" rel="alternate" type="text/html" title="Ansible and Build Automation" /><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><id>http://localhost:4000/devops/ansible-and-build-automation</id><content type="html" xml:base="http://localhost:4000/devops/ansible-and-build-automation/">&lt;blockquote&gt;
+  &lt;p&gt;What are you doing?&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# some code goes here&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;As a fullstack developer, one often faces the situation of deploying a application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a [LAMP] or a [MEAN] or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.&lt;/p&gt;
 
-&lt;p&gt;Note that this only provides color-coding. For that you might need to use a front end colorization engine like Highlight.JS or something similar.&lt;/p&gt;</content><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><category term="Design" /><summary type="html">Quick overview on how to post code snippets using Liquid tags and how to escape or not escape markdown and HTML in your blog entries.</summary></entry></feed>
+&lt;h2 id=&quot;challenge--use-case&quot;&gt;Challenge | Use Case&lt;/h2&gt;
+&lt;p&gt;Since, I often use databases and webframeworks, I decided to automate the process of deployment, to be able to primarly focus on creating webapplications and focusing less on server initialization.&lt;br /&gt;
+&lt;strong&gt;Goal:&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;pass the host-IP and CNAME&lt;/li&gt;
+  &lt;li&gt;perform some ansible-magic&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;visit&lt;/strong&gt; the CNAME &lt;strong&gt;server&lt;/strong&gt;, find the &lt;strong&gt;application  running&lt;/strong&gt; without presonally ssh-ing the server!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;Ansible performs automation and orchestration of IT environments by accessing the server via SSH and running YAML Playbooks.
+So what services and libs should be preinstalled on the server for my appliaction to run?&lt;/p&gt;
+
+&lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
+&lt;p&gt;In my case the following is a list of required libs/services:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python3&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;python3-dev&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;python3-pip&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python-virtualenv&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rabbitmq-server&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;postgresql&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;postgresql-contrib&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;postgresql-server-dev-all&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;python-psycopg2&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;python3-dev&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;build-essential&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;libpq-dev&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;user&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As you probably noticed, I categorized them already, first two are &lt;code class=&quot;highlighter-rouge&quot;&gt;framework related&lt;/code&gt;-libs, third is a &lt;code class=&quot;highlighter-rouge&quot;&gt;webserver&lt;/code&gt;, than a &lt;code class=&quot;highlighter-rouge&quot;&gt;DB&lt;/code&gt; and finally a &lt;code class=&quot;highlighter-rouge&quot;&gt;user&lt;/code&gt;, who will be responsible for deploying.&lt;/p&gt;
+
+&lt;h2 id=&quot;roles&quot;&gt;Roles&lt;/h2&gt;
+&lt;p&gt;// TODO&lt;/p&gt;
+
+&lt;h2 id=&quot;lessons-learned&quot;&gt;Lessons-Learned&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use seperate playbooks for initializing a server and a deployment (on an initialized webserver)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;</content><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><category term="DevOps" /><summary type="html">Overview of Server and Database initialization using Ansible Playbooks.</summary></entry></feed>

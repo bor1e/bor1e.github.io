@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Code Snippets - Elyahu’s Portfolio</title>
-<meta name="description" content="Quick overview on how to post code snippets using Liquid tags and how to escape or not escape markdown and HTML in your blog entries.">
+<!-- begin _includes/seo.html --><title>Ansible and Build Automation - elyahu.de</title>
+<meta name="description" content="Overview of Server and Database initialization using Ansible Playbooks.">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
-<meta property="og:site_name" content="Elyahu's Portfolio">
-<meta property="og:title" content="Code Snippets">
-<meta property="og:url" content="http://localhost:4000/design/code-snippets/">
+<meta property="og:site_name" content="elyahu.de">
+<meta property="og:title" content="Ansible and Build Automation">
+<meta property="og:url" content="http://localhost:4000/devops/ansible-and-build-automation/">
 
 
-  <meta property="og:description" content="Quick overview on how to post code snippets using Liquid tags and how to escape or not escape markdown and HTML in your blog entries.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2019-05-27T00:00:00+02:00">
+  <meta property="og:description" content="Overview of Server and Database initialization using Ansible Playbooks.">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2019-05-28T00:00:00+02:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/design/code-snippets/">
+
+<link rel="canonical" href="http://localhost:4000/devops/ansible-and-build-automation/">
 
 
 
@@ -67,7 +67,7 @@
 <!-- end _includes/seo.html -->
 
 
-<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Elyahu's Portfolio Feed">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="elyahu.de Feed">
 
 <!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,7 +117,7 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
         
-        <a class="site-title" href="/">Elyahu's Portfolio</a>
+        <a class="site-title" href="/">elyahu.de</a>
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/" >Blog</a>
             </li><li class="masthead__menu-item">
@@ -276,15 +276,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Code Snippets">
-    <meta itemprop="description" content="Quick overview on how to post code snippets using Liquid tags and how to escape or not escape markdown and HTML in your blog entries.">
-    <meta itemprop="datePublished" content="May 27, 2019">
+    <meta itemprop="headline" content="Ansible and Build Automation">
+    <meta itemprop="description" content="Overview of Server and Database initialization using Ansible Playbooks.">
+    <meta itemprop="datePublished" content="May 28, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Code Snippets
+          <h1 id="page-title" class="page__title" itemprop="headline">Ansible and Build Automation
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -292,7 +292,7 @@
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
           
         </header>
@@ -300,12 +300,49 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>Whenever you need to post a code snippet, use the liquid tags <code class="highlighter-rouge">hilight</code> and <code class="highlighter-rouge">endhilight</code> like this:</p>
+        <blockquote>
+  <p>What are you doing?</p>
+  <blockquote>
+    <p>Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…</p>
+  </blockquote>
+</blockquote>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># some code goes here</span>
-<span class="nb">puts</span> <span class="s2">"Hello World!"</span></code></pre></figure>
+<p>As a fullstack developer, one often faces the situation of deploying a application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a [LAMP] or a [MEAN] or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.</p>
 
-<p>Note that this only provides color-coding. For that you might need to use a front end colorization engine like Highlight.JS or something similar.</p>
+<h2 id="challenge--use-case">Challenge | Use Case</h2>
+<p>Since, I often use databases and webframeworks, I decided to automate the process of deployment, to be able to primarly focus on creating webapplications and focusing less on server initialization.<br />
+<strong>Goal:</strong>:</p>
+<ul>
+  <li>pass the host-IP and CNAME</li>
+  <li>perform some ansible-magic</li>
+  <li><strong>visit</strong> the CNAME <strong>server</strong>, find the <strong>application  running</strong> without presonally ssh-ing the server!</li>
+</ul>
+
+<h2 id="solution">Solution</h2>
+<p>Ansible performs automation and orchestration of IT environments by accessing the server via SSH and running YAML Playbooks.
+So what services and libs should be preinstalled on the server for my appliaction to run?</p>
+
+<h3 id="requirements">Requirements</h3>
+<p>In my case the following is a list of required libs/services:</p>
+<ul>
+  <li><code class="highlighter-rouge">python3</code>, <code class="highlighter-rouge">python3-dev</code>, <code class="highlighter-rouge">python3-pip</code></li>
+  <li><code class="highlighter-rouge">python-virtualenv</code>, <code class="highlighter-rouge">rabbitmq-server</code></li>
+  <li><code class="highlighter-rouge">nginx</code></li>
+  <li><code class="highlighter-rouge">postgresql</code>, <code class="highlighter-rouge">postgresql-contrib</code>, <code class="highlighter-rouge">postgresql-server-dev-all</code>, <code class="highlighter-rouge">python-psycopg2</code>, <code class="highlighter-rouge">python3-dev</code>, <code class="highlighter-rouge">build-essential</code>, <code class="highlighter-rouge">libpq-dev</code></li>
+  <li>user</li>
+</ul>
+
+<p>As you probably noticed, I categorized them already, first two are <code class="highlighter-rouge">framework related</code>-libs, third is a <code class="highlighter-rouge">webserver</code>, than a <code class="highlighter-rouge">DB</code> and finally a <code class="highlighter-rouge">user</code>, who will be responsible for deploying.</p>
+
+<h2 id="roles">Roles</h2>
+<p>// TODO</p>
+
+<h2 id="lessons-learned">Lessons-Learned</h2>
+<ul>
+  <li>Use seperate playbooks for initializing a server and a deployment (on an initialized webserver)</li>
+</ul>
+
+<h2 id="references">References</h2>
 
         
       </section>
@@ -328,14 +365,14 @@
     
       
       
-      <a href="/categories/design" class="page__taxonomy-item" rel="tag">Design</a>
+      <a href="/categories/devops" class="page__taxonomy-item" rel="tag">DevOps</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-05-27T00:00:00+02:00">May 27, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-05-28T00:00:00+02:00">May 28, 2019</time></p>
         
       </footer>
 

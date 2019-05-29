@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Ansible and Build Automation - elyahu.de</title>
+<!-- begin _includes/seo.html --><title>Ansible - Deploying application without visiting the server once - elyahu.de</title>
 <meta name="description" content="Overview of Server and Database initialization using Ansible Playbooks.">
 
 
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="elyahu.de">
-<meta property="og:title" content="Ansible and Build Automation">
+<meta property="og:title" content="Ansible - Deploying application without visiting the server once">
 <meta property="og:url" content="http://localhost:4000/devops/ansible-and-build-automation/">
 
 
@@ -104,7 +104,7 @@
 
   </head>
 
-  <body class="layout--single">
+  <body class="layout--single wide">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -276,7 +276,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Ansible and Build Automation">
+    <meta itemprop="headline" content="Ansible - Deploying application without visiting the server once">
     <meta itemprop="description" content="Overview of Server and Database initialization using Ansible Playbooks.">
     <meta itemprop="datePublished" content="May 28, 2019">
     
@@ -284,7 +284,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Ansible and Build Automation
+          <h1 id="page-title" class="page__title" itemprop="headline">Ansible - Deploying application without visiting the server once
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -307,42 +307,57 @@
   </blockquote>
 </blockquote>
 
-<p>As a fullstack developer, one often faces the situation of deploying a application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a [LAMP] or a [MEAN] or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.</p>
+<p>As a fullstack developer, one often faces the situation of deploying a application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a <a href="https://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP</a> or a <a href="https://en.wikipedia.org/wiki/MEAN_(software_bundle)">MEAN</a> or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.</p>
 
-<h2 id="challenge--use-case">Challenge | Use Case</h2>
+<h2 id="use-case">Use Case</h2>
 <p>Since, I often use databases and webframeworks, I decided to automate the process of deployment, to be able to primarly focus on creating webapplications and focusing less on server initialization.<br />
 <strong>Goal:</strong>:</p>
 <ul>
   <li>pass the host-IP and CNAME</li>
   <li>perform some ansible-magic</li>
-  <li><strong>visit</strong> the CNAME <strong>server</strong>, find the <strong>application  running</strong> without presonally ssh-ing the server!</li>
+  <li><strong>visit</strong> the CNAME <strong>server</strong>, find the <strong>application running</strong> without presonally ssh-ing the server!</li>
 </ul>
 
 <h2 id="solution">Solution</h2>
-<p>Ansible performs automation and orchestration of IT environments by accessing the server via SSH and running YAML Playbooks.
+<p>Ansible performs automation and orchestration of IT environments by accessing the server via SSH and running YAML playbooks, which in turn install/setup/configure the server instead of you.
 So what services and libs should be preinstalled on the server for my appliaction to run?</p>
 
-<h3 id="requirements">Requirements</h3>
-<p>In my case the following is a list of required libs/services:</p>
+<p>In my case, building a <a href="https://www.djangoproject.com/">Django</a> the following is a list of required libs/services, referred to as <code class="highlighter-rouge">roles</code>, I prepared to be installed/performed on any given server:</p>
 <ul>
-  <li><code class="highlighter-rouge">python3</code>, <code class="highlighter-rouge">python3-dev</code>, <code class="highlighter-rouge">python3-pip</code></li>
-  <li><code class="highlighter-rouge">python-virtualenv</code>, <code class="highlighter-rouge">rabbitmq-server</code></li>
-  <li><code class="highlighter-rouge">nginx</code></li>
-  <li><code class="highlighter-rouge">postgresql</code>, <code class="highlighter-rouge">postgresql-contrib</code>, <code class="highlighter-rouge">postgresql-server-dev-all</code>, <code class="highlighter-rouge">python-psycopg2</code>, <code class="highlighter-rouge">python3-dev</code>, <code class="highlighter-rouge">build-essential</code>, <code class="highlighter-rouge">libpq-dev</code></li>
+  <li><code class="highlighter-rouge">python3</code>,</li>
+  <li><code class="highlighter-rouge">nginx</code> and <code class="highlighter-rouge">guincorn</code>,</li>
+  <li><code class="highlighter-rouge">postgresql</code>,</li>
   <li>user</li>
 </ul>
 
-<p>As you probably noticed, I categorized them already, first two are <code class="highlighter-rouge">framework related</code>-libs, third is a <code class="highlighter-rouge">webserver</code>, than a <code class="highlighter-rouge">DB</code> and finally a <code class="highlighter-rouge">user</code>, who will be responsible for deploying.</p>
+<p>As you probably noticed, I categorized them already, first is <code class="highlighter-rouge">framework related</code>-language libs, followed by a <code class="highlighter-rouge">webserver</code>, than a <code class="highlighter-rouge">DB</code> and finally a <code class="highlighter-rouge">user</code>, who will be responsible for deployment.</p>
 
-<h2 id="roles">Roles</h2>
-<p>// TODO</p>
+<p>Tree view of ansible <code class="highlighter-rouge">setup</code> <a href="https://github.com/bor1e/setup-django-ansible.git">folder</a>:
+<img src="/assets/images/tree-view-setup-django-ansible.png" alt="alt text" title="Tree view of ansible setup file." />
+As recommended by <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html">Ansible’s Best Practises</a>.</p>
+
+<h2 id="ansible-magic">Ansible-Magic:</h2>
+<ul>
+  <li>create a server and copy the ip address</li>
+  <li>add the ip-adress to the group-vars and hosts</li>
+  <li>run <code class="highlighter-rouge">ansible-playbook -i hosts init_and_deploy.yml</code></li>
+  <li>visit ip adress, app is running!</li>
+</ul>
 
 <h2 id="lessons-learned">Lessons-Learned</h2>
 <ul>
-  <li>Use seperate playbooks for initializing a server and a deployment (on an initialized webserver)</li>
+  <li>Use seperate user-roles for initializing (root) a server and a deployment (<strong>not</strong> root) on an initialized webserver.</li>
+  <li>Virtualenv Permission Denied [Errno 13]
+    <ul>
+      <li>make sure virtualenv is being run by deployment user</li>
+    </ul>
+  </li>
+  <li>log into server &amp; run command</li>
+  <li>use <code class="highlighter-rouge">ansible-playbook -i hosts init-and-deploy.yml --start-at-task=&lt;LAST_FAILED_TASK&gt;</code></li>
+  <li>check warnings and <strong>not</strong> ignore them</li>
+  <li>run ansible with <code class="highlighter-rouge">vvv</code> for extended messages from ansible</li>
+  <li>once configuren n-times used</li>
 </ul>
-
-<h2 id="references">References</h2>
 
         
       </section>

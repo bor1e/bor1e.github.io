@@ -10,7 +10,7 @@ var store = [{
         "url": "http://localhost:4000/data%20science/data-discovery-hackaton-zollhof/",
         "teaser":"http://localhost:4000/assets/images/teaser.png"},{
         "title": "To Learn",
-        "excerpt":"Goal::     https://pingouin-stats.org/index.html   Lessons-Learned           What are you doing?         Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…      ","categories": ["Interesting"],
+        "excerpt":"Goal::     Pinguouin   Lessons-Learned           What are you doing?         Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…      ","categories": ["Interesting"],
         "tags": [],
         "url": "http://localhost:4000/interesting/to-learn/",
         "teaser":"http://localhost:4000/assets/images/teaser.png"}]

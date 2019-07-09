@@ -1,11 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-05-30T00:53:16+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">elyahu.de</title><subtitle>Data Science, Machine Learning and DevOps - Blog with personal insights and current projects.</subtitle><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><entry><title type="html">Ansible just rocks - a small reusable overview</title><link href="http://localhost:4000/devops/ansible-and-build-automation/" rel="alternate" type="text/html" title="Ansible just rocks - a small reusable overview" /><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><id>http://localhost:4000/devops/ansible-and-build-automation</id><content type="html" xml:base="http://localhost:4000/devops/ansible-and-build-automation/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-09T23:20:55+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">elyahu.de</title><subtitle>Data Science, Machine Learning and DevOps - Blog with personal insights and current projects.</subtitle><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><entry><title type="html">To Learn &amp;amp; Checkout</title><link href="http://localhost:4000/interesting/to-learn/" rel="alternate" type="text/html" title="To Learn &amp; Checkout" /><published>2019-07-09T00:00:00+02:00</published><updated>2019-07-09T00:00:00+02:00</updated><id>http://localhost:4000/interesting/to-learn</id><content type="html" xml:base="http://localhost:4000/interesting/to-learn/">&lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://pingouin-stats.org/index.html&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lessons-learned&quot;&gt;Lessons-Learned&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
   &lt;p&gt;What are you doing?&lt;/p&gt;
   &lt;blockquote&gt;
     &lt;p&gt;Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…&lt;/p&gt;
   &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;As a fullstack developer, one often faces the situation of deploying an application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a &lt;a href=&quot;https://en.wikipedia.org/wiki/LAMP_(software_bundle)&quot;&gt;LAMP&lt;/a&gt; or a &lt;a href=&quot;https://en.wikipedia.org/wiki/MEAN_(software_bundle)&quot;&gt;MEAN&lt;/a&gt; or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><category term="Interesting" /><summary type="html">Interesting links and to learns for the future.</summary></entry><entry><title type="html">Zollhof Hackathon - Data Discovery for N-ergie/VAG</title><link href="http://localhost:4000/devops/data-discovery-hackaton-zollhof/" rel="alternate" type="text/html" title="Zollhof Hackathon - Data Discovery for N-ergie/VAG" /><published>2019-06-05T00:00:00+02:00</published><updated>2019-06-05T00:00:00+02:00</updated><id>http://localhost:4000/devops/data-discovery-hackaton-zollhof</id><content type="html" xml:base="http://localhost:4000/devops/data-discovery-hackaton-zollhof/">&lt;p&gt;As a fullstack developer, one often faces the situation of deploying an application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a &lt;a href=&quot;https://en.wikipedia.org/wiki/LAMP_(software_bundle)&quot;&gt;LAMP&lt;/a&gt; or a &lt;a href=&quot;https://en.wikipedia.org/wiki/MEAN_(software_bundle)&quot;&gt;MEAN&lt;/a&gt; or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.&lt;/p&gt;
 
 &lt;h2 id=&quot;use-case&quot;&gt;Use Case&lt;/h2&gt;
 &lt;p&gt;Since, I often use databases and webframeworks, I decided to automate the process of deployment, to be able to primarly focus on creating webapplications and focusing less on server initialization.&lt;br /&gt;
@@ -57,4 +65,70 @@ As recommended by &lt;a href=&quot;https://docs.ansible.com/ansible/latest/user_
   &lt;li&gt;check warnings and &lt;strong&gt;not&lt;/strong&gt; ignore them&lt;/li&gt;
   &lt;li&gt;run ansible with &lt;code class=&quot;highlighter-rouge&quot;&gt;vvv&lt;/code&gt; for extended messages from ansible&lt;/li&gt;
   &lt;li&gt;once configuren n-times used&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><category term="DevOps" /><summary type="html">Overview of Server and Database initialization using Ansible Playbooks. Deploying application without visiting the server once.</summary></entry></feed>
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;What are you doing?&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;</content><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><category term="DevOps" /><summary type="html">Overview of Server and Database initialization using Ansible Playbooks. Deploying application without visiting the server once.</summary></entry><entry><title type="html">Ansible just rocks - a small reusable overview</title><link href="http://localhost:4000/devops/ansible-and-build-automation/" rel="alternate" type="text/html" title="Ansible just rocks - a small reusable overview" /><published>2019-05-28T00:00:00+02:00</published><updated>2019-05-28T00:00:00+02:00</updated><id>http://localhost:4000/devops/ansible-and-build-automation</id><content type="html" xml:base="http://localhost:4000/devops/ansible-and-build-automation/">&lt;p&gt;As a fullstack developer, one often faces the situation of deploying an application to a server. This is basically a routine job, once you finish the local development and test, you want to see your application live on a server. This in turn means, you have to create a &lt;a href=&quot;https://en.wikipedia.org/wiki/LAMP_(software_bundle)&quot;&gt;LAMP&lt;/a&gt; or a &lt;a href=&quot;https://en.wikipedia.org/wiki/MEAN_(software_bundle)&quot;&gt;MEAN&lt;/a&gt; or similar ready-to-go server, i.e. a server which has all the used services and libs installed. If this is something you face often you should take a look on ansible, which allows a pretty fast and save way to create a ready to deploy server.&lt;/p&gt;
+
+&lt;h2 id=&quot;use-case&quot;&gt;Use Case&lt;/h2&gt;
+&lt;p&gt;Since, I often use databases and webframeworks, I decided to automate the process of deployment, to be able to primarly focus on creating webapplications and focusing less on server initialization.&lt;br /&gt;
+&lt;strong&gt;Goal:&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;pass the host-IP and CNAME&lt;/li&gt;
+  &lt;li&gt;perform some ansible-magic&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;visit&lt;/strong&gt; the CNAME &lt;strong&gt;server&lt;/strong&gt;, find the &lt;strong&gt;application running&lt;/strong&gt; without presonally ssh-ing the server!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+&lt;p&gt;Ansible performs automation and orchestration of IT environments by accessing the server via SSH and running YAML playbooks, which in turn install/setup/configure the server instead of you.
+So what services and libs should be preinstalled on the server for my appliaction to run?&lt;/p&gt;
+
+&lt;p&gt;In my case, building a &lt;a href=&quot;https://www.djangoproject.com/&quot;&gt;Django&lt;/a&gt; the following is a list of required libs/services, referred to as &lt;code class=&quot;highlighter-rouge&quot;&gt;roles&lt;/code&gt;, I prepared to be installed/performed on any given server:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python3&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;guincorn&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;postgresql&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;user&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As you probably noticed, I categorized them already, first is &lt;code class=&quot;highlighter-rouge&quot;&gt;framework related&lt;/code&gt;-language libs, followed by a &lt;code class=&quot;highlighter-rouge&quot;&gt;webserver&lt;/code&gt;, than a &lt;code class=&quot;highlighter-rouge&quot;&gt;DB&lt;/code&gt; and finally a &lt;code class=&quot;highlighter-rouge&quot;&gt;user&lt;/code&gt;, who will be responsible for deployment.&lt;/p&gt;
+
+&lt;p&gt;Tree view of ansible &lt;code class=&quot;highlighter-rouge&quot;&gt;setup&lt;/code&gt; &lt;a href=&quot;https://github.com/bor1e/setup-django-ansible.git&quot;&gt;folder&lt;/a&gt;:
+&lt;img src=&quot;/assets/images/tree-view-setup-django-ansible.png&quot; alt=&quot;alt text&quot; title=&quot;Tree view of ansible setup file.&quot; /&gt;
+As recommended by &lt;a href=&quot;https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html&quot;&gt;Ansible’s Best Practises&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;ansible-magic&quot;&gt;Ansible-Magic:&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;create a server and copy the ip address&lt;/li&gt;
+  &lt;li&gt;add the ip-adress to the group-vars and hosts&lt;/li&gt;
+  &lt;li&gt;run &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible-playbook -i hosts init_and_deploy.yml&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;visit ip adress, app is running!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Your application is LIVE on Production mode!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lessons-learned&quot;&gt;Lessons-Learned&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use seperate user-roles for initializing (root) a server and a deployment (&lt;strong&gt;not&lt;/strong&gt; root) on an initialized webserver.&lt;/li&gt;
+  &lt;li&gt;Virtualenv Permission Denied [Errno 13]
+    &lt;ul&gt;
+      &lt;li&gt;make sure virtualenv is being run by deployment user&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;log into server &amp;amp; run command&lt;/li&gt;
+  &lt;li&gt;use &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible-playbook -i hosts init-and-deploy.yml --start-at-task=&amp;lt;LAST_FAILED_TASK&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;check warnings and &lt;strong&gt;not&lt;/strong&gt; ignore them&lt;/li&gt;
+  &lt;li&gt;run ansible with &lt;code class=&quot;highlighter-rouge&quot;&gt;vvv&lt;/code&gt; for extended messages from ansible&lt;/li&gt;
+  &lt;li&gt;once configuren n-times used&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;What are you doing?&lt;/p&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;Trying to fix the problems I created, when I was trying to fix the problems I created, when I was trying to…&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;</content><author><name>Elyahu Borodin</name><email>elyahu.de (@) gmail.com</email></author><category term="DevOps" /><summary type="html">Overview of Server and Database initialization using Ansible Playbooks. Deploying application without visiting the server once.</summary></entry></feed>

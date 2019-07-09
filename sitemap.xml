@@ -5,6 +5,14 @@
 <lastmod>2019-05-28T00:00:00+02:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/devops/data-discovery-hackaton-zollhof/</loc>
+<lastmod>2019-06-05T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/interesting/to-learn/</loc>
+<lastmod>2019-07-09T00:00:00+02:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/about/</loc>
 </url>
 <url>
@@ -12,5 +20,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/categories/devops/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/categories/interesting/</loc>
 </url>
 </urlset>

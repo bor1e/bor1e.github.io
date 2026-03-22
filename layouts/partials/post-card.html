@@ -1,0 +1,15 @@
+<article class="post-card" data-persona="{{ .Section }}">
+  <a href="{{ .Permalink }}">
+    <div class="post-card-meta">
+      <span class="post-section-badge badge-{{ .Section }}">{{ .Section }}</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02. Jan 2006" }}</time>
+    </div>
+    <h3>{{ .Title }}</h3>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    {{ with .Params.tags }}
+    <div class="post-tags">
+      {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
+    </div>
+    {{ end }}
+  </a>
+</article>

@@ -1,0 +1,33 @@
+{{ define "main" }}
+<article class="post" data-persona="{{ .Section }}">
+  <header class="post-header">
+    <div class="post-meta">
+      <span class="post-section-badge badge-{{ .Section }}">{{ .Section }}</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02. Januar 2006" }}</time>
+      {{ with .Params.lastmod }}<span class="post-updated">(aktualisiert: {{ . | time.Format "02. Jan 2006" }})</span>{{ end }}
+      {{ with .ReadingTime }}<span class="reading-time">{{ . }} Min. Lesezeit</span>{{ end }}
+    </div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+  <footer class="post-footer">
+    {{ with .Params.tags }}
+    <div class="post-tags">
+      {{ range . }}
+        <a href="{{ "tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    <nav class="post-nav" aria-label="Weitere Beiträge">
+      {{ with .PrevInSection }}<a href="{{ .Permalink }}" class="post-nav-prev">&larr; {{ .Title }}</a>{{ end }}
+      {{ with .NextInSection }}<a href="{{ .Permalink }}" class="post-nav-next">{{ .Title }} &rarr;</a>{{ end }}
+    </nav>
+  </footer>
+</article>
+{{ end }}

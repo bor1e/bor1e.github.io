@@ -1,0 +1,18 @@
+{{- $content := .Inner -}}
+{{- $url := "https://kroki.io/plantuml/svg" -}}
+{{- $opts := dict
+  "method" "POST"
+  "body" $content
+  "headers" (dict "Content-Type" "text/plain" "Accept" "image/svg+xml")
+-}}
+{{- with try (resources.GetRemote $url $opts) -}}
+  {{- with .Err -}}
+    <div class="diagram-error">PlantUML error: {{ . }}</div>
+  {{- else with .Value -}}
+    <figure class="diagram plantuml-diagram">
+      {{ .Content | safeHTML }}
+    </figure>
+  {{- else -}}
+    <div class="diagram-error">PlantUML: empty response from Kroki server.</div>
+  {{- end -}}
+{{- end -}}

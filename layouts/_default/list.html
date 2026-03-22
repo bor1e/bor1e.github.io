@@ -1,0 +1,20 @@
+{{ define "main" }}
+<section class="section-header section-{{ .Section }}">
+  <h1>{{ .Title }}</h1>
+  {{ with .Description }}<p class="section-description">{{ . }}</p>{{ end }}
+  {{ with .Content }}{{ . }}{{ end }}
+</section>
+
+<section class="post-list">
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ if eq (len $pages) 0 }}
+    <p class="empty-section">Noch keine Beiträge in diesem Bereich.</p>
+  {{ else }}
+    <div class="post-grid">
+      {{ range $pages }}
+        {{ partial "post-card.html" . }}
+      {{ end }}
+    </div>
+  {{ end }}
+</section>
+{{ end }}

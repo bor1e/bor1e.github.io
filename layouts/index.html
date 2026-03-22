@@ -1,0 +1,30 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>One Blog. Two Perspectives.</h1>
+  <p class="hero-subtitle">{{ site.Params.description }}</p>
+</section>
+
+<section class="split-sections">
+  <a href="{{ "tech/" | relURL }}" class="split-card split-tech">
+    <h2>Tech</h2>
+    <p>Architecture, AI, Cloud, Software Design</p>
+    {{ $techPosts := where site.RegularPages "Section" "tech" }}
+    <span class="post-count">{{ len $techPosts }} {{ if eq (len $techPosts) 1 }}Beitrag{{ else }}Beiträge{{ end }}</span>
+  </a>
+  <a href="{{ "lehre/" | relURL }}" class="split-card split-lehre">
+    <h2>Lehre</h2>
+    <p>Tora, Chassidus, Jüdische Bildung</p>
+    {{ $lehrePosts := where site.RegularPages "Section" "lehre" }}
+    <span class="post-count">{{ len $lehrePosts }} {{ if eq (len $lehrePosts) 1 }}Beitrag{{ else }}Beiträge{{ end }}</span>
+  </a>
+</section>
+
+<section class="recent-posts">
+  <h2>Neueste Beiträge</h2>
+  <div class="post-grid">
+    {{ range first 6 site.RegularPages.ByDate.Reverse }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

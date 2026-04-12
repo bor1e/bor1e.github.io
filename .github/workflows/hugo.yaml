@@ -45,6 +45,13 @@ jobs:
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
 
+      # Hugo renders .adoc via external asciidoctor; hugo.toml enables asciidoctor-diagram
+      - name: Install AsciiDoc toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y asciidoctor graphviz
+          sudo gem install asciidoctor-diagram
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache

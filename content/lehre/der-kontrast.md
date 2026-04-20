@@ -12,6 +12,12 @@ personas: ["lehre"]
 
 ---
 
+Der sechste Abschnitt der Tanja ist kurz. Aber er tut etwas Ungewöhnliches: Er beschreibt das Böse nicht als Abwesenheit des Guten, sondern als sein Spiegelbild. G-tt, schreibt der Alter Rebbe, erschuf die Strukturen der Heiligkeit — und schuf daneben, Punkt für Punkt, eine Gegenwelt. Zehn Sefirot hier. Zehn Kronen der Unreinheit dort. Dieselbe Architektur. Entgegengesetzte Ausrichtung.
+
+Das ist der Kontrast, den Kapitel 6 beschreibt — und er zieht sich bis in den Alltag.
+
+Das ist kein Trost. Aber es ist eine Erklärung.
+
 G-tt schuf das eine gegenüber dem anderen.
 
 Licht und Dunkelheit. Wasser und Feuer. Mann und Frau. Leben und Tod. Süß und bitter. Körper und Seele.
@@ -79,7 +85,7 @@ flowchart LR
     class E1,E2,E3 ego
 ```
 
-Dasselbe Wort. Dieselbe Hand. Ein anderer Grund.
+Ein Foto zeigt präzise, was getan wurde. Ein Gemälde zeigt, was dahinter war. Die Geste ist das Foto — Chessed, Gewura, Tiferet, sichtbar und messbar. Der Grund ist das Gemälde. Der Kontrast ist unsichtbar — und trotzdem alles.
 
 ---
 
@@ -101,4 +107,10 @@ Am Ende bleibt eine Frage.
 
 Bin ich Beauftragter. Oder bin ich frei.
 
-Beide Antworten klingen gut. Nur eine trägt durch den Tag.
+Die Tanja lässt diese Spannung stehen — aber sie löst sie auch auf, auf ihre Art. Der Mensch ist beides. Er ist mit einer Mission ausgestattet, er hat eine g-ttliche Seele, die weiß, wohin sie gehört. Aber er hat auch eine tierische Seele, die das nicht vergessen hat. Und er hat den Verstand, der zwischen beiden stehen und wählen kann.
+
+Das ist nicht Schwäche. Das ist die Konstruktion.
+
+Ein Engel ist Beauftragter ohne Wahl. Ein Tier ist frei ohne Auftrag. Der Mensch trägt beides — und darin liegt seine besondere Würde und seine besondere Schwierigkeit. Die Frage "Beauftragter oder frei" ist deshalb keine Entweder-oder-Frage. Sie ist die Beschreibung des Ortes, an dem wir stehen — mitten im Kontrast.
+
+Welche Stimme heute lauter ist, können wir beeinflussen. Jeden Tag neu.

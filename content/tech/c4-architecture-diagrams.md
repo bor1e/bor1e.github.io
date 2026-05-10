@@ -19,42 +19,37 @@ Das C4-Modell von Simon Brown strukturiert Architekturdiagramme in vier Abstrakt
 
 ## Context Diagram: elyahu.de
 
-{{< plantuml >}}
-@startuml
-!include <C4/C4_Context>
+```mermaid
+flowchart TB
+    user([Besucher\nLiest Tech- oder Lehre-Inhalte])
+    website[elyahu.de\nPersönliche Website mit Dual-Persona]
+    github[GitHub Pages\nBlog Hosting]
+    aws[AWS · S3 + CloudFront]
 
-Person(user, "Besucher", "Liest Tech- oder Lehre-Inhalte")
-System(website, "elyahu.de", "Persönliche Website mit Dual-Persona")
-System_Ext(github, "GitHub Pages", "Blog Hosting")
-System_Ext(aws, "AWS", "S3 + CloudFront")
-
-Rel(user, website, "besucht", "HTTPS")
-Rel(user, github, "liest Blog", "HTTPS")
-Rel(website, aws, "hosted auf")
-@enduml
-{{< /plantuml >}}
+    user -->|besucht, HTTPS| website
+    user -->|liest Blog, HTTPS| github
+    website -->|hosted auf| aws
+```
 
 ## Container Diagram: Blog
 
-{{< plantuml >}}
-@startuml
-!include <C4/C4_Container>
+```mermaid
+flowchart LR
+    author([Autor\nSchreibt Posts in MD/AsciiDoc])
 
-Person(author, "Autor", "Schreibt Posts in MD/AsciiDoc")
-System_Boundary(blog, "Blog") {
-  Container(hugo, "Hugo", "Go", "Static Site Generator")
-  Container(content, "Content", "MD/AsciiDoc", "Blog Posts in /tech und /lehre")
-  Container(gh_actions, "GitHub Actions", "CI/CD", "Build & Deploy Pipeline")
-  Container(gh_pages, "GitHub Pages", "CDN", "Statische Auslieferung")
-}
+    subgraph blog[Blog]
+        content[Content\nMD/AsciiDoc]
+        hugo[Hugo\nGo · Static Site Generator]
+        gh_actions[GitHub Actions\nCI/CD · Build & Deploy]
+        gh_pages[GitHub Pages\nCDN · Statische Auslieferung]
+    end
 
-Rel(author, content, "schreibt")
-Rel(content, hugo, "wird verarbeitet von")
-Rel(hugo, gh_actions, "getriggert durch push")
-Rel(gh_actions, gh_pages, "deployed nach")
-@enduml
-{{< /plantuml >}}
+    author -->|schreibt| content
+    content -->|wird verarbeitet von| hugo
+    hugo -->|push triggert| gh_actions
+    gh_actions -->|deployed nach| gh_pages
+```
 
 ## Einbettung in Hugo
 
-PlantUML-Diagramme werden über einen Shortcode eingebettet, der zur Build-Zeit die PlantUML-Server-API aufruft und SVG zurückbekommt. Kein JavaScript im Browser nötig.
+Die Diagramme werden als Mermaid-Codeblöcke eingebettet und rendern client-seitig im Browser — kein externer Server, kein Netzwerkaufruf beim Build.

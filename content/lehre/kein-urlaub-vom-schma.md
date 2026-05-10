@@ -8,7 +8,7 @@ categories: ["lehre"]
 personas: ["lehre"]
 ---
 
-*Zu diesem Beitrag: Gedanken zur Allgegenwart der Tora und der Konzentration (Kavana) während des Kriat Schma. Mit Bezug auf [Lekutej Amarim, Kapitel 4](https://de.chabad.org/library/article_cdo/aid/583090/jewish/Kapitel-4.htm).*
+*Zu diesem Beitrag: Gedanken zur Allgegenwart der Tora und der Konzentration (Kavana) während des Kriat Schma. Mit Bezug auf [Lekutej Amarim, Kapitel 4](https://de.chabad.org/library/article_cdo/aid/583082/jewish/Kapitel-4.htm).*
 
 ---
 

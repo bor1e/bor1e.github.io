@@ -39,15 +39,14 @@ Hugo gewinnt durch:
 
 PlantUML läuft über einen Shortcode, der die öffentliche PlantUML-API nutzt:
 
-{{< plantuml >}}
-@startuml
-actor User
-User -> Blog : reads post
-Blog -> Hugo : builds static HTML
-Hugo -> GitHub : deploys via Actions
-GitHub -> CDN : serves to User
-@enduml
-{{< /plantuml >}}
+```mermaid
+sequenceDiagram
+    actor User
+    User->>Blog: reads post
+    Blog->>Hugo: builds static HTML
+    Hugo->>GitHub: deploys via Actions
+    GitHub->>CDN: serves to User
+```
 
 ## Mermaid für einfache Diagramme
 

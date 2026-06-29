@@ -45,6 +45,31 @@ class OrderProcessor {
 }
 ----
 
+== Refactoring-Vergleich (Diff)
+
+Hier ist der direkte Vorher-Nachher-Vergleich der Code-Struktur:
+
+[source,diff]
+----
+  class OrderProcessor {
+-   process(order: Order): void {
+-     const validator = new OrderValidator()
+-     const emailer = new EmailService()
+-     validator.validate(order)
+-     emailer.sendConfirmation(order)
+-   }
++   constructor(
++     private validator: OrderValidator,
++     private emailer: EmailService
++   ) {}
++
++   process(order: Order): void {
++     this.validator.validate(order)
++     this.emailer.sendConfirmation(order)
++   }
+  }
+----
+
 == Warum das wichtig ist
 
 [cols="1,1"]

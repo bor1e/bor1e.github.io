@@ -53,6 +53,38 @@ Ein paar Dinge, die ich dabei gelernt habe:
 
 **Der Mensch bleibt am Steuer.** Ich gebe die Idee vor, ich entscheide ob der Entwurf passt, ich sage wann gepusht wird. Claude ist das Werkzeug — nicht der Autor.
 
+## Der genaue Prompt & Prompt-Engineering
+
+Hier ist der genaue Prompt, den ich auf dem Handy nutze, um Claude anzuweisen, einen Post im passenden Format zu schreiben und ins Repository einzupflegen:
+
+<details>
+  <summary>Prompt-Vorlage anzeigen</summary>
+
+  ```markdown
+  Ich habe eine Idee für einen neuen Tech-Post:
+  "[Hier die Idee stichpunktartig einfügen]"
+
+  Bitte verfasse diesen Post im Markdown-Format. Beachte dabei folgende Regeln:
+  1. Verwende das exakt gleiche Frontmatter-Format wie in content/tech/*.md (title, date, description, tags, categories: ["tech"], personas: ["tech"]).
+  2. Schreibe kurz, direkt, auf Deutsch.
+  3. Nutze ein passendes Mermaid-Diagramm zur Visualisierung, falls es den Inhalt unterstützt.
+  4. Erstelle die Datei im Pfad content/tech/[kebab-case-title].md.
+  5. Zeige mir zuerst den Entwurf zur Freigabe. Nach meiner Freigabe schreibst du die Datei direkt ins Repository.
+  ```
+</details>
+
+## Metriken & Kosten-Breakdown
+
+Um den Workflow zu bewerten, habe ich die Kosten und Laufzeiten für einen typischen Post gemessen:
+
+*   **Modell**: `claude-3-5-sonnet` (über Claude-Code oder die Web-Oberfläche mit Git-Integration)
+*   **Token-Volumen**: ~4.500 Input-Tokens (inklusive Workspace-Kontext/historischen Posts), ~800 Output-Tokens.
+*   **Kosten pro Post**: ca. $0,0255 USD (basierend auf API-Preisen von $3/MTok Input und $15/MTok Output).
+*   **Latenzen**:
+    *   **Generierung & Entwurf**: ~12-15 Sekunden
+    *   **Push & GitHub Actions Build**: ~42 Sekunden
+    *   **Gesamte Pipeline**: unter 1 Minute, bis der Post live erreichbar ist.
+
 ## Warum das interessant ist
 
 Nicht weil KI schreibt. Sondern weil die Hürde zwischen Gedanke und veröffentlichtem Post gegen null geht.

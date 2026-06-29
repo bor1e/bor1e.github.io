@@ -16,7 +16,7 @@ Für diesen Blog brauchte ich:
 - **AsciiDoc** für technische Dokumentation mit mehr Struktur
 - **PlantUML** für Architekturdiagramme
 - **GitHub Pages** Hosting — kostenlos, zero-infra
-- **Zwei Bereiche** — Tech und Lehre unter einem Dach
+- **Zwei Bereiche** — Tech und Jüdisches unter einem Dach
 
 ## Die Kandidaten
 

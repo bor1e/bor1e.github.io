@@ -14,7 +14,7 @@ personas: ["tech"]
 
 ## Context
 
-This blog serves two audiences from one codebase: software architecture (Tech) and Jewish teaching (Lehre). The authoring workflow matters more than the rendering engine. Posts are written in **Markdown**, **AsciiDoc**, or dictated to **Claude** — then refined, structured, and committed. The generator is a build step, not the product.
+This blog serves two audiences from one codebase: software architecture (Tech) and Jewish topics (Jüdisches). The authoring workflow matters more than the rendering engine. Posts are written in **Markdown**, **AsciiDoc**, or dictated to **Claude** — then refined, structured, and committed. The generator is a build step, not the product.
 
 Requirements:
 

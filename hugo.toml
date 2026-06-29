@@ -4,7 +4,7 @@ defaultContentLanguage = 'de'
 title = 'Elyahu Borodin'
 
 [params]
-  description = 'AI-Architekt & Jüdischer Lehrer – One Blog, Two Perspectives'
+  description = 'AI-Architekt & Gedanken zu Jüdischem – One Blog, Two Perspectives'
   author = 'Elyahu Borodin'
 
 
@@ -23,7 +23,7 @@ title = 'Elyahu Borodin'
     url = '/tech/'
     weight = 2
   [[menus.main]]
-    name = 'Lehre'
+    name = 'Jüdisches'
     url = '/lehre/'
     weight = 3
   [[menus.main]]

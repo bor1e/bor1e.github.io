@@ -1,6 +1,6 @@
 # bor1e.github.io
 
-Personal blog with two perspectives: **Tech** (Architecture, AI, Software Design) and **Lehre** (Tora, Chassidus, Jewish Education).
+Personal blog with two perspectives: **Tech** (Architecture, AI, Software Design) and **Jüdisches** (Tora, Chassidus, Jewish Education).
 
 ## Stack
 

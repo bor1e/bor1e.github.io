@@ -12,7 +12,7 @@
     <span class="post-count">{{ len $techPosts }} {{ if eq (len $techPosts) 1 }}Beitrag{{ else }}Beiträge{{ end }}</span>
   </a>
   <a href="{{ "lehre/" | relURL }}" class="split-card split-lehre">
-    <h2>Lehre</h2>
+    <h2>Jüdisches</h2>
     <p>Tora, Chassidus, Jüdische Bildung</p>
     {{ $lehrePosts := where site.RegularPages "Section" "lehre" }}
     <span class="post-count">{{ len $lehrePosts }} {{ if eq (len $lehrePosts) 1 }}Beitrag{{ else }}Beiträge{{ end }}</span>

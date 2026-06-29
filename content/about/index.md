@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "Elyahu Borodin — AI-Architekt & Jüdischer Lehrer in Nürnberg."
+description: "Elyahu Borodin — AI-Architekt & Gedanken zu Jüdischem in Nürnberg."
 layout: "single"
 ---
 

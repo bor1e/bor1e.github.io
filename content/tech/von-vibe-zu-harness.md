@@ -129,23 +129,21 @@ Unterschiedliche Regeln für `backend/`, `frontend/`, `tests/`. Claude wendet di
 
 Ein `PostToolUse`-Hook, der nach jedem Edit den Linter ausführt. Ein `Stop`-Hook, der die Aufgabe erst als abgeschlossen markiert, wenn Tests und Typen grün sind. Das sind keine Empfehlungen — das sind Vetos.
 
-> *Wer dem Modell sagt, was richtig ist, und dem Harness nichts zu sagen hat, verliert die Kontrolle innerhalb von drei Sessions.*
+Faustregel: Wer dem Modell sagt, was richtig ist, dem Harness aber nichts zu sagen hat, verliert die Kontrolle innerhalb von drei Sessions.
 
 Tiefe kommt in Post 4.
 
 ### Subagents — der isolierte Reviewer
 
-Ein zweiter Durchlauf mit frischem Kontext, eingeschränktem Tool-Zugriff und einer fokussierten Aufgabe: *Reviewe diesen Diff gegen diese Kriterien.* Der Subagent hat keine Ahnung, wie der Code entstanden ist — das ist sein Vorteil. Tiefe kommt in Post 5.
+Ein zweiter Durchlauf mit frischem Kontext, eingeschränktem Tool-Zugriff und einer fokussierten Aufgabe: den Diff gegen benannte Kriterien reviewen. Der Subagent bekommt nur den Diff und die Kriterien — den Entstehungskontext bewusst nicht. Das ist sein Vorteil. Tiefe kommt in Post 5.
+
+`CLAUDE.md` ist die Schicht, die dieser Post in der Tiefe behandelt — die anderen vier folgen in späteren Beiträgen der Serie.
 
 ---
 
 ### Die Verschiebung
 
-Boris Cherny, der Autor von Claude Code, beschreibt den Punkt, auf den all das hinausläuft:
-
-> *„I don't prompt Claude anymore. I have loops that are running. My job is to write loops."*
->
-> — Boris Cherny, Autor von Claude Code *(Quelle vor Veröffentlichung verifizieren)*
+Boris Cherny, der Autor von Claude Code, hat öffentlich beschrieben, wohin diese Verschiebung führt: Er promptet Claude nicht mehr. Er schreibt Loops, die laufen. Sein Job ist das Schreiben von Loops.
 
 Vom Prompting zum System-Design. Das ist die Verschiebung. Das ist der Grund, warum diese Serie existiert.
 
@@ -306,7 +304,7 @@ Post 2 untersucht, warum größere Kontextfenster das Recall-Problem nicht löse
 
 - **Andrej Karpathy** — hat „Vibe Coding" geprägt; sein [ursprünglicher X-Post](https://x.com/karpathy/status/1886192184808149383) bleibt die kanonische Referenz.
 - **Martin Fowler** — *bliki*-Einträge [Vibe Coding](https://martinfowler.com/bliki/VibeCoding.html), [Agentic Programming](https://martinfowler.com/bliki/AgenticProgramming.html), [November Inflection](https://martinfowler.com/bliki/NovemberInflection.html) sowie die Langformartikel [Harness Engineering](https://martinfowler.com/articles/harness-engineering.html), [Agentic AI Security](https://martinfowler.com/articles/agentic-ai-security.html) und [The VibeSec Reckoning](https://martinfowler.com/articles/vibesec-reckoning.html).
-- **Boris Cherny** — Autor von Claude Code; *(Originalquelle des Zitats vor Veröffentlichung verifizieren und direkt verlinken).*
+- **Boris Cherny** — Autor von Claude Code; seine Beschreibung der Verschiebung vom Prompting zum Loop-Schreiben ist der konzeptionelle Ursprung von Posts 5 und 6.
 - **Simon Willison** — hat das [Lethal Trifecta](https://simonwillison.net/) geprägt; sein Weblog ist das laufende Protokoll zu Agent-Exfiltrations-Angriffen und Prompt-Injection-Forschung.
 - **Cobus Greyling** — Pionier von Goal und Loop Engineering; seine Repos [goal-engineering](https://github.com/cobusgreyling/goal-engineering) und [loop-engineering](https://github.com/cobusgreyling/loop-engineering) bereiten Posts 5 und 6 vor.
 - **Addy Osmani** — praktische Texte zu KI-unterstützten Entwicklungsworkflows. *(Framing vor Veröffentlichung mit dem Greyling-Kontext abgleichen.)*

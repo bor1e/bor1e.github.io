@@ -6,7 +6,7 @@ description: "Vibe Coding und Agentic Programming nutzen dasselbe Modell — abe
 tags: ["claude-code", "agentic-programming", "vibe-coding", "CLAUDE.md", "ai-tooling", "harness"]
 categories: ["tech"]
 personas: ["tech"]
-series: ["KI-Werkzeuge und Workflows"]
+series: ["Vom Hype zum Harness"]
 series_order: 1
 ---
 
@@ -19,6 +19,7 @@ series_order: 1
 Im Februar 2025 twitterte Andrej Karpathy einen Satz, der seitdem in Entwicklerkreisen nicht mehr verschwunden ist:
 
 > *„I just see stuff, say stuff, run stuff, and copy paste stuff, and it mostly works."*
+> *(Sinngemäß: schauen, sagen, laufen lassen, kopieren — und es funktioniert meistens.)*
 
 Er nannte es **Vibe Coding**: eine Arbeitsweise, bei der das Verstehen des Codes optional wird. Du beschreibst, was du willst. Die KI schreibt es. Du schaust, ob es aussieht wie das, was du meintest. Fertig.
 
@@ -28,9 +29,9 @@ Martin Fowler hat kurz darauf eine wichtige Korrektur nachgeliefert: Das meiste,
 
 ## Abschnitt 1 — Die eigentliche Achse: Wer ist verantwortlich?
 
-Fowler nennt den Wendepunkt **November Inflection** — den Moment Ende 2025, an dem agentische Entwicklungsumgebungen professionell einsetzbar wurden. Plötzlich konnte dieselbe KI, die dir einen Prototyp in zehn Minuten hinwarf, auch wochenlange Refactoring-Projekte selbstständig durchführen.
+Den Wendepunkt, den Fowler **„November Inflection"** nennt — die Phase Ende 2025, in der agentische Entwicklungsumgebungen wie Claude Code professionell einsetzbar wurden —, hat eine Spaltung erzeugt, die sich nicht mehr rückgängig machen lässt. Plötzlich konnte dieselbe KI, die dir einen Prototyp in zehn Minuten hinwarf, auch wochenlange Refactoring-Projekte selbstständig durchführen.
 
-Die Spaltung, die dieser Moment erzeugt hat, hat nichts mit Werkzeugen zu tun. Sie hat nichts mit Modell-Fähigkeiten zu tun. Sie hat alles damit zu tun, **ob der Mensch die Verantwortung für das trägt, was ausgeliefert wird**.
+Diese Spaltung hat nichts mit Werkzeugen zu tun. Sie hat nichts mit Modell-Fähigkeiten zu tun. Sie hat alles damit zu tun, **ob der Mensch die Verantwortung für das trägt, was ausgeliefert wird**.
 
 > *Vibe Coding ist, was du machst, wenn die Kosten eines fehlerhaften Codes niedriger sind als die Kosten, ihn zu reviewen. Agentic Programming ist, was du machst, wenn das nicht gilt.*
 
@@ -38,7 +39,7 @@ Diese eine Frage — *Bin ich bereit, für diesen Code zu haften?* — bestimmt,
 
 ---
 
-## Abschnitt 2 — Vibe Coding: Den Code vergessen
+## Abschnitt 2 — Vibe Coding: Den Code nicht mehr als primäre Arbeitsebene behandeln
 
 Beim Vibe Coding liegt der kognitive Fokus ausschließlich auf dem externen Verhalten: Sieht die Ausgabe richtig aus? Reagiert die App wie erwartet? Der Code selbst ist eine Blackbox.
 
@@ -50,21 +51,23 @@ Die Gefahr entsteht, wenn der Code beginnt, Dinge zu berühren, die wichtig sind
 2. **Nicht vertrauenswürdigem Inhalt** (Nutzereingaben, externe Dokumente)
 3. **Ausgehender Kommunikation** (API-Calls, E-Mails, Webhooks)
 
-Wenn alle drei zusammentreffen und du den Code nicht wirklich gelesen hast — weil du nie gelernt hast, ihn zu lesen, oder weil du die Zeit nicht hattest — dann ist jeder Prompt ein Münzwurf. Das Vibe-Paradigma hat keine Schutzmechanismen dagegen, weil es per Definition keine hat: Die Blackbox schützt nichts, sie verbirgt nur.
+Wenn alle drei Bedingungen zusammentreffen und der Code nie wirklich gelesen wird, ist das System nicht mehr vertrauenswürdig: Das Modell kann durch nicht vertrauenswürdigen Input gesteuert werden, während es gleichzeitig Zugriff auf sensible Daten und auf Wege nach außen hat. Das Vibe-Paradigma hat keine Schutzmechanismen dagegen — nicht weil es fahrlässig ist, sondern weil es für diesen Fall schlicht nicht ausgelegt wurde.
+
+Vibe Coding ist nicht falsch. Es ist nur falsch für bestimmten Code.
 
 ---
 
-## Abschnitt 3 — Agentic Programming: Der Mensch als Architekt
+## Abschnitt 3 — Agentic Programming: Der Mensch als Reviewer und Entscheider
 
-Das Gegenbild zum Vibe Coder ist nicht der klassische Entwickler, der jede Zeile selbst schreibt. Es ist jemand, den Fowler als **Architekten mit einem fähigen Sous-Chef** beschreibt.
+Das Gegenbild zum Vibe Coder ist nicht der klassische Entwickler, der jede Zeile selbst schreibt. Es ist jemand, dessen Aufgabe sich fundamental verändert hat.
 
-Die Küchen-Analogie funktioniert sehr gut: Du bist der Küchenchef. Die KI ist dein Sous-Chef. Du trägst die volle Verantwortung, wenn das Gericht misslungen ist — aber du kochst es nicht alleine. Deine Kernkompetenz verlagert sich.
+Eine Analogie, die ich hilfreich finde: Du bist Küchenchef, der Agent ist Sous-Chef. Der Küchenchef wählt das Rezept, überwacht den Prozess und probiert das Gericht. Der Sous-Chef schneidet, rührt und präsentiert — aber er entscheidet nicht über das Menü. Du trägst die volle Verantwortung, wenn das Gericht misslungen ist. Aber du kochst es nicht alleine.
 
 Was früher zählte: schnell korrekten Code schreiben.
 
 Was jetzt zählt: **Code gegen benannte Kriterien reviewen**.
 
-Das ist kein kleinerer Skill — es ist ein anderer. Und er hat eine wichtige Implikation: Die Kriterien müssen irgendwo stehen. Sie müssen explizit sein. Sie müssen konsistent angewendet werden. Das ist die Brücke zum nächsten Abschnitt.
+Das ist kein kleinerer Skill — es ist ein anderer. Und er hat eine wichtige Implikation: Die Kriterien müssen irgendwo stehen, explizit und konsistent durchgesetzt. Das ist die Brücke zum nächsten Abschnitt.
 
 ---
 
@@ -90,7 +93,9 @@ Das ist die wichtigste Einsicht dieser Serie, und sie lässt sich in einen Satz 
 
 > ***Ein KI-Agent ist schlicht ein Modell plus ein Harness.***
 
-Das Modell entscheidet, wie klug die Antworten sind. Das Harness entscheidet, ob die Antworten zuverlässig, prüfbar und wiederholbar sind. Vibe Coding hat kein Harness — oder es hat eines, das bewusst auf Autonomie verzichtet. Agentic Programming *baut* das Harness.
+Das Modell entscheidet, wie klug die Antworten sind. Das Harness entscheidet, ob die Antworten zuverlässig, prüfbar und wiederholbar sind.
+
+Artifacts ist ein Harness — aber eines, das auf Containment und Einfachheit optimiert ist: kein Dateisystemzugriff, kein persistenter State, keine erzwungenen Regeln. Das ist eine bewusste Designentscheidung für einen bestimmten Risikoappetit. Claude Code ist ein Harness, das auf Autonomie und Durchsetzung optimiert ist. Zwei Harnesses für zwei Risikoprofile. Agentic Programming bedeutet, das richtige Harness zu bauen — und es dann tatsächlich zu konfigurieren.
 
 ---
 
@@ -100,13 +105,11 @@ Das ist der Teil, der sich auszahlt. Was genau ist dieses Harness? In Claude Cod
 
 Die Leitfrage für jede Schicht:
 
-> *Anchors, auf die sich das ganze Team einigt, leben in `CLAUDE.md`. Anchors, die Urteilsvermögen brauchen, leben in Skills. Anchors, die eine CPU prüfen kann, leben in Hooks.*
+> *Anker, auf die sich das Team einigt, leben in `CLAUDE.md`. Anker, die Urteilsvermögen brauchen, leben in Skills. Anker, die ein Prozessor prüfen kann, leben in Hooks.*
 
-### `CLAUDE.md` — der immer geladene Vertrag
+### `CLAUDE.md` — die Verfassung des Projekts
 
-Eine kurze Datei (~500 Tokens) im Projektstamm, die Claude beim Start jeder Session automatisch liest. Sie benennt den Stack, die Befehle, die Hard Rules und die Standards, auf die sich das Projekt verpflichtet. Sie ist die schriftliche Antwort auf die Frage: *Was gilt hier immer?*
-
-Drei konkrete Beispiele stehen am Ende dieses Posts.
+Eine kurze Datei (~500 Tokens) im Projektstamm, die Claude beim Start jeder Session automatisch liest — ohne Prompt, ohne Erinnerung, ohne Konfiguration. Sie ist die schriftliche Antwort auf die Frage: *Was gilt hier immer?* Stack, Befehle, Hard Rules, Standards — alles, worüber das Team nicht bei jedem Task neu verhandeln will. Drei konkrete Beispiele stehen am Ende dieses Posts.
 
 ### Skills (`.claude/skills/`) — Expertise auf Abruf
 

@@ -1,7 +1,7 @@
 ---
 title: "Von Vibe zu Harness: Warum sich dasselbe Claude-Modell wie zwei verschiedene Werkzeuge verhält"
 date: 2026-06-29
-draft: true
+draft: false
 description: "Vibe Coding und Agentic Programming nutzen dasselbe Modell — aber ein völlig anderes System drumherum. Der Unterschied liegt nicht in der KI, sondern darin, wer die Verantwortung für den Code trägt."
 tags: ["claude-code", "agentic-programming", "vibe-coding", "CLAUDE.md", "ai-tooling", "harness"]
 categories: ["tech"]
@@ -305,10 +305,10 @@ Post 2 untersucht, warum größere Kontextfenster das Recall-Problem nicht löse
 - **Andrej Karpathy** — hat „Vibe Coding" geprägt; sein [ursprünglicher X-Post](https://x.com/karpathy/status/1886192184808149383) bleibt die kanonische Referenz.
 - **Martin Fowler** — *bliki*-Einträge [Vibe Coding](https://martinfowler.com/bliki/VibeCoding.html), [Agentic Programming](https://martinfowler.com/bliki/AgenticProgramming.html), [November Inflection](https://martinfowler.com/bliki/NovemberInflection.html) sowie die Langformartikel [Harness Engineering](https://martinfowler.com/articles/harness-engineering.html), [Agentic AI Security](https://martinfowler.com/articles/agentic-ai-security.html) und [The VibeSec Reckoning](https://martinfowler.com/articles/vibesec-reckoning.html).
 - **Boris Cherny** — Autor von Claude Code; seine Beschreibung der Verschiebung vom Prompting zum Loop-Schreiben ist der konzeptionelle Ursprung von Posts 5 und 6.
-- **Simon Willison** — hat das [Lethal Trifecta](https://simonwillison.net/) geprägt; sein Weblog ist das laufende Protokoll zu Agent-Exfiltrations-Angriffen und Prompt-Injection-Forschung.
+- **Simon Willison** — hat das [Lethal Trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) geprägt; sein Weblog ist das laufende Protokoll zu Agent-Exfiltrations-Angriffen und Prompt-Injection-Forschung.
 - **Cobus Greyling** — Pionier von Goal und Loop Engineering; seine Repos [goal-engineering](https://github.com/cobusgreyling/goal-engineering) und [loop-engineering](https://github.com/cobusgreyling/loop-engineering) bereiten Posts 5 und 6 vor.
-- **Addy Osmani** — praktische Texte zu KI-unterstützten Entwicklungsworkflows. *(Framing vor Veröffentlichung mit dem Greyling-Kontext abgleichen.)*
-- **Bruce Schneier** — übergeordnete Perspektive auf KI und Sicherheit; lieber einen spezifischen aktuellen Post verlinken als die Homepage.
+- **Addy Osmani** — praktische Texte zu KI-unterstützten Entwicklungsworkflows.
+- **Bruce Schneier** — übergeordnete Perspektive auf KI und Sicherheit; sein Blog *Schneier on Security* ordnet einzelne Agenten-Risiken in das größere Bild der IT-Sicherheit ein.
 
 ### Konzepte und Referenzen
 

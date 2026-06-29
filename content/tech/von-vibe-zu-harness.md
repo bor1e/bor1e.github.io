@@ -149,45 +149,9 @@ Vom Prompting zum System-Design. Das ist die Verschiebung. Das ist der Grund, wa
 
 ---
 
-## Abschnitt 6 — Drei `CLAUDE.md`-Starterpunkte
+## Abschnitt 6 — Zwei `CLAUDE.md`-Starterpunkte
 
-Das Nützlichste, was dieser Post dir geben kann, ist ein konkreter Startpunkt. Drei Beispiele, jedes mit explizit benannten Standards — denn **die Standards-Blöcke sind der Teil, der die eigentliche Arbeit erledigt**. Jeder benannte Anchor aktiviert komprimiertes, geteiltes Wissen in Claude, das weit mehr leistet als ausgeschriebene Regeln.
-
----
-
-### Python-Service mit TDD
-
-```markdown
-# Projekt: payment-service
-
-## Stack
-Python 3.12, FastAPI, SQLAlchemy, PostgreSQL.
-pytest, mypy --strict, ruff.
-
-## Workflow
-Test-Driven Development. Red → Green → Refactor.
-Niemals Produktionscode ohne vorher fehlschlagenden Test schreiben.
-
-## Standards
-Dieses Projekt verpflichtet sich auf:
-- SOLID Principles (insbesondere SRP, DIP)
-- DRY, KISS, YAGNI
-- Design by Contract für öffentliche APIs (Pre-/Postconditions, Invarianten)
-- Fowlers Code-Smells-Katalog als Review-Kriterium
-- Separation of Concerns: Domain / Application / Infrastructure
-
-## Befehle
-- Test:         `pytest -x`
-- Type-check:   `mypy --strict src/`
-- Lint:         `ruff check src/ tests/`
-- Alle Gates:   `make verify`
-
-## Hard Rules
-- Niemals fehlschlagende Tests mit `pytest.skip` umgehen — nur mit verlinktem Ticket.
-- Öffentliche Funktionen erhalten einen Docstring mit Args, Returns, Raises.
-- Das Lethal Trifecta gilt als Veto: Wenn ein Codepfad Secrets, Nutzereingaben
-  und ausgehende Calls kombiniert — anhalten und nachfragen.
-```
+Das Nützlichste, was dieser Post dir geben kann, ist ein konkreter Startpunkt. Zwei Beispiele — einmal Frontend, einmal Backend — jedes mit explizit benannten Standards, denn **die Standards-Blöcke sind der Teil, der die eigentliche Arbeit erledigt**. Jeder benannte Anchor aktiviert komprimiertes, geteiltes Wissen in Claude, das weit mehr leistet als ausgeschriebene Regeln.
 
 ---
 
@@ -264,7 +228,7 @@ Dieses Projekt verpflichtet sich auf:
 
 ---
 
-**Die editoriale Pointe:** Die fettgedruckten `Standards`-Blöcke erledigen die schwere Arbeit. Jeder benannte Anchor — SOLID, DRY, Hexagonal Architecture, Fowlers Code Smells — ruft in Claude ein dichtes Wissenspaket ab, das du nicht ausschreiben musst. Das ist der Hebel.
+**Die editoriale Pointe:** Die fettgedruckten `Standards`-Blöcke erledigen die schwere Arbeit. Jeder benannte Anchor — SOLID, YAGNI, Design by Contract, Hexagonal Architecture, Fowlers Code Smells — ruft in Claude ein dichtes Wissenspaket ab, das du nicht ausschreiben musst. Das ist der Hebel.
 
 ---
 

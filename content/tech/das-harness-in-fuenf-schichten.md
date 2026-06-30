@@ -1,6 +1,6 @@
 ---
 title: "Das Harness in fünf Schichten: CLAUDE.md, Skills, Rules, Hooks, Subagents"
-date: 2026-07-06
+date: 2026-06-30
 draft: false
 description: "Post 1 hat das Harness als das beschrieben, was ein Modell von einem Agenten unterscheidet. Dieser Post zeigt, woraus das Harness in Claude Code besteht — fünf Schichten, jede mit einer eigenen Aufgabe."
 tags: ["claude-code", "agentic-programming", "harness", "CLAUDE.md", "skills", "hooks", "subagents"]

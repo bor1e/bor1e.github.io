@@ -11,6 +11,8 @@ series_order: 2
 ---
 
 > *Anker, auf die sich das Team einigt, leben in `CLAUDE.md`. Anker, die Urteilsvermögen brauchen, leben in Skills. Anker, die ein Prozessor prüfen kann, leben in Hooks.*
+>
+> — der Satz aus Post 1, der dieses Harness in einer Zeile beschreibt.
 
 ---
 
@@ -228,7 +230,7 @@ Eine typische agentische Session in Claude Code, die alle fünf Schichten nutzt:
 5. **Claude schreibt Code.** Edit-Events.
 6. **`PostToolUse`-Hook feuert.** `ruff` und `mypy` laufen. Lint-Fehler erscheinen im Kontext. Claude korrigiert.
 7. **Claude meldet: "Fertig."**
-8. **`Stop`-Hook feuert.** `verify.sh` läuft Tests. Tests rot. Hook blockiert. Claude muss weiterarbeiten.
+8. **`Stop`-Hook feuert, bevor Claude die Aufgabe als abgeschlossen meldet.** `verify.sh` läuft Tests. Tests rot. Hook blockiert. Claude muss weiterarbeiten.
 9. **Tests grün. Stop-Hook lässt durch.**
 10. **Du startest den Subagent.** `code-reviewer` läuft mit dem Diff, ohne Kontext. Findet zwei Smells. Du entscheidest.
 
@@ -265,6 +267,13 @@ Post 3 untersucht, warum größere Kontextfenster das Recall-Problem nicht löse
 ---
 
 ## Weiterführende Quellen
+
+**Warum dieses Design existiert**
+
+- **Martin Fowler — [Harness Engineering](https://martinfowler.com/articles/harness-engineering.html)** — der abstrakte Rahmen, dessen konkrete Implementierung dieser Post ist. Fowler beschreibt das *Warum*; die fünf Schichten sind das *Wie* in Claude Code.
+- **Anthropic — [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)** — die architektonischen Muster (Workflow vs. Agent, der augmentierte LLM, Orchestrator-Workers), die die Fünf-Schichten-Mechanik operationalisiert.
+
+**Die Mechanik im Detail**
 
 - **Claude Code Dokumentation** — [code.claude.com/docs](https://code.claude.com/docs) für die kanonischen Referenzen zu `CLAUDE.md`, Skills, Hooks, Subagents und der `settings.json`-Hierarchie.
 - **Anthropic Engineering Blog** — *"Steering Claude Code: skills, hooks, rules, subagents and more"* — die offizielle Übersicht über die Mechanik, inklusive Context-Cost-Tabelle.

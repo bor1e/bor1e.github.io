@@ -161,7 +161,7 @@ Das Nützlichste, was dieser Post dir geben kann, ist ein konkreter Startpunkt. 
 # Projekt: web-app
 
 ## Stack
-Angular 18 (Standalone Components, Signals), TypeScript Strict Mode.
+Angular 22 (signal-first, Standalone Components als Default), TypeScript Strict Mode.
 RxJS für asynchrone Streams, Signals für reaktiven State.
 Jest + Testing Library, Playwright für E2E.
 
@@ -198,7 +198,7 @@ Dieses Projekt verpflichtet sich auf:
 # Projekt: order-api
 
 ## Stack
-Kotlin 2.0, Spring Boot 3, Gradle (Kotlin DSL), JDK 21.
+Kotlin 2.4, Spring Boot 4 (Spring Framework 7), Gradle (Kotlin DSL), JDK 25.
 JUnit 5, MockK, Testcontainers. ktlint + detekt.
 
 ## Konventionen

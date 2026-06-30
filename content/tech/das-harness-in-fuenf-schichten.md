@@ -1,6 +1,6 @@
 ---
 title: "Das Harness in fünf Schichten: CLAUDE.md, Skills, Rules, Hooks, Subagents"
-date: 2026-07-06
+date: 2026-06-30
 draft: false
 description: "Post 1 hat das Harness als das beschrieben, was ein Modell von einem Agenten unterscheidet. Dieser Post zeigt, woraus das Harness in Claude Code besteht — fünf Schichten, jede mit einer eigenen Aufgabe."
 tags: ["claude-code", "agentic-programming", "harness", "CLAUDE.md", "skills", "hooks", "subagents"]
@@ -99,6 +99,8 @@ Zwei Dinge an dieser Datei verdienen Aufmerksamkeit:
 **Die Description ist der Trigger.** Sie ist nicht Dokumentation — sie ist der einzige Text, den Claude in jedem Turn sieht, um zu entscheiden, ob dieses Skill aktiviert wird. Eine vage Description (*"Hilft bei Refactoring"*) feuert nie. Eine präzise Description mit `wann ja` und `wann nicht` feuert genau dann, wenn sie soll.
 
 **Progressive Disclosure.** Der Body lädt erst, wenn die Description matcht. Du kannst also 2000 Tokens detaillierte Anweisungen in einem Skill haben, ohne dass es in irrelevanten Sessions etwas kostet. Das ist der ökonomische Hebel, der `CLAUDE.md` kurz halten lässt.
+
+**Skills *sind* die Custom Commands.** Was früher in `.claude/commands/` lag, ist in der aktuellen Claude-Code-Dokumentation in Skills aufgegangen: Eine `SKILL.md` ist gleichzeitig die Wissensquelle *und* der Slash-Command. Eine Datei wie `.claude/skills/deploy/SKILL.md` erzeugt automatisch `/deploy`. Das Frontmatter steuert das Invocation-Verhalten: `user-invocable: false` versteckt das Skill aus dem Slash-Menü (dann nur automatisch via Description-Match), `disable-model-invocation: true` macht es ausschließlich manuell aufrufbar — nützlich für Skills mit Seiteneffekten wie Deployments. Bestehende `.claude/commands/`-Dateien funktionieren weiter, sind aber inzwischen Kompatibilitäts-Alias, nicht eigenes Primitiv.
 
 Skills sind die Schicht, in die die meisten benannten Anker aus den `CLAUDE.md`-Beispielen von Post 1 ihre operative Heimat finden: `design-by-contract/SKILL.md`, `review-for-code-smells/SKILL.md`, `hexagonal-architecture/SKILL.md`. `CLAUDE.md` nennt sie; Skills entfalten sie.
 

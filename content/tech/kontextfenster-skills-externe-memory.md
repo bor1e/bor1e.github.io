@@ -1,7 +1,7 @@
 ---
 title: "Kontextfenster, Skills und externe Memory: Warum 'mehr Tokens' das falsche Problem löst"
-date: 2026-07-13
-draft: true
+date: 2026-07-01
+draft: false
 description: "Größere Kontextfenster sind nicht die Antwort auf das Recall-Problem. Modelle vergessen in der Mitte, und Sessions enden — beides löst kein Token-Limit. Skills und externe Memory-Dateien lösen es."
 tags: ["claude-code", "context-engineering", "skills", "external-memory", "CLAUDE.md", "lost-in-the-middle"]
 categories: ["tech"]

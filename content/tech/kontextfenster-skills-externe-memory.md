@@ -252,6 +252,8 @@ Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein H
 
 ## Weiterführende Quellen
 
+- **TokenSave** — Lokaler Semantic Memory Store für AI-Agents via Model Context Protocol (MCP). [tokensave.dev](https://tokensave.dev)
+- **Rust Token Killer (RTK)** — CLI-Proxy zur Filterung und Token-Komprimierung von Terminal-Ausgaben. [github.com/jasonjmcghee/rtk](https://github.com/jasonjmcghee/rtk)
 - **Liu, Lin, Hewitt, Paranjape, Bevilacqua, Petroni, Liang (2023)** — *"Lost in the Middle: How Language Models Use Long Contexts"* — die Originalarbeit zum Recall-Verfall in der Mitte langer Kontexte. [arxiv.org/abs/2307.03172](https://arxiv.org/abs/2307.03172)
 - **Anthropic Engineering** — *"Effective context engineering for AI agents"* — die offizielle Übersicht, mit besonderem Fokus auf Skills und Progressive Disclosure. [anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - **Cobus Greyling** — sein [goal-engineering](https://github.com/cobusgreyling/goal-engineering)-Repo etabliert `GOAL.md` als Pattern für persistente Ziele über Session-Grenzen hinweg.

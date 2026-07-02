@@ -35,10 +35,10 @@ Anthropic hat für dieses und verwandte Phänomene den Sammelbegriff *"Context R
 Konkret bedeutet das:
 
 - Eine Entscheidung, die du in Turn 4 getroffen hast, ist in Turn 47 schwerer abrufbar als die, die du gerade in Turn 46 getroffen hast.
-- Ein Architecture-Prinzip, das du am Session-Anfang etabliert hast, wird in der Mitte einer langen Implementierung vergessener, je weiter du arbeitest.
-- Eine Hard Rule aus `CLAUDE.md` ist robuster — sie steht am Anfang. Aber Rules, die ein Skill in Turn 30 nachgeladen hat? Die sind angreifbar.
+- Ein Architektur-Prinzip, das du am Session-Anfang etabliert hast, verblasst in der Mitte einer langen Implementierung, je weiter du arbeitest.
+- Eine Hard Rule aus `CLAUDE.md` ist robuster — sie steht am Anfang. Aber Rules, die ein Skill in Turn 30 nachgeladen hat? Die sind fragil.
 
-**Größere Kontextfenster verschlimmern das Problem.** Das 1M-Token-Fenster der aktuellen Modelle hat mehr Mitte als das alte 200k-Fenster — das ist kein Gedankenexperiment mehr, sondern der Status quo. Wer mehr Token hineinschüttet, vergisst nicht weniger — er vergisst nur Anderes.
+**Größere Kontextfenster verschlimmern das Problem.** Das 1M-Token-Fenster der aktuellen Modelle hat mehr Mitte als das alte 200.000-Token-Fenster — das ist kein Gedankenexperiment mehr, sondern der Status quo. Wer mehr Token hineinschüttet, vergisst nicht weniger — er vergisst nur Anderes.
 
 Die operative Konsequenz: *Was du in einer langen Session konsistent durchsetzen willst, muss entweder ans Ende des Kontexts gelangen (per Hook-Ausgabe oder Skill-Reload) oder gar nicht erst in der Mitte verloren gehen.* Das zweite ist billiger.
 
@@ -56,7 +56,7 @@ Ein Skill hat zwei Lade-Stufen:
 
 Und seit der Vereinheitlichung von Custom Commands in Skills lädt eine `SKILL.md` zusätzlich als Slash-Command — derselbe Mechanismus, anderer Trigger.
 
-Das klingt wie eine triviale Optimierung. Es ist keine. Es ist der Mechanismus, der `CLAUDE.md` kurz halten lässt, *ohne* Wissen zu verlieren. Ein Projekt mit 30 benannten Standards in `CLAUDE.md` ist unbenutzbar — jeder Turn bezahlt 4000 Tokens für Standards, von denen 28 gerade irrelevant sind. Dasselbe Projekt mit 5 Standards in `CLAUDE.md` und 25 in Skills bezahlt 700 Tokens pro Turn — und lädt den Rest nur dann, wenn er gebraucht wird.
+Das klingt wie eine triviale Optimierung. Es ist keine. Es ist der Mechanismus, der `CLAUDE.md` kurz bleiben lässt, *ohne* Wissen zu verlieren. Ein Projekt mit 30 benannten Standards in `CLAUDE.md` ist unbenutzbar — jeder Turn bezahlt 4000 Tokens für Standards, von denen 28 gerade irrelevant sind. Dasselbe Projekt mit 5 Standards in `CLAUDE.md` und 25 in Skills bezahlt 700 Tokens pro Turn — und lädt den Rest nur dann, wenn er gebraucht wird.
 
 Aber Progressive Disclosure löst nicht nur das Token-Ökonomie-Problem. Sie löst auch das Lost-in-the-Middle-Problem, weil ein Skill, das in Turn 30 frisch lädt, **am Ende des Kontexts steht**. Es ist nicht in der Mitte versteckt — es ist gerade ankommend, hochaufgelöst, mit voller Recall-Treffsicherheit. Skills sind nicht nur ein Speicher-Trick. Sie sind ein **Positions-Trick**.
 
@@ -66,9 +66,9 @@ Ein konkretes Beispiel. Stell dir vor, ein Skill `design-by-contract/SKILL.md` d
 |---|---|---|
 | `CLAUDE.md` (immer geladen) | ~800 Tokens × jeder Turn | Schwach — steht in der Mitte |
 | Skill (on-demand) | ~50 Tokens (Description) + 800 nur bei Matches | Stark — frisch geladen |
-| Nirgends, im Prompt erklärt | 0 normalerweise, aber bei jedem Bedarf neu | Inkonsistent |
+| Nirgends abgelegt, jedes Mal im Prompt erklärt | 0 normalerweise, aber bei jedem Bedarf neu | Inkonsistent |
 
-Die mittlere Zeile gewinnt. Skills sind die Schicht, die die meisten der benannten Anker aus deinen `CLAUDE.md`-Beispielen (Post 1) übernehmen sollten — nicht aus Geiz, sondern aus Recall-Treffsicherheit.
+Die mittlere Zeile gewinnt. Skills sind die Schicht, in der die meisten der benannten Anker aus deinen `CLAUDE.md`-Beispielen (Post 1) angesiedelt sein sollten — nicht aus Geiz, sondern aus Recall-Treffsicherheit.
 
 ---
 

@@ -139,6 +139,26 @@ Wenn du Goal Engineering (Post 5) ernst meinst, ist `GOAL.md` die Datei, in der 
 
 ---
 
+## Die Tooling-Antwort: MCP-Server & Token-Saving CLI-Tools
+
+Obwohl handgeschriebene Markdown-Dateien hervorragend für konzeptionelles Wissen funktionieren, gibt es für den Entwicklungs-Alltag mittlerweile spezialisierte Werkzeuge, die diesen Prozess automatisieren und Token-Kosten drastisch reduzieren:
+
+### 1. TokenSave (`tokensave.dev`)
+TokenSave fungiert als lokaler Code-Intelligence-Server über das **Model Context Protocol (MCP)**. 
+*   **Funktionsweise**: Es indiziert die Codebase in einen lokalen semantischen Wissensgraphen (`.tokensave/tokensave.db` via libSQL).
+*   **Token-Vorteil**: Statt dass der Agent bei jeder Frage ("Wo wird X aufgerufen?") ganze Verzeichnisse einlesen muss, stellt TokenSave gezielte semantische Suchergebnisse bereit. Das spart repetitive Datei-Scans und verhindert die "Session-Amnesie".
+*   **Sicherheit**: 100 % lokale Ausführung, kein Code verlässt die Entwicklerumgebung.
+
+### 2. RTK (Rust Token Killer)
+Ein kompaktes CLI-Proxy-Tool für Terminal-Ausgaben.
+*   **Funktionsweise**: Es fängt die Ausgaben von CLI-Befehlen (z. B. `git diff`, `git log` oder Suchergebnissen) ab, filtert Rauschen und komprimiert sie vor der Übermittlung an das Modell.
+*   **Token-Vorteil**: Reduziert das Token-Volumen bei langen Terminal-Ausgaben um 60–90 %, indem es redundante Zeilen, Whitespaces und redundante Dateipfade bereinigt.
+
+### 3. context-mem
+Ein MCP-Server, der als "lebendes Wiki" dient. Er schreibt Tool-Ausgaben, Interaktionsergebnisse und Zusammenfassungen automatisch in eine persistente Markdown-Datenbank, auf die Agenten in nachfolgenden Sessions direkt zugreifen können.
+
+---
+
 ## Wie das alles zusammenspielt
 
 Eine `CLAUDE.md`, die externe Memory-Dateien orchestriert, könnte so aussehen:

@@ -26,9 +26,11 @@ Dieser Post zeigt beide Probleme und die zwei Mechanismen, die sie lösen: **Pro
 
 ## Das Recall-Problem: Lost in the Middle
 
-Anthropic gibt Claude in der aktuellen Generation 200.000 Tokens Kontextfenster. Das klingt nach genug für jede vorstellbare Aufgabe. In der Praxis ist es das nicht — nicht weil 200k zu klein wären, sondern weil **das Modell innerhalb dieser 200k nicht gleichmäßig gut liest**.
+Claude Sonnet 4.6 und die aktuellen Opus-Modelle bieten in Claude Code ein Kontextfenster von 1 Million Tokens. Das klingt nach genug für jede vorstellbare Aufgabe. In der Praxis ist es das nicht — nicht weil 1M zu klein wäre, sondern weil **das Modell innerhalb dieser 1M nicht gleichmäßig gut liest**.
 
 Das Phänomen heißt *Lost in the Middle* und ist seit dem Papier von Liu et al. (2023) gut dokumentiert: Modelle erinnern sich überdurchschnittlich gut an das, was am Anfang und am Ende ihres Kontextfensters steht. Was in der Mitte landet — und in einer langen Session ist das eine Menge — wird mit deutlich niedrigerer Treffsicherheit abgerufen.
+
+Anthropic hat für dieses und verwandte Phänomene den Sammelbegriff *"Context Rot"* etabliert — die schlichtere Beobachtung, dass Recall mit wachsendem Kontext degradiert, egal wo die Information liegt.
 
 Konkret bedeutet das:
 
@@ -36,7 +38,7 @@ Konkret bedeutet das:
 - Ein Architecture-Prinzip, das du am Session-Anfang etabliert hast, wird in der Mitte einer langen Implementierung vergessener, je weiter du arbeitest.
 - Eine Hard Rule aus `CLAUDE.md` ist robuster — sie steht am Anfang. Aber Rules, die ein Skill in Turn 30 nachgeladen hat? Die sind angreifbar.
 
-**Größere Kontextfenster verschlimmern das Problem.** Ein 1M-Token-Fenster hat mehr Mitte als ein 200k-Fenster. Wer mehr Token hineinschüttet, vergisst nicht weniger — er vergisst nur Anderes.
+**Größere Kontextfenster verschlimmern das Problem.** Das 1M-Token-Fenster der aktuellen Modelle hat mehr Mitte als das alte 200k-Fenster — das ist kein Gedankenexperiment mehr, sondern der Status quo. Wer mehr Token hineinschüttet, vergisst nicht weniger — er vergisst nur Anderes.
 
 Die operative Konsequenz: *Was du in einer langen Session konsistent durchsetzen willst, muss entweder ans Ende des Kontexts gelangen (per Hook-Ausgabe oder Skill-Reload) oder gar nicht erst in der Mitte verloren gehen.* Das zweite ist billiger.
 
@@ -76,7 +78,7 @@ Selbst wenn jedes Skill perfekt designed ist, bleibt ein Problem ungelöst: **di
 
 `CLAUDE.md` bleibt. Skills bleiben. Aber alles, was *in der Session passiert ist* — die Entscheidung, dass das Auth-Modul auf Sessions statt JWTs umgestellt wird, der Kompromiss, dass die Migration in zwei Schritten läuft, das offene TODO, in der nächsten Session den Repository-Layer zu refaktorieren — verschwindet, sobald die Konversation endet.
 
-Die naive Antwort ist *"merk's dir halt"*. Aber das ist nicht das Modell-Versagen — es ist Modell-Design. Sessions sind per Definition zustandslos. Was zwischen Sessions persistieren soll, muss **außerhalb der Session** leben.
+Die naive Antwort ist *"merk's dir halt"*. Aber das ist nicht das Modell-Versagen — es ist Modell-Design. Sessions sind per Definition zustandslos — was zwischen ihnen persistieren soll, muss **außerhalb der Session** leben. Compaction und der Memory-Tool in Claude Code sind Mechanismen, die genau das tun; externe Memory-Dateien sind die einfachste und portabelste Variante.
 
 Das ist die Aufgabe externer Memory-Dateien.
 

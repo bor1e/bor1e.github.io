@@ -70,6 +70,15 @@ Ein konkretes Beispiel. Stell dir vor, ein Skill `design-by-contract/SKILL.md` d
 
 Die mittlere Zeile gewinnt. Skills sind die Schicht, in der die meisten der benannten Anker aus deinen `CLAUDE.md`-Beispielen (Post 1) angesiedelt sein sollten — nicht aus Geiz, sondern aus Recall-Treffsicherheit.
 
+### Skill Fitness & Validation mit agnix
+
+Damit dieser Progressive-Disclosure-Mechanismus reibungslos funktioniert, müssen die Metadaten und die Ordnerstruktur der Skills fehlerfrei sein. Wenn die Description im YAML-Frontmatter einen Syntaxfehler hat oder die Triggermuster ungenau sind, verliert das Modell den Zugriff auf den Skill (der Skill verliert seine "Fitness").
+
+Hier kommt **agnix** ins Spiel:
+*   **Was es ist:** Ein statischer CLI-Linter und Validator für AI-Agenten-Konfigurationen (wie `CLAUDE.md`, `SKILL.md` und MCP-Settings).
+*   **Funktionsweise:** Es prüft deine Skill-Dateien gegen vordefinierte Regeln, um sicherzustellen, dass Frontmatter-Deklarationen, Pfadangaben und Slash-Commands syntaktisch korrekt sind und von AI-Assistenten wie Claude Code zuverlässig erkannt und geladen werden können.
+*   **Einsatz:** Lässt sich via npm oder Cargo installieren und kann lokal oder in der CI/CD-Pipeline ausgeführt werden, um die "Fitness" der verteilten Skill-Umgebung abzusichern.
+
 ---
 
 ## Das Session-Grenze-Problem
@@ -252,6 +261,7 @@ Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein H
 
 ## Weiterführende Quellen
 
+- **agnix** — Linter und Validator für AI-Agenten-Konfigurationen und `SKILL.md`/`CLAUDE.md`-Dateien zur Absicherung der Skill Fitness. [github.com/agent-sh/agnix](https://github.com/agent-sh/agnix)
 - **TokenSave** — Lokaler Semantic Memory Store für AI-Agents via Model Context Protocol (MCP). [tokensave.dev](https://tokensave.dev)
 - **Rust Token Killer (RTK)** — CLI-Proxy zur Filterung und Token-Komprimierung von Terminal-Ausgaben. [github.com/jasonjmcghee/rtk](https://github.com/jasonjmcghee/rtk)
 - **Liu, Lin, Hewitt, Paranjape, Bevilacqua, Petroni, Liang (2023)** — *"Lost in the Middle: How Language Models Use Long Contexts"* — die Originalarbeit zum Recall-Verfall in der Mitte langer Kontexte. [arxiv.org/abs/2307.03172](https://arxiv.org/abs/2307.03172)

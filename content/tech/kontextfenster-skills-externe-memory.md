@@ -3,7 +3,7 @@ title: "Kontextfenster, Skills und externe Memory: Warum 'mehr Tokens' das falsc
 date: 2026-07-01
 draft: false
 description: "Größere Kontextfenster sind nicht die Antwort auf das Recall-Problem. Modelle vergessen in der Mitte, und Sessions enden — beides löst kein Token-Limit. Skills und externe Memory-Dateien lösen es."
-tags: ["claude-code", "context-engineering", "skills", "external-memory", "CLAUDE.md", "lost-in-the-middle"]
+tags: ["claude-code", "context-engineering", "skills", "external-memory", "CLAUDE.md", "context-rot", "lost-in-the-middle"]
 categories: ["tech"]
 personas: ["tech"]
 series: ["Vom Hype zum Harness"]
@@ -24,13 +24,13 @@ Dieser Post zeigt beide Probleme und die zwei Mechanismen, die sie lösen: **Pro
 
 ---
 
-## Das Recall-Problem: Lost in the Middle
+## Das Recall-Problem: Lost in the Middle, oder: Context Rot
 
 Claude Sonnet 4.6 und die aktuellen Opus-Modelle bieten in Claude Code ein Kontextfenster von 1 Million Tokens. Das klingt nach genug für jede vorstellbare Aufgabe. In der Praxis ist es das nicht — nicht weil 1M zu klein wäre, sondern weil **das Modell innerhalb dieser 1M nicht gleichmäßig gut liest**.
 
-Das Phänomen heißt *Lost in the Middle* und ist seit dem Papier von Liu et al. (2023) gut dokumentiert: Modelle erinnern sich überdurchschnittlich gut an das, was am Anfang und am Ende ihres Kontextfensters steht. Was in der Mitte landet — und in einer langen Session ist das eine Menge — wird mit deutlich niedrigerer Treffsicherheit abgerufen.
+Das Phänomen heißt in der akademischen Literatur *Lost in the Middle* und ist seit dem Papier von Liu et al. (2023) dokumentiert: Modelle erinnern sich überdurchschnittlich gut an das, was am Anfang und am Ende ihres Kontextfensters steht. Was in der Mitte landet — und in einer langen Session ist das eine Menge — wird mit deutlich niedrigerer Treffsicherheit abgerufen.
 
-Anthropic hat für dieses und verwandte Phänomene den Sammelbegriff *"Context Rot"* etabliert — die schlichtere Beobachtung, dass Recall mit wachsendem Kontext degradiert, egal wo die Information liegt.
+Anthropic hat für dieses und verwandte Phänomene den Sammelbegriff **Context Rot** etabliert — die schlichtere Beobachtung, dass Recall mit wachsendem Kontext degradiert, unabhängig davon, *wo* die Information liegt. Ein 1M-Fenster ist nicht linear zehn Mal so gut wie ein 100k-Fenster. Es ist zehn Mal so groß, aber die Trefferquote pro Token sinkt mit jedem Token.
 
 Konkret bedeutet das:
 
@@ -38,7 +38,7 @@ Konkret bedeutet das:
 - Ein Architektur-Prinzip, das du am Session-Anfang etabliert hast, verblasst in der Mitte einer langen Implementierung, je weiter du arbeitest.
 - Eine Hard Rule aus `CLAUDE.md` ist robuster — sie steht am Anfang. Aber Rules, die ein Skill in Turn 30 nachgeladen hat? Die sind fragil.
 
-**Größere Kontextfenster verschlimmern das Problem.** Das 1M-Token-Fenster der aktuellen Modelle hat mehr Mitte als das alte 200.000-Token-Fenster — das ist kein Gedankenexperiment mehr, sondern der Status quo. Wer mehr Token hineinschüttet, vergisst nicht weniger — er vergisst nur Anderes.
+**Größere Kontextfenster verschlimmern das Problem.** Der Sprung von 200k auf 1M hat mehr Kapazität gebracht, nicht mehr Präzision. Wer mehr Tokens hineinschüttet, vergisst nicht weniger — er vergisst nur Anderes. Anthropic selbst weist in der Dokumentation explizit darauf hin: *"As token count grows, accuracy and recall degrade."* Kapazität ≠ Qualität.
 
 Die operative Konsequenz: *Was du in einer langen Session konsistent durchsetzen willst, muss entweder ans Ende des Kontexts gelangen (per Hook-Ausgabe oder Skill-Reload) oder gar nicht erst in der Mitte verloren gehen.* Das zweite ist billiger.
 
@@ -58,7 +58,7 @@ Und seit der Vereinheitlichung von Custom Commands in Skills lädt eine `SKILL.m
 
 Das klingt wie eine triviale Optimierung. Es ist keine. Es ist der Mechanismus, der `CLAUDE.md` kurz bleiben lässt, *ohne* Wissen zu verlieren. Ein Projekt mit 30 benannten Standards in `CLAUDE.md` ist unbenutzbar — jeder Turn bezahlt 4000 Tokens für Standards, von denen 28 gerade irrelevant sind. Dasselbe Projekt mit 5 Standards in `CLAUDE.md` und 25 in Skills bezahlt 700 Tokens pro Turn — und lädt den Rest nur dann, wenn er gebraucht wird.
 
-Aber Progressive Disclosure löst nicht nur das Token-Ökonomie-Problem. Sie löst auch das Lost-in-the-Middle-Problem, weil ein Skill, das in Turn 30 frisch lädt, **am Ende des Kontexts steht**. Es ist nicht in der Mitte versteckt — es ist gerade ankommend, hochaufgelöst, mit voller Recall-Treffsicherheit. Skills sind nicht nur ein Speicher-Trick. Sie sind ein **Positions-Trick**.
+Aber Progressive Disclosure löst nicht nur das Token-Ökonomie-Problem. Sie löst auch das Context-Rot-Problem, weil ein Skill, das in Turn 30 frisch lädt, **am Ende des Kontexts steht**. Es ist nicht in der Mitte versteckt — es ist gerade ankommend, hochaufgelöst, mit voller Recall-Treffsicherheit. Skills sind nicht nur ein Speicher-Trick. Sie sind ein **Positions-Trick**.
 
 Ein konkretes Beispiel. Stell dir vor, ein Skill `design-by-contract/SKILL.md` definiert, wie öffentliche APIs in deinem Projekt mit Pre-/Postconditions und Invarianten dokumentiert werden. Drei Optionen:
 
@@ -68,7 +68,7 @@ Ein konkretes Beispiel. Stell dir vor, ein Skill `design-by-contract/SKILL.md` d
 | Skill (on-demand) | ~50 Tokens (Description) + 800 nur bei Matches | Stark — frisch geladen |
 | Nirgends abgelegt, jedes Mal im Prompt erklärt | 0 normalerweise, aber bei jedem Bedarf neu | Inkonsistent |
 
-Die mittlere Zeile gewinnt. Skills sind die Schicht, in der die meisten der benannten Anker aus deinen `CLAUDE.md`-Beispielen (Post 1) angesiedelt sein sollten — nicht aus Geiz, sondern aus Recall-Treffsicherheit.
+Die mittlere Zeile gewinnt. Skills sind die Schicht, in der die meisten benannten Anker aus deinen `CLAUDE.md`-Beispielen (Post 1) leben sollten — nicht aus Geiz, sondern aus Recall-Treffsicherheit.
 
 ### Skill Fitness & Validation mit agnix
 
@@ -87,7 +87,9 @@ Selbst wenn jedes Skill perfekt designed ist, bleibt ein Problem ungelöst: **di
 
 `CLAUDE.md` bleibt. Skills bleiben. Aber alles, was *in der Session passiert ist* — die Entscheidung, dass das Auth-Modul auf Sessions statt JWTs umgestellt wird, der Kompromiss, dass die Migration in zwei Schritten läuft, das offene TODO, in der nächsten Session den Repository-Layer zu refaktorieren — verschwindet, sobald die Konversation endet.
 
-Die naive Antwort ist *"merk's dir halt"*. Aber das ist nicht das Modell-Versagen — es ist Modell-Design. Sessions sind per Definition zustandslos — was zwischen ihnen persistieren soll, muss **außerhalb der Session** leben. Compaction und der Memory-Tool in Claude Code sind Mechanismen, die genau das tun; externe Memory-Dateien sind die einfachste und portabelste Variante.
+Die naive Antwort ist *"merk's dir halt"*. Aber das ist nicht das Modell-Versagen — es ist Modell-Design. Sessions sind per Definition zustandslos: Was zwischen ihnen persistieren soll, muss außerhalb der Session leben.
+
+Claude Code hat dafür zwei eingebaute Mechanismen: **Compaction** (verdichtet den laufenden Kontext, wenn das Fenster voll wird) und **Auto Memory** (seit v2.1.59 — Claude schreibt selbst Notizen in ein Projekt-Memory-Verzeichnis, die in Folgesessions geladen werden). Beide sind nützlich. Aber sie beantworten eine andere Frage als das, was hier gemeint ist: Auto Memory ist, was *Claude* sich merkt. Externe Markdown-Dateien im Repo sind, was *du und dein Team* dokumentieren wollen. Das eine ist Assistent-Gedächtnis, das andere ist Projekt-Kanon.
 
 Das ist die Aufgabe externer Memory-Dateien.
 
@@ -148,26 +150,6 @@ Wenn du Goal Engineering (Post 5) ernst meinst, ist `GOAL.md` die Datei, in der 
 
 ---
 
-## Die Tooling-Antwort: MCP-Server & Token-Saving CLI-Tools
-
-Obwohl handgeschriebene Markdown-Dateien hervorragend für konzeptionelles Wissen funktionieren, gibt es für den Entwicklungs-Alltag mittlerweile spezialisierte Werkzeuge, die diesen Prozess automatisieren und Token-Kosten drastisch reduzieren:
-
-### 1. TokenSave (`tokensave.dev`)
-TokenSave fungiert als lokaler Code-Intelligence-Server über das **Model Context Protocol (MCP)**. 
-*   **Funktionsweise**: Es indiziert die Codebase in einen lokalen semantischen Wissensgraphen (`.tokensave/tokensave.db` via libSQL).
-*   **Token-Vorteil**: Statt dass der Agent bei jeder Frage ("Wo wird X aufgerufen?") ganze Verzeichnisse einlesen muss, stellt TokenSave gezielte semantische Suchergebnisse bereit. Das spart repetitive Datei-Scans und verhindert die "Session-Amnesie".
-*   **Sicherheit**: 100 % lokale Ausführung, kein Code verlässt die Entwicklerumgebung.
-
-### 2. RTK (Rust Token Killer)
-Ein kompaktes CLI-Proxy-Tool für Terminal-Ausgaben.
-*   **Funktionsweise**: Es fängt die Ausgaben von CLI-Befehlen (z. B. `git diff`, `git log` oder Suchergebnissen) ab, filtert Rauschen und komprimiert sie vor der Übermittlung an das Modell.
-*   **Token-Vorteil**: Reduziert das Token-Volumen bei langen Terminal-Ausgaben um 60–90 %, indem es redundante Zeilen, Whitespaces und redundante Dateipfade bereinigt.
-
-### 3. context-mem
-Ein MCP-Server, der als "lebendes Wiki" dient. Er schreibt Tool-Ausgaben, Interaktionsergebnisse und Zusammenfassungen automatisch in eine persistente Markdown-Datenbank, auf die Agenten in nachfolgenden Sessions direkt zugreifen können.
-
----
-
 ## Wie das alles zusammenspielt
 
 Eine `CLAUDE.md`, die externe Memory-Dateien orchestriert, könnte so aussehen:
@@ -182,7 +164,7 @@ Eine `CLAUDE.md`, die externe Memory-Dateien orchestriert, könnte so aussehen:
 [wie in Post 1]
 
 ## Externe Memory
-- **`DECISIONS.md`** — alle nicht-trivialen Architecture-Entscheidungen
+- **`DECISIONS.md`** — alle nicht-trivialen Architektur-Entscheidungen
   mit Begründung. Lies vor jeder strukturellen Änderung.
 - **`STATE.md`** — laufende Arbeit. Lies beim Session-Start. Aktualisiere
   am Session-Ende oder wenn sich der Stand signifikant ändert.
@@ -237,9 +219,11 @@ Der Unterschied ist nicht *"weniger Token"*. Der Unterschied ist *"weniger Verge
 
 **`STATE.md` als Tagebuch.** Wenn `STATE.md` zur narrativen Zusammenfassung jeder Session wird, wächst sie ins Bodenlose. Sie soll *aktuell* sein, nicht *historisch*. Was nicht mehr relevant ist, kommt raus.
 
+**Auto Memory verwechseln mit Projekt-Kanon.** Auto Memory ist Claudes Werkzeug, um sich selbst über Sessions hinweg zu helfen. Aber es ist nicht dazu gedacht, dokumentierte Team-Entscheidungen zu ersetzen. Wer sich darauf verlässt, dass Auto Memory schon irgendwie die Auth-Architektur behält, hat den Mechanismus falsch verstanden. Auto Memory ist Assistent-Gedächtnis. `DECISIONS.md` ist Team-Vertrag.
+
 **Skills statt Memory.** Skills lösen das Recall-Problem, nicht das Session-Grenze-Problem. Eine Entscheidung, die zwischen Sessions persistieren soll, gehört in `DECISIONS.md`, nicht in ein Skill. Skills sind Wissen über *Verfahren*. Memory ist Wissen über *Geschichte*.
 
-**Verlassen auf 1M-Token-Fenster.** Wenn deine Antwort auf das Recall-Problem *"warten, bis das Fenster größer wird"* ist — du hast das Problem nicht verstanden. Mehr Mitte ist mehr Vergessen.
+**Verlassen auf 1M-Token-Fenster.** Wenn deine Antwort auf das Recall-Problem *"warten, bis das Fenster größer wird"* ist — du hast das Problem nicht verstanden. Mehr Kapazität ist nicht mehr Präzision.
 
 ---
 
@@ -255,7 +239,7 @@ Das nennt man Context Engineering. Es ist die Disziplin, *wo* Wissen lebt — ni
 
 ## Was kommt als nächstes
 
-Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein Hook blockieren, und wo zieht man die Grenze zwischen "Modell soll das wissen" und "Hook soll das erzwingen."
+Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein Hook blockieren, und wo zieht man die Grenze zwischen "Modell soll das wissen" und "Hook soll das erzwingen." Tariq Shaukat hat auf dem AI Engineer World's Fair den Satz geprägt, um den es dabei geht: *"In the Land of AI Agents, the Verifiers Are King."*
 
 ---
 
@@ -264,8 +248,10 @@ Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein H
 - **agnix** — Linter und Validator für AI-Agenten-Konfigurationen und `SKILL.md`/`CLAUDE.md`-Dateien zur Absicherung der Skill Fitness. [github.com/agent-sh/agnix](https://github.com/agent-sh/agnix)
 - **TokenSave** — Lokaler Semantic Memory Store für AI-Agents via Model Context Protocol (MCP). [tokensave.dev](https://tokensave.dev)
 - **Rust Token Killer (RTK)** — CLI-Proxy zur Filterung und Token-Komprimierung von Terminal-Ausgaben. [github.com/jasonjmcghee/rtk](https://github.com/jasonjmcghee/rtk)
-- **Liu, Lin, Hewitt, Paranjape, Bevilacqua, Petroni, Liang (2023)** — *"Lost in the Middle: How Language Models Use Long Contexts"* — die Originalarbeit zum Recall-Verfall in der Mitte langer Kontexte. [arxiv.org/abs/2307.03172](https://arxiv.org/abs/2307.03172)
-- **Anthropic Engineering** — *"Effective context engineering for AI agents"* — die offizielle Übersicht, mit besonderem Fokus auf Skills und Progressive Disclosure. [anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- **Liu, Lin, Hewitt, Paranjape, Bevilacqua, Petroni, Liang (2023)** — *"Lost in the Middle: How Language Models Use Long Contexts."* Die Originalarbeit zum Recall-Verfall in der Mitte langer Kontexte. [arxiv.org/abs/2307.03172](https://arxiv.org/abs/2307.03172)
+- **Anthropic Engineering** — *"Effective context engineering for AI agents"* (September 2025). Anthropics eigene Übersicht, mit besonderem Fokus auf Skills, Progressive Disclosure und Context Rot. [anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- **Claude Platform Dokumentation** — *"Context windows"* (definiert Context Rot: *"As token count grows, accuracy and recall degrade"*) und *"Compaction"* für die Runtime-Mechanismen, die Claude Code als Ergänzung zu externen Memory-Dateien anbietet.
+- **Claude Code Dokumentation** — *"How Claude remembers your project"* für die Auto-Memory-Funktion (v2.1.59+) und die `CLAUDE.md`-Hierarchie. [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory)
 - **Cobus Greyling** — sein [goal-engineering](https://github.com/cobusgreyling/goal-engineering)-Repo etabliert `GOAL.md` als Pattern für persistente Ziele über Session-Grenzen hinweg.
-- **Architecture Decision Records (ADR)** — Michael Nygards Original-Blogpost *"Documenting Architecture Decisions"* (2011) — das Pattern, auf das `DECISIONS.md` direkt zurückgeht.
-- **Claude Code Dokumentation** — [code.claude.com/docs](https://code.claude.com/docs) — zu `CLAUDE.md`-Hierarchie, Skill-Progressive-Disclosure und Custom-Memory-Patterns.
+- **Michael Nygard** — *"Documenting Architecture Decisions"* (2011). Der Original-Blogpost zu ADRs, auf den das `DECISIONS.md`-Pattern direkt zurückgeht.
+- **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) und die Verifier-Debatte (Geoffrey Litt, Tariq Shaukat, Laurie Voss) laufen aktuell auf Konferenzen wie dem AI Engineer World's Fair. Post 4 (Sensoren) und Post 6 (Loop Engineering) greifen diese Stimmen konkret auf.

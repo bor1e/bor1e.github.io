@@ -1,7 +1,7 @@
 ---
 title: "Sensoren und Hooks: Warum die Verifier die eigentlich knappen Ressourcen sind"
-date: 2026-07-20
-draft: true
+date: 2026-07-05
+draft: false
 description: "Guides sagen dem Modell, was es tun soll. Sensoren prüfen, ob es das getan hat. In Claude Code sind Sensoren Hooks — und die Frage 'welcher Anker gehört in einen Hook, welcher in ein Skill' entscheidet, ob dein Harness hält oder driftet."
 tags: ["claude-code", "hooks", "sensors", "harness", "verifier", "PreToolUse", "PostToolUse", "Stop"]
 categories: ["tech"]

@@ -175,7 +175,70 @@ Zwischen Shaukats Verifier-Ökonomie und Litts Understanding-Vorbehalt läuft di
 
 **Stop-Hook als Alibi.** Ein `Stop`-Hook, der nur die Test-Suite ausführt, aber keine Integration-Tests, keine Coverage-Prüfung, keinen Type-Check, ist kein Verifier — er ist ein Feigenblatt. Wenn du "fertig" definierst, definier es ehrlich.
 
-**Infinite Stop-Loops.** Ein `Stop`-Hook, der auf Exit 2 geht, ohne den Fall abzufangen, dass er *schon einmal* gefeuert hat, produziert einen Agenten, der endlos weiterarbeitet. Der Standard-Fix: am Anfang des Hook-Scripts `stop_hook_active` aus dem JSON-Input prüfen und bei `true` mit Exit 0 durchlaufen. Jeder Entwickler lernt das einmal.
+**Infinite Stop-Loops.** Ein `Stop`-Hook, der bei Fehlern mit Exit 2 abbricht, kann den Agenten in eine Endlosschleife treiben: Der Hook scheitert, der Agent versucht den Code zu reparieren, schließt die Aufgabe ab, triggert den `Stop`-Hook erneut, der wieder scheitert. 
+
+Um diesen Loop-Effekt zu verhindern, übergibt die Claude-Code-Runtime dem Hook-Script ein JSON-Objekt auf `stdin`, das ein Flag namens `stop_hook_active` enthält. Ist dieses `true`, läuft der Hook bereits in einer Reparatur-Schleife und sollte mit Exit 0 durchwinken.
+
+Hier ist das konkrete Setup, um diese Endlosschleife zu verhindern und gleichzeitig aussagekräftiges `stderr`-Feedback bereitzustellen:
+
+Wir verdrahten den Hook in der `.claude/settings.json`:
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/verify.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Und so sieht das verifizierende Bash-Skript `.claude/hooks/verify.sh` aus, das `jq` nutzt, um die Endlosschleife abzufangen und Linter, Typechecker sowie Tests auszuführen:
+
+```bash
+#!/bin/bash
+
+# 1. Lese den JSON-Input von stdin
+PAYLOAD=$(cat)
+
+# 2. Prüfe stop_hook_active via jq (Standard ist false)
+STOP_HOOK_ACTIVE=$(echo "$PAYLOAD" | jq -r '.stop_hook_active // false')
+
+# 3. Schleifen-Schutz: Falls wir bereits in einem Korrektur-Turn sind, durchwinken
+if [ "$STOP_HOOK_ACTIVE" = "true" ]; then
+  echo "Stop-Hook bereits aktiv. Bypasse Verifikation zur Vermeidung einer Endlosschleife."
+  exit 0
+fi
+
+echo "Starte Projekt-Verifikation..."
+
+# 4. Führe Linter aus
+if ! npm run lint; then
+  echo "VERIFICATION FAILED: Linter-Fehler gefunden." >&2
+  exit 2
+fi
+
+# 5. Führe Typecheck aus
+if ! npm run typecheck; then
+  echo "VERIFICATION FAILED: Typenprüfung fehlgeschlagen." >&2
+  exit 2
+fi
+
+# 6. Führe Testsuite aus
+if ! npm run test; then
+  echo "VERIFICATION FAILED: Unit-Tests sind fehlgeschlagen." >&2
+  exit 2
+fi
+
+echo "VERIFICATION PASSED: Alle Prüfungen erfolgreich abgeschlossen."
+exit 0
+```
 
 **PostToolUse als Rückgängig-Werkzeug.** `PostToolUse` läuft *nach* der Aktion. Die Datei ist schon geschrieben. Der Hook kann Feedback geben, aber nicht undo. Wer Prävention will, braucht `PreToolUse`. Wer Reaktion will, `PostToolUse`. Verwechseln kostet echten Schaden.
 

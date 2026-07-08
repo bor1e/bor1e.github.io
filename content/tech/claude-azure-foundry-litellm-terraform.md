@@ -25,6 +25,8 @@ Dieser Beitrag zeigt den kompletten Weg – von der Terraform-Konfiguration für
 - Terraform ≥ 1.5, Azure CLI, sowie die Provider `azurerm` und `azapi`.
 - Ein akzeptiertes Marketplace-Angebot für das gewünschte Claude-Modell.
 
+> **Hinweis für europäische Organisationen:** Zum Zeitpunkt der GA (Juli 2026) berichten mehrere europäische Unternehmen, dass sich Claude-Deployments trotz gültiger Abrechnung und korrektem Setup nicht anlegen lassen. Die hier gezeigte Terraform-Konfiguration ist korrekt — die *Verfügbarkeit* für eine EU-Organisation kann in der Praxis aber (noch) blockiert sein. Wer auf einen solchen Fehler stößt, sollte die aktuelle Foundry-Regionsverfügbarkeit prüfen, bevor er lange debuggt.
+
 Das Marketplace-Angebot muss vor dem ersten `terraform apply` einmalig akzeptiert werden:
 
 ```bash
@@ -214,6 +216,7 @@ Da LiteLLM alle Request-/Response-Transformationen für Azure-gehostetes Claude 
 - **Opake 400er-Fehler beim Deployment**, obwohl Ressourcengruppe, Foundry-Account und Projekt erfolgreich angelegt wurden: meist unzureichendes Kontingent, oft verursacht durch noch nicht bereinigte Soft-Delete-Reste vorheriger Testläufe.
 - **Marketplace-Kauf schlägt fehl**: Das Abonnement hat keine Berechtigung für das Anthropic-Angebot. Entweder ein Abonnement mit passender Berechtigung verwenden oder die Vereinbarung vorab explizit per `az term accept` bestätigen.
 - **LiteLLM meldet fehlende API-Base**: Die URL muss exakt auf `https://<resource-name>.services.ai.azure.com/anthropic` enden – LiteLLM ergänzt `/v1/messages` automatisch, wenn es fehlt.
+- **`azure_ai/`-Registrierung für Anthropic verhält sich nicht wie dokumentiert**: Der native `azure_ai/`-Pfad für Claude-Modelle ist noch jung, und einzelne LiteLLM-Versionen weichen vom dokumentierten Verhalten ab (siehe LiteLLM-Issue #17765). Wenn Requests trotz korrekter `api_base` fehlschlagen, hilft es, auf eine bekannt funktionierende LiteLLM-Version zu pinnen, statt der jeweils neuesten zu vertrauen.
 
 ## Fazit
 

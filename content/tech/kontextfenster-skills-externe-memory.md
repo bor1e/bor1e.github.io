@@ -217,6 +217,8 @@ Der Unterschied ist nicht *"weniger Token"*. Der Unterschied ist *"weniger Verge
 
 **Verweise ohne Disziplin.** Eine `CLAUDE.md`, die auf `DECISIONS.md` verweist, die niemand pflegt, ist schlechter als keine Verweise. Claude wird die Datei lesen, ihr glauben, und auf veralteter Basis arbeiten.
 
+**Dokumentierte Entscheidungen ohne Akzeptanz.** Eberhard Wolff hat für klassische Architektur-Reviews den Punkt geprägt, der auch für `DECISIONS.md` gilt: Eine dokumentierte Entscheidung, die das Team nie akzeptiert hat, ist keine Dokumentation — sie ist eine Fiktion, an die sich in Zukunft niemand hält. Wenn du merkst, dass eine `DECISIONS.md`-Eintragung in der Praxis systematisch umgangen wird, ist das kein Doku-Problem. Es ist ein soziales Problem.
+
 **`STATE.md` als Tagebuch.** Wenn `STATE.md` zur narrativen Zusammenfassung jeder Session wird, wächst sie ins Bodenlose. Sie soll *aktuell* sein, nicht *historisch*. Was nicht mehr relevant ist, kommt raus.
 
 **Auto Memory verwechseln mit Projekt-Kanon.** Auto Memory ist Claudes Werkzeug, um sich selbst über Sessions hinweg zu helfen. Aber es ist nicht dazu gedacht, dokumentierte Team-Entscheidungen zu ersetzen. Wer sich darauf verlässt, dass Auto Memory schon irgendwie die Auth-Architektur behält, hat den Mechanismus falsch verstanden. Auto Memory ist Assistent-Gedächtnis. `DECISIONS.md` ist Team-Vertrag.

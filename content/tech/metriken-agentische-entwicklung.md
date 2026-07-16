@@ -1,7 +1,7 @@
 ---
 title: "Metriken für agentische Entwicklung: Was du misst, wenn Codegenerierung billig wird"
-date: 2026-07-27
-draft: true
+date: 2026-07-07
+draft: false
 description: "DORA-Metriken wurden für eine Welt entworfen, in der Menschen den Code schreiben. Wenn Agenten schreiben, kollabieren die klassischen Zahlen — Cycle Time sinkt, aber sagt nichts über Qualität. Dieser Post zeigt, was du stattdessen misst, und warum Metriken allein nicht reichen."
 tags: ["claude-code", "metriken", "dora", "measurement", "observability", "cost", "agentic-development"]
 categories: ["tech"]
@@ -53,7 +53,7 @@ Diese Metriken beantworten: *Hat diese eine Session gut funktioniert?*
 | Metrik | Was sie sagt | Wie du sie erhebst |
 |---|---|---|
 | **Time to First Green** | Von der Aufgabenstellung bis zum ersten grünen Test-Lauf. Ersetzt "Time to First Commit" | Session-Log + Timestamp des ersten erfolgreichen `verify.sh` |
-| **Token-Kosten pro Session** | Wie teuer war diese Aufgabe? | Anthropic API-Logs, aggregiert über LiteLLM oder Claude-Code-Statsig |
+| **Token-Kosten pro Session** | Wie teuer war diese Aufgabe? | Anthropic API-Logs, aggregiert über LiteLLM oder die Anthropic Console |
 | **Turns bis Abschluss** | Wie oft musste Claude iterieren? | Session-Transcript-Länge |
 | **Hook-Rejection-Rate** | Wie oft haben deine Guides gegriffen? | Custom-Logging in `PostToolUse` / `Stop`-Hooks |
 | **Subagent-Approval-Rate** | Hat der Code-Reviewer-Subagent approved, angemerkt, oder abgelehnt? | Subagent-Output-Log |
@@ -74,7 +74,7 @@ Diese Metriken beantworten: *Wird das Team als Ganzes produktiver, oder nur der 
 
 Diese Metriken beantworten: *Zahlt sich die Investition in agentische Entwicklung aus?*
 
-- **Cost per Developer per Month (Token-Spend)** — die einzige Zahl, die dein CFO wirklich versteht. In der Praxis: 20–150 USD pro aktiver Entwickler pro Monat, je nach Nutzung.
+- **Cost per Developer per Month (Token-Spend)** — die einzige Zahl, die dein CFO wirklich versteht. Der konkrete Wert hängt von Subscription-Modell und Nutzungsintensität ab, aber er muss in dein Reporting.
 - **Time-to-Productivity für neue Entwickler** — wenn das Harness (`CLAUDE.md`, Skills, Rules) gut ist, sollten neue Team-Mitglieder schneller produktiv sein. Wenn nicht — was misst du dann?
 - **Incident-Rate** — Shaukats Warnung vor *"technical debt at machine speed"* wird hier messbar. Ein steigender Incident-Trend bei gleichzeitig steigendem Deployment-Trend ist der Kanarienvogel im Kohlebergwerk.
 - **Retention und Zufriedenheit** — die einzige Metrik dieser Ebene, die nicht aus Logs kommt. Aber sie zählt. Ein Team, das sein Handwerk verliert (Litts *"understanding is the new bottleneck"* aus Post 4), wird unglücklich, bevor die technischen Metriken es zeigen.
@@ -108,7 +108,7 @@ Der Rest dieses Posts liefert die Zahlen. Der Wolff-Vorbehalt ist die Warnung, s
 Zahlen zu erheben ist trivial, wenn die Infrastruktur mitspielt. Fünf konkrete Quellen:
 
 ### Session-Logs
-Claude Code speichert Session-Transcripts unter `~/.claude/projects/<project>/`. Jede Session ist eine JSONL-Datei mit Timestamps, Tool-Calls und Modell-Ausgaben. Das ist die primäre Quelle für Session-Metriken.
+Claude Code speichert Session-Transcripts unter `~/.claude/projects/` (ein Unterverzeichnis pro Projekt, mit escapetem Pfad als Namen). Jede Session ist eine JSONL-Datei mit Timestamps, Tool-Calls und Modell-Ausgaben. Das ist die primäre Quelle für Session-Metriken.
 
 ### Hook-Logging
 Ein `PostToolUse`- oder `Stop`-Hook, der bei jedem Fire einen strukturierten Log-Eintrag schreibt, gibt dir die Hook-Rejection-Rate ohne zusätzliche Werkzeuge. Beispiel:
@@ -215,4 +215,4 @@ Post 6 zeigt Goal Engineering: die technische Grundlage dafür, dass eine Aufgab
 - **Claude Code Monitoring-Dokumentation** — [code.claude.com/docs/en/monitoring-usage](https://code.claude.com/docs/en/monitoring-usage) für OpenTelemetry-Export und Usage-Reporting.
 - **LiteLLM Observability** — [docs.litellm.ai](https://docs.litellm.ai) für Token-Spend-Aggregation über Anthropic und andere Provider.
 - **Charity Majors, Liz Fong-Jones, George Miranda** — *"Observability Engineering"* (O'Reilly 2022). Für den generellen Observability-Stack. Die Prinzipien übertragen sich sauber auf agentische Systeme.
-- **Kent Beck** — seine 2026-Essays zu *"Tidy First"* und der Rolle von Refactoring in agentischen Workflows. Beck denkt aktuell öffentlich über AI-Ära-Messung nach; sein Substack lohnt sich.
+- **Kent Beck** — sein Substack [tidyfirst.substack.com](https://tidyfirst.substack.com) behandelt regelmäßig, wie sich Refactoring-Disziplin in agentischen Workflows verändert. Kein einzelner Post zum Verlinken, aber die laufende Reihe lohnt sich.

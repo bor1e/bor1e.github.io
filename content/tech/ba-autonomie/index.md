@@ -112,3 +112,37 @@ Mach ich mich damit arbeitslos? Ich will nicht für Code vergütet werden, sonde
 Das Unternehmen, das am schnellsten AI in den Entwicklungsprozess aufnimmt, schafft am schnellsten echten Kundenmehrwert.
 
 Damit das nicht theoretisch bleibt: Gemeinnützigen Organisationen helfe ich beim Einstieg in AI unentgeltlich.
+
+---
+
+## Die Tooling-Landschaft: Jira mit Microsoft (GitHub / Azure DevOps) verbinden
+
+Um diesen Workflow in der Realität umzusetzen, muss die Brücke zwischen dem Ticket-System der Fachseite (**Jira**) und der Microsoft-Entwicklungsplattform (**GitHub** oder **Azure DevOps**) geschlagen werden. Das läuft über drei Zahnräder:
+
+```mermaid
+graph LR
+    Jira[Jira Ticket\nAnforderung] -->|Jira Webhook / Status-Trigger| Agent[AI Agent\nz.B. Copilot / Custom Script]
+    Agent -->|Code schreiben & Tests ausführen| Repo[Microsoft Repo\nGitHub / Azure DevOps]
+    Repo -->|Draft Pull Request erstellen| Repo
+    Repo -->|Status & PR-Link zurückmelden| Jira
+```
+
+### 1. Jira mit GitHub verbinden (Der moderne Weg)
+Wenn dein Code auf GitHub liegt, ist die Integration am einfachsten:
+1.  **Jira GitHub App**: Installiere das offizielle *"GitHub for Jira"* Plugin aus dem Atlassian Marketplace. Dadurch werden Branches, Commits und Pull Requests automatisch mit dem passenden Jira-Ticket verknüpft (indem man den Jira-Key wie `PROJ-123` im Branch-Namen oder PR-Titel nennt).
+2.  **Der AI-Trigger (GitHub Copilot Workspace / Sweep)**: Sobald ein Jira-Ticket den Status *„Bereit für AI“* erreicht, liest der AI-Agent (über GitHub Actions oder Copilot Workspace) die Ticket-Details aus der Jira-API aus. Er checkt einen Branch `PROJ-123-feature` aus, generiert den Code, führt die Tests aus und öffnet einen Draft-PR auf GitHub.
+3.  **Synchronisation**: Durch das Jira-Plugin sieht der BA den Link zum PR und dessen Test-Status (grün/rot) direkt in seinem Jira-Ticket, ohne GitHub öffnen zu müssen.
+
+### 2. Jira mit Azure DevOps verbinden (Der Enterprise-Weg)
+Wenn dein Team Azure Boards/Repos nutzt, funktioniert die Integration über Pipelines:
+1.  **Jira Integration in Azure DevOps**: Über die Atlassian-Erweiterung *"Azure Pipelines for Jira"* werden Releases und Builds direkt in Jira angezeigt.
+2.  **Die Pipeline als AI-Orchestrator**: 
+    *   Ein Jira-Workflow-Trigger (Webhook) benachrichtigt Azure DevOps, wenn ein Ticket freigegeben wird.
+    *   Dies startet eine **Azure Pipeline**, in der ein AI-Agent (z. B. ein Skript mit Zugriff auf Claude Code oder Azure OpenAI) läuft.
+    *   Die Pipeline zieht sich die Ticket-Beschreibung über die Jira REST-API, modifiziert die Dateien in Azure Repos, führt die Build-Validation aus und erstellt einen Azure DevOps Pull Request.
+3.  **Freigabe**: Der PR-Link wird über die API als Kommentar zurück in Jira gepostet. Der Entwickler prüft den Azure PR, während der BA das Feature fachlich abnimmt.
+
+### Was man vor dem Start bedenken sollte
+*   **API-Berechtigungen**: Der AI-Agent benötigt Lese-Zugriff auf Jira (API-Token des BAs/Service-Accounts) und Schreib-Zugriff auf das Repository (GitHub Personal Access Token oder Azure Pipeline Service Connection).
+*   **Deterministische Verifizierung**: Ohne automatische Test-Suites (CI/CD) in GitHub Actions oder Azure Pipelines darf kein AI-PR erstellt werden. Der Bot muss wissen, ob sein Code baut, bevor der Entwickler den PR sieht.
+

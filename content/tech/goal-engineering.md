@@ -1,7 +1,7 @@
 ---
 title: "Goal Engineering: Wie eine Aufgabe autonom läuft, bis sie verifizierbar fertig ist"
-date: 2026-08-03
-draft: true
+date: 2026-07-08
+draft: false
 description: "Ein Prompt ist eine Bitte. Ein Ziel ist ein Vertrag mit einer Abnahmebedingung. Dieser Post zeigt, wie du in Claude Code aus 'mach mal X' ein 'X läuft, bis ein Verifier bestätigt, dass X fertig ist' machst — mit GOAL.md, Stop-Hooks und einem deterministischen Verifier-Skript als unbestechlichem Prüfer."
 tags: ["claude-code", "goal-engineering", "GOAL.md", "run-until-done", "verifier", "stop-hook"]
 categories: ["tech"]

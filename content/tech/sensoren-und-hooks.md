@@ -104,6 +104,46 @@ Was dieser Block bewirkt:
 
 Drei Hooks. Zwölf Zeilen Konfiguration. Jede Session, die danach läuft, ist gegen die drei häufigsten Klassen von Agenten-Fehlern immun: **Secret-Leaks, Lint-Drift, verfrühte Fertig-Meldungen.**
 
+### Ergänzendes Beispiel: Blockieren gefährlicher Parameter (Bypass-Schutz)
+
+Manchmal versucht ein Agent, das lokale Harness oder Git-Sicherheitsprüfungen zu umgehen – beispielsweise durch ein beherztes `git push --no-verify` oder ein destruktives `git reset --hard`. 
+
+Über einen `PreToolUse`-Hook mit dem Matcher `execute_bash` können wir solche Befehle abfangen, bevor sie ausgeführt werden.
+
+Hier ist die Ergänzung für die `.claude/settings.json`:
+
+```json
+      {
+        "matcher": "execute_bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/prevent-bypass.sh"
+          }
+        ]
+      }
+```
+
+Und das dazugehörige Bash-Skript `.claude/hooks/prevent-bypass.sh`:
+
+```bash
+#!/bin/bash
+
+# JSON-Payload von stdin einlesen
+input=$(cat)
+
+# Den ausgeführten Befehl parsen
+command=$(echo "$input" | jq -r '.tool_input.command // ""')
+
+# Blockiere Befehle, die Sicherheitsprüfungen umgehen
+if echo "$command" | grep -qE '(--no-verify|--force|-f\s|--hard)'; then
+  echo "Blocked: This command bypasses safety checks (--no-verify, --force, --hard)" >&2
+  exit 2
+fi
+
+exit 0
+```
+
 ---
 
 ## Der Entscheidungsrahmen: Deterministisch, inferentiell, oder ambient?

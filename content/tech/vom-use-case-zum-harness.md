@@ -168,6 +168,11 @@ Das ist auch der Test für den Erfolg der Analyse: wenn dein Team beim Lesen des
 
 Erst *nach* dieser Analyse kannst du sinnvoll entscheiden, ob dein Projekt tatsächlich einen Graphen braucht. Ngs eigene Regel im Playbook, direkt übernommen: **Ein Graph verdient sich seinen Platz, wenn dieselbe Entität von mehr als einem Agenten oder über mehr als eine Session hinweg abgefragt wird.**
 
+> **Die CFO-Rauchprobe zur Use-Case-Readiness:**
+> Ein Graph ist teuer — in der Infrastruktur (Neo4j-Lizenzen, Cluster-Hosting), in der Latenz und in der kognitiven Wartung. Ngs technische Regel ("gleiche Entität, mehrere Agenten") ist ein hervorragender Entwickler-Kompass. Aber die betriebswirtschaftliche Hürde für ein Enterprise ist höher: **Kannst du deinem CFO die konkrete geschäftliche Frage zeigen, die dieser Graph beantwortet und die ein klassisches relationales Schema (oder ein einfacher pgvector-Store) nicht oder nur mit absurdem Join-Aufwand lösen kann?** 
+> 
+> Wenn die Antwort lautet: *"Wir müssen Pfad-Traversierungen über 5 Beziehungsstufen hinweg machen (z. B. zur Erkennung von Betrugsnetzwerken bei Versicherungen oder zur Abhängigkeitsanalyse in 10-Millionen-Zeilen-Monorepos)"*, dann verdient der Graph seine Kosten. Wenn die Antwort lautet: *"Wir wollen Kundendaten abfragen und Dokumente suchen"*, dann ist ein Postgres-Cluster um Faktoren billiger, verlässlicher und schneller produktiv. Ein Enterprise ist erst bereit für einen Graphen, wenn die relationale Welt an der Komplexität der Beziehungen (nicht der Datenmenge) kollabiert.
+
 Für das Antragsbeispiel oben: nein. Jeder Fall lebt in einem Context, wird von einem Agenten pro Persona bearbeitet, und der Vorgangsstand persistiert in einer bestehenden Fachanwendung (nicht in einem Graphen). Der Retrieval-Skill für historische Vorgänge holt sich Daten aus dem bestehenden CRM, nicht aus einem Neo4j-Cluster.
 
 Für Kontexte wie Ngs Code-Review-Beispiel im Playbook — mehrere Reviewer-Agenten über Hunderte von PRs, mit Mustererkennung über Vorgänger-Vulnerabilities hinweg — **ja**. Die gleiche Entität (ein Code-Muster, eine Datei, eine Vulnerability-Klasse) wird von mehreren Agenten über Sessions hinweg abgefragt. Das ist genau der Fall, für den ein Graph existiert.

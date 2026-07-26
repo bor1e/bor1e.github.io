@@ -27,7 +27,7 @@ Post 3 hat Anker in `CLAUDE.md` und Skills gelegt. Post 4 legt Anker in externe 
 
 ## Was MCP eigentlich ist
 
-Anthropic hat MCP am 25. November 2024 unter Apache-2.0-Lizenz als Open-Source-Standard veröffentlicht. Die Verbreitung war ungewöhnlich schnell: OpenAI hat MCP im März 2025 offiziell übernommen, Google DeepMind im April 2025, Microsoft, AWS und Cloudflare kamen später dazu. Ende 2025 hat Anthropic MCP an die Linux Foundation's Agentic AI Foundation gespendet. Damit ist MCP kein Anthropic-Standard mehr — es ist Industrie-Infrastruktur.
+Anthropic hat MCP am 25. November 2024 unter Apache-2.0-Lizenz als Open-Source-Standard veröffentlicht. Die Verbreitung war ungewöhnlich schnell: OpenAI hat MCP im März 2025 offiziell übernommen, Google DeepMind im April 2025, Microsoft, AWS und Cloudflare kamen später dazu. Ende 2025 hat Anthropic die Governance von MCP an die Linux Foundation's Agentic AI Foundation übergeben. Damit ist MCP formal kein Anthropic-Only-Standard mehr — Anthropic bleibt maßgeblicher Beiträger, aber die Governance ist industrieweit.
 
 Der Mechanismus ist geradlinig. Ein **MCP-Host** (Claude Code, Claude Desktop, VS Code Copilot, ChatGPT Desktop, Cursor, Zed) startet oder verbindet sich mit einem **MCP-Server** — einem Prozess, der eine standardisierte Menge an Tools, Ressourcen und Prompts bereitstellt. Kommunikation läuft über JSON-RPC 2.0. Der Host verwaltet einen **Client** pro Server; jeder Client hat eine dedizierte Verbindung.
 

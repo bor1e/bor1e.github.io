@@ -55,10 +55,22 @@ Diese Metriken beantworten: *Hat diese eine Session gut funktioniert?*
 | **Time to First Green** | Von der Aufgabenstellung bis zum ersten grünen Test-Lauf. Ersetzt "Time to First Commit" | Session-Log + Timestamp des ersten erfolgreichen `verify.sh` |
 | **Token-Kosten pro Session** | Wie teuer war diese Aufgabe? | Anthropic API-Logs, aggregiert über LiteLLM oder die Anthropic Console |
 | **Turns bis Abschluss** | Wie oft musste Claude iterieren? | Session-Transcript-Länge |
-| **Hook-Rejection-Rate** | Wie oft haben deine Guides gegriffen? | Custom-Logging in `PostToolUse` / `Stop`-Hooks |
+| **Hook-Rejection-Rate** | Wie oft haben deine guardrails blockiert? | Custom-Logging in `PostToolUse` / `Stop`-Hooks |
+| **Autonomy Index** | Wie viel % der Hook-Rejections konnte der Agent autonom selbst beheben? | Korrelation aus Hook-Events und Session-Outcome (Exit 0 vs. Exit 2) |
 | **Subagent-Approval-Rate** | Hat der Code-Reviewer-Subagent approved, angemerkt, oder abgelehnt? | Subagent-Output-Log |
 
-Die interessanteste Zahl aus dieser Liste ist die **Hook-Rejection-Rate**. Wenn sie über die Zeit sinkt, bedeutet das eine von zwei Dingen: Entweder wird Claude besser darin, deine Regeln direkt einzuhalten (gut), oder die Hooks fangen zu wenig, weil sie zu schwach konfiguriert sind (schlecht). Ohne zusätzliche Zahlen kannst du die zwei nicht unterscheiden.
+Die interessanteste Zahl aus dieser Liste ist die **Hook-Rejection-Rate**. Wenn sie über die Zeit sinkt, bedeutet das eine von zwei Dingen: Entweder wird Claude besser darin, deine Regeln direkt einzuhalten (gut), oder die Hooks fangen zu wenig, weil sie zu schwach konfiguriert sind (schlecht). 
+
+Um diese Ambivalenz aufzulösen, misst man den **Autonomy Index (Self-Correction Rate)**. Er setzt Hook-Fehltritte in Bezug zum Endergebnis der Session:
+
+\[\text{Autonomy Index} = \frac{\text{Autonomous Recovery Sessions}}{\text{Autonomous Recovery Sessions} + \text{Human Hand-off Sessions}} \times 100\]
+
+Hierbei werten wir die Log-Einträge der Sessions (via Session-ID) in drei Kategorien aus:
+1. **Straight Pass**: Der Agent erledigt die Aufgabe direkt, ohne dass ein Hook anschlägt (Outcome: `success`, Rejections: `0`).
+2. **Autonomous Recovery**: Mindestens ein Hook schlägt fehl, aber der Agent korrigiert den Code selbst und schließt erfolgreich ab (Outcome: `success`, Rejections: `>0`).
+3. **Human Hand-off**: Ein Hook schlägt fehl, aber der Agent schafft es nicht, den Fehler zu beheben, und bricht ab oder benötigt manuelle Hilfe (Outcome: `escalated`, Rejections: `>0`).
+
+Sinkt die Rejection-Rate bei stabilem Autonomy Index, wird der Agent tatsächlich präziser (Lerneffekt). Sinkt sie bei einbrechendem Autonomy Index, wurden die Hooks vermutlich heimlich entschärft (Goodhart's Law). Ohne diese zusätzliche Zahl lässt sich das Verhalten nicht ehrlich bewerten.
 
 ### Ebene 2 — Team-Metriken (pro Woche/Sprint)
 
@@ -131,6 +143,15 @@ exit 0
 ```
 
 Nach zwei Wochen hast du eine JSONL-Datei, die mit `jq` oder Pandas in jede beliebige Aggregation läuft.
+
+Um den **Autonomy Index** zu berechnen, verknüpfst du diese Hook-Einträge mit dem Exit-Status der Session. Ein Wrapper um den CLI-Aufruf oder ein CI/CD-Runner schreibt das Endergebnis der Session unter derselben Session-ID weg:
+
+```json
+{"ts":"2026-07-26T15:10:00Z","session_id":"sess-9f8a2","outcome":"success"}
+{"ts":"2026-07-26T16:05:00Z","session_id":"sess-8b1c4","outcome":"escalated","reason":"budget_exceeded"}
+```
+
+Ein einfaches Python-Skript oder eine `jq`-Filterkette korreliert die Events dann über die `session_id`, ordnet sie den drei Kategorien zu (Straight Pass, Autonomous Recovery, Human Hand-off) und berechnet den prozentualen Autonomie-Wert für den wöchentlichen Report.
 
 ### LiteLLM-Proxy
 Wenn Claude Code über einen LiteLLM-Proxy läuft (der Standard-Weg für DSGVO-konforme Enterprise-Setups), gibt LiteLLM dir Token-Spend pro API-Key, pro Modell, pro Zeitraum — out of the box. Grafana-Dashboards existieren. Das ist die einfachste Quelle für organisatorische Kostenmetriken.

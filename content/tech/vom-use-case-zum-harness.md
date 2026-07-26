@@ -7,7 +7,7 @@ tags: ["claude-code", "architektur", "ddd", "workflow-design", "bounded-context"
 categories: ["tech"]
 personas: ["tech"]
 series: ["Vom Hype zum Harness"]
-series_order: 8
+series_order: 9
 ---
 
 > *„Loops externalize revision. Chains externalize order. Networks externalize roles. Graphs externalize state."*
@@ -19,7 +19,7 @@ series_order: 8
 
 ## Wo wir stehen
 
-Post 7 endete mit dem Chor um Peter Steinberger und Hamel Husain: *"Loop Engineering is dead. Enter Graph Engineering."* Die ehrliche Antwort lautet: **nein, Loops sind nicht tot — die meisten Teams haben Stufe 1 nicht mal gemeistert.**
+Post 8 endete mit dem Chor um Peter Steinberger und Hamel Husain: *"Loop Engineering is dead. Enter Graph Engineering."* Die ehrliche Antwort lautet: **nein, Loops sind nicht tot — die meisten Teams haben Stufe 1 nicht mal gemeistert.**
 
 Aber die interessante Lücke im aktuellen Diskurs ist eine andere. Der Diskurs springt von *"hier ist ein Design-Pattern"* (Reflection, Routing, Orchestrator-Workers) direkt zu *"hier ist ein Stack"* (Claude Code + MCP + Neo4j) und lässt die eigentliche Frage unbeantwortet: **Welches Pattern brauche ich für mein Problem?**
 
@@ -43,7 +43,7 @@ Die Frage lautet also nicht *"Loops oder Graphs?"*. Sie lautet: **Wie leiten wir
 
 ## Was die Softwarearchitektur schon weiß
 
-Bevor wir die Übertragung machen, kurz das Vokabular. Vier Konzepte, die jeder Software-Architekt kennt und die Post 8 als Werkzeuge nutzt:
+Bevor wir die Übertragung machen, kurz das Vokabular. Vier Konzepte, die jeder Software-Architekt kennt und die Post 9 als Werkzeuge nutzt:
 
 **Use Case.** Was tut das System, für wen, unter welchen Vorbedingungen, mit welchem Ergebnis? Eine Textform, die seit Jacobson (1992) standardisiert ist. Ein Use Case ist *nicht* ein Feature — er ist ein Zielverhalten aus Sicht eines Akteurs.
 
@@ -63,7 +63,7 @@ Hier ist die Übersetzungstabelle, die den Rest dieses Posts trägt:
 
 | Softwarearchitektur | Agentisches Äquivalent | Anthropic-Muster (2024) |
 |---|---|---|
-| Use Case | Ziel (`GOAL.md` aus Post 6) | — |
+| Use Case | Ziel (`GOAL.md` aus Post 7) | — |
 | Persona | Subagent-Rolle mit definiertem `description` und `tools` | Orchestrator-Workers |
 | Bounded Context | Skill oder Rule mit Pfad-Scope (Post 2) | — |
 | Workflow (Sequenz) | Prompt Chain, oder Loop mit Verifier | Prompt Chaining |
@@ -71,7 +71,7 @@ Hier ist die Übersetzungstabelle, die den Rest dieses Posts trägt:
 | Workflow (parallel) | Mehrere Subagents auf getrennten Diffs | Parallelization |
 | Aggregate / Shared State | Externe Memory (Post 3) oder Knowledge Graph | Evaluator-Optimizer + Store |
 | Anti-Corruption Layer | MCP-Server mit gefilterten Tools | Augmented LLM |
-| Fitness Function | Hook (Post 4) oder Verifier-Subagent | Evaluator-Optimizer |
+| Fitness Function | Hook (Post 5) oder Verifier-Subagent | Evaluator-Optimizer |
 
 Die linke Spalte hat zwei Jahrzehnte Reife. Die mittlere Spalte hat sechs Monate. Die rechte Spalte hat zwei Jahre. **Wer die linke Spalte kennt, kann die anderen beiden viel schneller richtig einsetzen** — nicht weil die agentischen Muster neu sind, sondern weil ihre Namen neu sind. Der Mechanismus dahinter (Verantwortung trennen, Grenzen ziehen, Übergänge explizit machen) ist alt.
 
@@ -135,7 +135,7 @@ Jetzt kommt die eigentliche Architekturentscheidung. Nicht *"welches Muster ist 
 
 - **Antragsprüfung** — inhaltliche Entscheidung, bei der die Fallunterscheidung erst zur Laufzeit klar wird. **Routing + Evaluator-Optimizer** (Anthropic #2 + #5). Router klassifiziert (automatisch vs eskalieren), Evaluator prüft im Automatik-Fall die Confidence der Entscheidung, unter Schwelle → Eskalation.
 
-- **Sachbearbeitung** — komplexe, iterative Arbeit mit Rückgriff auf historische Vorgänge. **Loop** (Ng-Stufe 1) mit einem Retrieval-Skill für ähnliche Vergangenheitsfälle. Der Sachbearbeiter-Subagent arbeitet iterativ am Fall, Hooks aus Post 4 prüfen Compliance-Regeln, Verifier-Subagent aus Post 6 prüft am Ende.
+- **Sachbearbeitung** — komplexe, iterative Arbeit mit Rückgriff auf historische Vorgänge. **Loop** (Ng-Stufe 1) mit einem Retrieval-Skill für ähnliche Vergangenheitsfälle. Der Sachbearbeiter-Subagent arbeitet iterativ am Fall, Hooks aus Post 5 prüfen Compliance-Regeln, Verifier-Subagent aus Post 7 prüft am Ende.
 
 Merke: kein einziger Bounded Context braucht die Graph-Stufe. Die drei Contexts kommen mit den ersten drei Anthropic-Mustern aus. Ein Team, das reflexartig zu Neo4j gegriffen hätte, hätte drei Wochen Infrastrukturarbeit für einen Fall, der es nicht braucht.
 
@@ -146,9 +146,9 @@ Jetzt wird das Harness aus Posts 1–7 zum Werkzeugkasten:
 - **`CLAUDE.md` pro Context** (Post 2, hierarchisch) — je eine im Verzeichnis des Contexts, mit den domänenspezifischen Standards.
 - **Skills für Personas** (Post 3) — `sachbearbeiter-vorgangsanalyse/SKILL.md`, `compliance-pruefer-regelwerk/SKILL.md`.
 - **Rules für Grenzen** (Post 2) — `.claude/rules/antragspruefung.md` mit strikten Vorgaben, was in diesem Context erlaubt ist.
-- **Hooks für Fitness Functions** (Post 4) — `PreToolUse`-Hook für Datenschutz-Regeln (keine Kunden-PII in Logs), `Stop`-Hook für Compliance-Prüfung.
-- **Verifier-Subagent für Freigabe** (Post 6) — pro Automatik-Entscheidung ein isolierter Prüfer.
-- **Metriken pro Context** (Post 5) — Rejection-Rate im Router, Eskalationsquote, Bearbeitungszeit pro Fall.
+- **Hooks für Fitness Functions** (Post 5) — `PreToolUse`-Hook für Datenschutz-Regeln (keine Kunden-PII in Logs), `Stop`-Hook für Compliance-Prüfung.
+- **Verifier-Subagent für Freigabe** (Post 7) — pro Automatik-Entscheidung ein isolierter Prüfer.
+- **Metriken pro Context** (Post 6) — Rejection-Rate im Router, Eskalationsquote, Bearbeitungszeit pro Fall.
 
 Das ist keine Ansammlung von Mustern. Das ist eine **kohärente Architektur**, in der jede Entscheidung von einer Use-Case-Analyse abgeleitet ist und jede Grenze durch ein Harness-Element enforced wird.
 
@@ -156,7 +156,7 @@ Das ist keine Ansammlung von Mustern. Das ist eine **kohärente Architektur**, i
 
 ## Der Wolff-Reprise: Architektur ist ein soziotechnisches System, auch agentisch
 
-Eberhard Wolffs Warnung aus Post 5 gilt hier verstärkt. Die schönste agentische Architektur ist wertlos, wenn das Team sie nicht diskutiert und mitträgt. Ein Bounded Context, den das Team nicht akzeptiert, wird verletzt — nicht durch Sabotage, sondern durch Interpretation. Ein Workflow, den nur ein Architekt entworfen hat, wird umgangen.
+Eberhard Wolffs Warnung aus Post 6 gilt hier verstärkt. Die schönste agentische Architektur ist wertlos, wenn das Team sie nicht diskutiert und mitträgt. Ein Bounded Context, den das Team nicht akzeptiert, wird verletzt — nicht durch Sabotage, sondern durch Interpretation. Ein Workflow, den nur ein Architekt entworfen hat, wird umgangen.
 
 Der praktische Rückschluss: **Wolffs Interviews mit offenen Fragen funktionieren auch für die agentische Architekturarbeit.** Statt *"welche Muster brauchen wir?"* frage: *"Wo umgeht ihr aktuell manuelle Prozesse? Wo bleibt Wissen bei Einzelnen hängen? Wo wird zwischen Systemen kopiert, was eigentlich fließen sollte?"* Die Antworten zeigen dir die Use Cases, die Personas, die Contexts — bevor du eine einzige `CLAUDE.md` schreibst.
 
@@ -207,7 +207,7 @@ Diese Reihenfolge ist keine agentische Erfindung. Sie ist die klassische Softwar
 
 ## Was kommt als nächstes
 
-Post 9 zeigt Guardrails: wie du die Boundaries, die du in dieser Architektur-Übung gezogen hast, technisch durchsetzt. Die Verbindung ist eng — was hier *Bounded Context* heißt, wird dort *Permission-Boundary* und *Data-Boundary*. Was hier *Persona* heißt, wird dort *Least-Privilege-Prinzip*. Der DSGVO- und Compliance-Layer, den regulierte Umgebungen brauchen, ist keine Zusatzarbeit — er ist die konsequente Durchsetzung der Architekturentscheidungen aus diesem Post.
+Post 10 zeigt Guardrails: wie du die Boundaries, die du in dieser Architektur-Übung gezogen hast, technisch durchsetzt. Die Verbindung ist eng — was hier *Bounded Context* heißt, wird dort *Permission-Boundary* und *Data-Boundary*. Was hier *Persona* heißt, wird dort *Least-Privilege-Prinzip*. Der DSGVO- und Compliance-Layer, den regulierte Umgebungen brauchen, ist keine Zusatzarbeit — er ist die konsequente Durchsetzung der Architekturentscheidungen aus diesem Post.
 
 ---
 

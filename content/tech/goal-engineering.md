@@ -7,7 +7,7 @@ tags: ["claude-code", "goal-engineering", "GOAL.md", "run-until-done", "verifier
 categories: ["tech"]
 personas: ["tech"]
 series: ["Vom Hype zum Harness"]
-series_order: 6
+series_order: 7
 ---
 
 > *Nicht mehr beim Coden zusehen — Requirements setzen und den Agenten planen, ausführen und validieren lassen.*
@@ -19,13 +19,13 @@ series_order: 6
 
 Fünf Posts lang hat diese Serie ein Harness gebaut. `CLAUDE.md`, Skills, Rules, Hooks, Subagents — und die Metriken, mit denen du weißt, dass es funktioniert. Jeder dieser Bausteine hat eine Eigenschaft, die bisher unausgesprochen geblieben ist: **Du startest sie.**
 
-Ein Prompt ist etwas, das du eingibst. Ein Skill wird ausgelöst, weil du eine Aufgabe stellst, die die Description aktiviert. Ein Hook feuert, weil du eine Aktion ausgelöst hast. Selbst der Stop-Hook aus Post 4 ist reaktiv — er blockiert eine Fertig-Meldung, aber die Fertig-Meldung kam vom Modell, nicht vom System.
+Ein Prompt ist etwas, das du eingibst. Ein Skill wird ausgelöst, weil du eine Aufgabe stellst, die die Description aktiviert. Ein Hook feuert, weil du eine Aktion ausgelöst hast. Selbst der Stop-Hook aus Post 5 ist reaktiv — er blockiert eine Fertig-Meldung, aber die Fertig-Meldung kam vom Modell, nicht vom System.
 
 Was Peter Steinberger auf dem AI Engineer World's Fair sinngemäß beschrieben hat, markiert den nächsten Schritt: **Ein Ziel ist keine Aktion — es ist ein Zustand, den das System selbst herstellt.** Er schaut Agenten nicht mehr beim Coden zu. Er definiert, was am Ende dasein soll, und der Agent baut so lange, bis genau dieser Zustand erreicht ist.
 
 Das ist Goal Engineering. Cobus Greyling hat den Begriff geprägt, das Muster ist heute in Claude Code produktiv umsetzbar. Dieser Post zeigt wie.
 
-Post 7 wird zeigen, wie du das Ziel nicht mehr selbst startest — das ist Loop Engineering. Aber Loops ohne Goals sind Scheunentore. Erst das Ziel. Dann der Zeitplan.
+Post 8 wird zeigen, wie du das Ziel nicht mehr selbst startest — das ist Loop Engineering. Aber Loops ohne Goals sind Scheunentore. Erst das Ziel. Dann der Zeitplan.
 
 ---
 
@@ -95,7 +95,7 @@ Vier Sektionen, vier verschiedene Adressaten:
 
 ## Der Verifier: Ein deterministisches Skript, kein Urteil des Modells
 
-Post 4 hatte eine scharfe Regel: Was ein Prozessor prüfen kann, prüft ein Hook — deterministisch, nicht inferentiell. Goal Engineering nimmt diese Regel beim Wort. **Der Verifier eines Ziels ist kein zweites Modell, das den Output bewertet. Er ist ein Bash-Skript, das die Fertig-Kriterien gegen den Repo-Zustand ausführt.**
+Post 5 hatte eine scharfe Regel: Was ein Prozessor prüfen kann, prüft ein Hook — deterministisch, nicht inferentiell. Goal Engineering nimmt diese Regel beim Wort. **Der Verifier eines Ziels ist kein zweites Modell, das den Output bewertet. Er ist ein Bash-Skript, das die Fertig-Kriterien gegen den Repo-Zustand ausführt.**
 
 Das klingt bescheidener als *"ein befangenheitsfreier Reviewer"* — ist aber stärker. Ein Skript hat keinen Anteil am Code. Es kennt die zehn Turns nicht, die zum aktuellen Stand geführt haben, es kennt die Kompromisse nicht, die unterwegs getroffen wurden, und es kann sich keine Ecke schönreden, weil sie *"eigentlich okay"* ist. `pytest`, `ruff`, `mypy` und ein paar `grep`s führen aus — sie urteilen nicht. Genau darin liegt die Unbestechlichkeit: Der Verifier ist non-inferentiell.
 
@@ -127,7 +127,7 @@ set -uo pipefail
 
 PROJECT="${CLAUDE_PROJECT_DIR:-.}"
 
-# Kein aktives Ziel? -> normaler Verify-Hook aus Post 4
+# Kein aktives Ziel? -> normaler Verify-Hook aus Post 5
 if [ ! -f "$PROJECT/GOAL.md" ]; then
   exec "$PROJECT/.claude/hooks/verify.sh"
 fi
@@ -179,11 +179,11 @@ exit 2
 
 Was dieses Skript tut:
 
-Es fällt auf den normalen Verify-Hook aus Post 4 zurück, wenn kein Ziel aktiv ist. Das ist wichtig — Goal Engineering ist ein Modus, nicht ein Zustand. Nicht jede Session ist zielgetrieben.
+Es fällt auf den normalen Verify-Hook aus Post 5 zurück, wenn kein Ziel aktiv ist. Das ist wichtig — Goal Engineering ist ein Modus, nicht ein Zustand. Nicht jede Session ist zielgetrieben.
 
-Es fängt den Infinite-Loop-Fall ab (Post 4, Failure Modes). Ein `Stop`-Hook, der bei Rejection wieder feuert und wieder rejectet, produziert einen endlos arbeitenden Agenten.
+Es fängt den Infinite-Loop-Fall ab (Post 5, Failure Modes). Ein `Stop`-Hook, der bei Rejection wieder feuert und wieder rejectet, produziert einen endlos arbeitenden Agenten.
 
-Es prüft jedes Fertig-Kriterium als konkrete Bash-Prüfung und sammelt die offenen Punkte in einem Array. Die Rückmeldung an Claude ist die Liste auf `stderr` plus Exit 2 — genau das Format, das Post 4 als *"stderr-Disziplin"* verlangt hat: nicht *"failed"*, sondern *welches* Kriterium warum offen ist.
+Es prüft jedes Fertig-Kriterium als konkrete Bash-Prüfung und sammelt die offenen Punkte in einem Array. Die Rückmeldung an Claude ist die Liste auf `stderr` plus Exit 2 — genau das Format, das Post 5 als *"stderr-Disziplin"* verlangt hat: nicht *"failed"*, sondern *welches* Kriterium warum offen ist.
 
 Und im Erfolgsfall aktualisiert es `STATE.md`. Damit hat die nächste Session den Kontext, den Post 3 verlangt hat: *"Hier waren wir."*
 
@@ -202,7 +202,7 @@ Was passiert konkret, wenn du das aufsetzt und `claude` startest? Ein Ablauf:
 Claude schreibt einen kurzen Plan: was existiert, was fehlt, welche Reihenfolge. Kein Code.
 
 **Turn 3–8 — Implementation.**
-Endpoint schreiben. Tests schreiben. `PostToolUse`-Hooks (Post 4) prüfen `ruff` und `mypy` inkrementell. Zwei Lint-Warnungen, Claude korrigiert.
+Endpoint schreiben. Tests schreiben. `PostToolUse`-Hooks (Post 5) prüfen `ruff` und `mypy` inkrementell. Zwei Lint-Warnungen, Claude korrigiert.
 
 **Turn 9 — Zwischencheck.**
 Claude läuft `pytest`. Ein Test rot: Der 409-Fall für bereits versandte Orders wird noch nicht abgefangen. Claude korrigiert.
@@ -241,16 +241,16 @@ Das ist Goal Engineering.
 
 ---
 
-## Was Metriken aus Post 5 hier bedeuten
+## Was Metriken aus Post 6 hier bedeuten
 
-Post 5 hat *Time to First Green* und *Turns bis Abschluss* als Session-Metriken definiert. In Goal Engineering bekommen sie eine schärfere Bedeutung:
+Post 6 hat *Time to First Green* und *Turns bis Abschluss* als Session-Metriken definiert. In Goal Engineering bekommen sie eine schärfere Bedeutung:
 
 - **Time to Verified Done** — nicht *Time to First Green*, sondern *Time to Verifier Approval*. Das ist die einzige Zahl, die zählt.
 - **Turns bis Verifier-Approval** — inklusive der Nacharbeit-Turns nach dem ersten Rejection. Eine Session, die *"beim ersten Versuch fertig"* ist, ist selten und meist verdächtig.
 - **Rejection-Rate des Verifiers** — wie oft musste Claude nacharbeiten? Eine hohe Rate ist nicht per se schlecht. Sie ist die Anzeige dafür, wie ambitioniert deine `GOAL.md`-Kriterien sind.
 - **Budget-Ausnutzung** — hat die Session 40% des Budgets gebraucht oder 100%? Eine Session, die konsistent 100% braucht, hat entweder ein zu enges Budget oder ein zu vages Ziel.
 
-Wolffs Vorbehalt aus Post 5 gilt auch hier: Diese Metriken sind Hinweise, keine Wahrheit. Eine hohe Rejection-Rate kann bedeuten, dass Claude schlampt — oder dass dein Team Kriterien aufgeschrieben hat, an denen es sich selbst gerade weiterentwickelt. Ohne das Gespräch weißt du nicht, welches.
+Wolffs Vorbehalt aus Post 6 gilt auch hier: Diese Metriken sind Hinweise, keine Wahrheit. Eine hohe Rejection-Rate kann bedeuten, dass Claude schlampt — oder dass dein Team Kriterien aufgeschrieben hat, an denen es sich selbst gerade weiterentwickelt. Ohne das Gespräch weißt du nicht, welches.
 
 ---
 
@@ -266,9 +266,9 @@ Wolffs Vorbehalt aus Post 5 gilt auch hier: Diese Metriken sind Hinweise, keine 
 
 **Ziel-Drift.** Wenn Claude während der Arbeit merkt, dass ein Fertig-Kriterium schwer erreichbar ist, ist die Verlockung groß, das Kriterium unauffällig weniger streng zu interpretieren. Die Gegenmaßnahme: `GOAL.md` ist read-only während der Session. Änderungen am Ziel sind menschliche Entscheidungen, nicht agentische Anpassungen.
 
-**Ein Ziel für zu viel.** *"Fertig, wenn das ganze Modul refactored ist"* ist zu groß für Goal Engineering. Zerteile es. Fünf kleine `GOAL.md`s hintereinander funktionieren besser als eine große. Litts *"Understanding is the new bottleneck"* aus Post 4 gilt auch hier: Wenn das Ziel so groß ist, dass niemand mehr überblickt, was sich geändert hat, hast du das Verstehen aus dem System geworfen.
+**Ein Ziel für zu viel.** *"Fertig, wenn das ganze Modul refactored ist"* ist zu groß für Goal Engineering. Zerteile es. Fünf kleine `GOAL.md`s hintereinander funktionieren besser als eine große. Litts *"Understanding is the new bottleneck"* aus Post 5 gilt auch hier: Wenn das Ziel so groß ist, dass niemand mehr überblickt, was sich geändert hat, hast du das Verstehen aus dem System geworfen.
 
-**Goal ohne Team-Akzeptanz.** Wolffs Warnung, die in Post 5 zentral war: Ein `GOAL.md`, das ein einzelner Architekt geschrieben hat und das Team nie diskutiert hat, wird umgangen werden. Nicht durch Sabotage, sondern durch Interpretation. Fertig-Kriterien werden von Menschen befolgt oder relativiert — je nachdem, ob sie als *"unsere"* oder als *"seine"* Kriterien wahrgenommen werden.
+**Goal ohne Team-Akzeptanz.** Wolffs Warnung, die in Post 6 zentral war: Ein `GOAL.md`, das ein einzelner Architekt geschrieben hat und das Team nie diskutiert hat, wird umgangen werden. Nicht durch Sabotage, sondern durch Interpretation. Fertig-Kriterien werden von Menschen befolgt oder relativiert — je nachdem, ob sie als *"unsere"* oder als *"seine"* Kriterien wahrgenommen werden.
 
 ---
 
@@ -276,15 +276,15 @@ Wolffs Vorbehalt aus Post 5 gilt auch hier: Diese Metriken sind Hinweise, keine 
 
 > *Ein Prompt endet, wenn das Modell aufhört. Ein Ziel endet, wenn ein Verifier bestätigt. Ein Ziel ohne Verifier ist ein Prompt in Verkleidung.*
 
-Goal Engineering ist die technische Antwort auf Peter Steinbergers Verschiebung: vom Zuschauen zum Requirements-Setzen. Der `Stop`-Hook aus Post 4 ist der Ort, an dem der Verifier lebt. Das deterministische Skript ist seine Unbestechlichkeit. `GOAL.md` aus Post 3 ist der Vertrag. Zusammen ergeben sie ein Muster, das eine Aufgabe autonom bis zum verifizierbaren Ende trägt.
+Goal Engineering ist die technische Antwort auf Peter Steinbergers Verschiebung: vom Zuschauen zum Requirements-Setzen. Der `Stop`-Hook aus Post 5 ist der Ort, an dem der Verifier lebt. Das deterministische Skript ist seine Unbestechlichkeit. `GOAL.md` aus Post 3 ist der Vertrag. Zusammen ergeben sie ein Muster, das eine Aufgabe autonom bis zum verifizierbaren Ende trägt.
 
-Post 7 zeigt, wie du dieses Muster nicht mehr selbst startest.
+Post 8 zeigt, wie du dieses Muster nicht mehr selbst startest.
 
 ---
 
 ## Was kommt als nächstes
 
-Post 7 zeigt Loop Engineering: Ziele, die nicht mehr auf deinen Anstoß warten, sondern auf einen Zeitplan. Shawn Wangs Bogen — Chat → Tools → Goals → Loops — bekommt sein letztes Wort. Aber auch der ehrliche Gegenwind: Geoff Huntleys Kubernetes-Analogie *"nächstes Jahr die Welle der 'unsere Loops sind gescheitert'-Talks"* und Dex Horthys Erfahrung, dass Loops ohne Menschen im Kreislauf nicht funktionieren.
+Post 8 zeigt Loop Engineering: Ziele, die nicht mehr auf deinen Anstoß warten, sondern auf einen Zeitplan. Shawn Wangs Bogen — Chat → Tools → Goals → Loops — bekommt sein letztes Wort. Aber auch der ehrliche Gegenwind: Geoff Huntleys Kubernetes-Analogie *"nächstes Jahr die Welle der 'unsere Loops sind gescheitert'-Talks"* und Dex Horthys Erfahrung, dass Loops ohne Menschen im Kreislauf nicht funktionieren.
 
 ---
 
@@ -294,4 +294,4 @@ Post 7 zeigt Loop Engineering: Ziele, die nicht mehr auf deinen Anstoß warten, 
 - **Peter Steinberger** — Vortrag am AI Engineer World's Fair, Juli 2026. Die pointierteste Formulierung der Verschiebung vom Zuschauer zum Requirements-Setzer (hier sinngemäß wiedergegeben, nicht wörtlich zitiert).
 - **Anthropic Engineering** — *"Effective harnesses for long-running agents"*. Case Study zur Implementation von Long-Running-Sessions mit externem State und Verifier-Pattern. [anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
 - **Claude Code Subagents-Dokumentation** — [code.claude.com/docs/en/sub-agents](https://code.claude.com/docs/en/sub-agents) für Subagent-Frontmatter (`name`, `description`, `tools`, `model`, `permissionMode`, `maxTurns`) und tool-scoped Bash-Restriktionen.
-- **Zum Feld:** Post 7 (Loop Engineering) greift Shawn Wang, Geoff Huntley und Dex Horthy konkret auf. Ihre Argumente über automatisierte Loops sind nur verständlich, wenn Goal Engineering vorher sitzt.
+- **Zum Feld:** Post 8 (Loop Engineering) greift Shawn Wang, Geoff Huntley und Dex Horthy konkret auf. Ihre Argumente über automatisierte Loops sind nur verständlich, wenn Goal Engineering vorher sitzt.

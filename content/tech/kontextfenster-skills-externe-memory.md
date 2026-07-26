@@ -146,7 +146,7 @@ Diese Datei wird oft aktualisiert. Sie ist explizit gemeint, um Claude beim Sess
 
 ### `GOAL.md` — das aktuelle Ziel
 
-Wenn du Goal Engineering (Post 5) ernst meinst, ist `GOAL.md` die Datei, in der ein laufendes Ziel lebt — was erreicht werden soll, woran "fertig" erkennbar ist, was bisher geprüft wurde. Mehr dazu in Post 5.
+Wenn du Goal Engineering (Post 6) ernst meinst, ist `GOAL.md` die Datei, in der ein laufendes Ziel lebt — was erreicht werden soll, woran "fertig" erkennbar ist, was bisher geprüft wurde. Mehr dazu in Post 6.
 
 ---
 
@@ -261,7 +261,7 @@ Das nennt man Context Engineering. Es ist die Disziplin, *wo* Wissen lebt — ni
 
 ## Was kommt als nächstes
 
-Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein Hook blockieren, und wo zieht man die Grenze zwischen "Modell soll das wissen" und "Hook soll das erzwingen." Tariq Shaukat hat auf dem AI Engineer World's Fair den Satz geprägt, um den es dabei geht: *"In the Land of AI Agents, the Verifiers Are King."*
+Post 4 stellt die Parallelfrage für **Zugriff**: das Model Context Protocol (MCP) verbindet Claude Code mit deinen Systemen — Jira, Confluence, Datenbanken, CRM — und klärt, wann sich ein MCP-Server lohnt und wann ein Skill die bessere Wahl ist. Post 5 vertieft dann Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein Hook blockieren, und wo zieht man die Grenze zwischen "Modell soll das wissen" und "Hook soll das erzwingen." Tariq Shaukat hat auf dem AI Engineer World's Fair den Satz geprägt, um den es dabei geht: *"In the Land of AI Agents, the Verifiers Are King."*
 
 ---
 
@@ -276,7 +276,7 @@ Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein H
 - **Claude Code Dokumentation** — *"How Claude remembers your project"* für die Auto-Memory-Funktion (v2.1.59+) und die `CLAUDE.md`-Hierarchie. [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory)
 - **Cobus Greyling** — sein [goal-engineering](https://github.com/cobusgreyling/goal-engineering)-Repo etabliert `GOAL.md` als Pattern für persistente Ziele über Session-Grenzen hinweg.
 - **Michael Nygard** — *"Documenting Architecture Decisions"* (2011). Der Original-Blogpost zu ADRs, auf den das `DECISIONS.md`-Pattern direkt zurückgeht.
-- **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) und die Verifier-Debatte (Geoffrey Litt, Tariq Shaukat, Laurie Voss) haben auf dem AI Engineer World's Fair im Juli 2026 gemeinsam eine Bühne bekommen. Post 4 (Sensoren) und Post 6 (Loop Engineering) greifen diese Stimmen konkret auf.
+- **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) und die Verifier-Debatte (Geoffrey Litt, Tariq Shaukat, Laurie Voss) haben auf dem AI Engineer World's Fair im Juli 2026 gemeinsam eine Bühne bekommen. Post 5 (Sensoren) und Post 8 (Loop Engineering) greifen diese Stimmen konkret auf.
 
 [^1]: Update 05.07.2026 (Commit b0e234e): Ergänzung des agnix-Tools zur Überprüfung der Skill-Fitness.
 [^2]: Update 02.07.2026 (Commit 3c8fff4): Hinzufügen der Tooling-Antwort mit TokenSave, RTK und context-mem.

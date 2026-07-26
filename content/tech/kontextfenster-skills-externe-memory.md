@@ -70,7 +70,7 @@ Ein konkretes Beispiel. Stell dir vor, ein Skill `design-by-contract/SKILL.md` d
 
 Die mittlere Zeile gewinnt. Skills sind die Schicht, in der die meisten benannten Anker aus deinen `CLAUDE.md`-Beispielen (Post 1) leben sollten — nicht aus Geiz, sondern aus Recall-Treffsicherheit.
 
-### Skill Fitness & Validation mit agnix
+### Skill Fitness & Validation mit agnix[^1]
 
 Damit dieser Progressive-Disclosure-Mechanismus reibungslos funktioniert, müssen die Metadaten und die Ordnerstruktur der Skills fehlerfrei sein. Wenn die Description im YAML-Frontmatter einen Syntaxfehler hat oder die Triggermuster ungenau sind, verliert das Modell den Zugriff auf den Skill (der Skill verliert seine "Fitness").
 
@@ -147,6 +147,26 @@ Diese Datei wird oft aktualisiert. Sie ist explizit gemeint, um Claude beim Sess
 ### `GOAL.md` — das aktuelle Ziel
 
 Wenn du Goal Engineering (Post 5) ernst meinst, ist `GOAL.md` die Datei, in der ein laufendes Ziel lebt — was erreicht werden soll, woran "fertig" erkennbar ist, was bisher geprüft wurde. Mehr dazu in Post 5.
+
+---
+
+## Die Tooling-Antwort: MCP-Server & Token-Saving CLI-Tools[^2]
+
+Obwohl handgeschriebene Markdown-Dateien hervorragend für konzeptionelles Wissen funktionieren, gibt es für den Entwicklungs-Alltag mittlerweile spezialisierte Werkzeuge, die diesen Prozess automatisieren und Token-Kosten drastisch reduzieren:
+
+### 1. TokenSave (`tokensave.dev`)
+TokenSave fungiert als lokaler Code-Intelligence-Server über das **Model Context Protocol (MCP)**. 
+*   **Funktionsweise**: Es indiziert die Codebase in einen lokalen semantischen Wissensgraphen (`.tokensave/tokensave.db` via libSQL).
+*   **Token-Vorteil**: Statt dass der Agent bei jeder Frage ("Wo wird X aufgerufen?") ganze Verzeichnisse einlesen muss, stellt TokenSave gezielte semantische Suchergebnisse bereit. Das spart repetitive Datei-Scans und verhindert die "Session-Amnesie".
+*   **Sicherheit**: 100 % lokale Ausführung, kein Code verlässt die Entwicklerumgebung.
+
+### 2. RTK (Rust Token Killer)
+Ein kompaktes CLI-Proxy-Tool für Terminal-Ausgaben.
+*   **Funktionsweise**: Es fängt die Ausgaben von CLI-Befehlen (z. B. `git diff`, `git log` oder Suchergebnissen) ab, filtert Rauschen und komprimiert sie vor der Übermittlung an das Modell.
+*   **Token-Vorteil**: Reduziert das Token-Volumen bei langen Terminal-Ausgaben um 60–90 %, indem es redundante Zeilen, Whitespaces und redundante Dateipfade bereinigt.
+
+### 3. context-mem
+Ein MCP-Server, der als "lebendes Wiki" dient. Er schreibt Tool-Ausgaben, Interaktionsergebnisse und Zusammenfassungen automatisch in eine persistente Markdown-Datenbank, auf die Agenten in nachfolgenden Sessions direkt zugreifen können.
 
 ---
 
@@ -257,3 +277,6 @@ Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein H
 - **Cobus Greyling** — sein [goal-engineering](https://github.com/cobusgreyling/goal-engineering)-Repo etabliert `GOAL.md` als Pattern für persistente Ziele über Session-Grenzen hinweg.
 - **Michael Nygard** — *"Documenting Architecture Decisions"* (2011). Der Original-Blogpost zu ADRs, auf den das `DECISIONS.md`-Pattern direkt zurückgeht.
 - **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) und die Verifier-Debatte (Geoffrey Litt, Tariq Shaukat, Laurie Voss) haben auf dem AI Engineer World's Fair im Juli 2026 gemeinsam eine Bühne bekommen. Post 4 (Sensoren) und Post 6 (Loop Engineering) greifen diese Stimmen konkret auf.
+
+[^1]: Update 05.07.2026 (Commit b0e234e): Ergänzung des agnix-Tools zur Überprüfung der Skill-Fitness.
+[^2]: Update 02.07.2026 (Commit 3c8fff4): Hinzufügen der Tooling-Antwort mit TokenSave, RTK und context-mem.

@@ -104,7 +104,7 @@ Was dieser Block bewirkt:
 
 Drei Hooks. Zwölf Zeilen Konfiguration. Jede Session, die danach läuft, ist gegen die drei häufigsten Klassen von Agenten-Fehlern immun: **Secret-Leaks, Lint-Drift, verfrühte Fertig-Meldungen.**
 
-### Ergänzendes Beispiel: Blockieren gefährlicher Parameter (Bypass-Schutz)
+### Ergänzendes Beispiel: Blockieren gefährlicher Parameter (Bypass-Schutz)[^1]
 
 Manchmal versucht ein Agent, das lokale Harness oder Git-Sicherheitsprüfungen zu umgehen – beispielsweise durch ein beherztes `git push --no-verify` oder ein destruktives `git reset --hard`. 
 
@@ -215,7 +215,7 @@ Zwischen Shaukats Verifier-Ökonomie und Litts Understanding-Vorbehalt läuft di
 
 **Stop-Hook als Alibi.** Ein `Stop`-Hook, der nur die Test-Suite ausführt, aber keine Integration-Tests, keine Coverage-Prüfung, keinen Type-Check, ist kein Verifier — er ist ein Feigenblatt. Wenn du "fertig" definierst, definier es ehrlich.
 
-**Infinite Stop-Loops.** Ein `Stop`-Hook, der bei Fehlern mit Exit 2 abbricht, kann den Agenten in eine Endlosschleife treiben: Der Hook scheitert, der Agent versucht den Code zu reparieren, schließt die Aufgabe ab, triggert den `Stop`-Hook erneut, der wieder scheitert. 
+**Infinite Stop-Loops.**[^2] Ein `Stop`-Hook, der bei Fehlern mit Exit 2 abbricht, kann den Agenten in eine Endlosschleife treiben: Der Hook scheitert, der Agent versucht den Code zu reparieren, schließt die Aufgabe ab, triggert den `Stop`-Hook erneut, der wieder scheitert. 
 
 Um diesen Loop-Effekt zu verhindern, übergibt die Claude-Code-Runtime dem Hook-Script ein JSON-Objekt auf `stdin`, das ein Flag namens `stop_hook_active` enthält. Ist dieses `true`, läuft der Hook bereits in einer Reparatur-Schleife und sollte mit Exit 0 durchwinken.
 
@@ -309,3 +309,6 @@ Post 5 zeigt Goal Engineering: Aufgaben, die laufen, bis ein verifizierbares "fe
 - **Martin Fowler** — *"Harness Engineering for Coding Agent Users."* Die abstrakte Framework-Ebene: warum Guides und Sensoren getrennte Kategorien sind, und wie sie zusammenspielen.
 - **Simon Willison** — *"The Lethal Trifecta."* Für den Sicherheits-Hook-Teil: welche Angriffs­flächen ein PreToolUse-Hook konkret verkleinert und welche nicht.
 - **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) läuft parallel zur Verifier-Debatte. Post 6 greift diese Stimmen konkret auf.
+
+[^1]: Update 26.07.2026 (Commit 8b0640f): Hinzufügen des PreToolUse-Bypass-Schutz-Skripts (`prevent-bypass.sh`).
+[^2]: Update 07.07.2026 (Commit 179aa65): Ergänzung des `verify.sh`-Beispiels zur Lösung der Stop-Hook-Endlosschleife.

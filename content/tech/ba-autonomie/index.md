@@ -115,7 +115,7 @@ Damit das nicht theoretisch bleibt: Gemeinnützigen Organisationen helfe ich bei
 
 ---
 
-## Die Tooling-Landschaft: Jira mit Microsoft (GitHub / Azure DevOps) verbinden
+## Die Tooling-Landschaft: Jira mit Microsoft (GitHub / Azure DevOps) verbinden[^1]
 
 Um diesen Workflow in der Realität umzusetzen, muss die Brücke zwischen dem Ticket-System der Fachseite (**Jira**) und der Microsoft-Entwicklungsplattform (**GitHub** oder **Azure DevOps**) geschlagen werden. Das läuft über drei Zahnräder:
 
@@ -145,4 +145,6 @@ Wenn dein Team Azure Boards/Repos nutzt, funktioniert die Integration über Pipe
 ### Was man vor dem Start bedenken sollte
 *   **API-Berechtigungen**: Der AI-Agent benötigt Lese-Zugriff auf Jira (API-Token des BAs/Service-Accounts) und Schreib-Zugriff auf das Repository (GitHub Personal Access Token oder Azure Pipeline Service Connection).
 *   **Deterministische Verifizierung**: Ohne automatische Test-Suites (CI/CD) in GitHub Actions oder Azure Pipelines darf kein AI-PR erstellt werden. Der Bot muss wissen, ob sein Code baut, bevor der Entwickler den PR sieht.
+
+[^1]: Update 16.07.2026 (Commit 7b64413): Hinzufügen der Tooling-Landschaft zur Jira-Microsoft-Integration.
 

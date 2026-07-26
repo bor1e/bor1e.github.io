@@ -1,12 +1,4 @@
----
-title: "ADR-001: Choosing a Static Site Generator"
-date: 2026-03-22
-draft: false
-description: "Architecture Decision Record — Why the generator barely matters when your real stack is Markdown, AsciiDoc, and Claude."
-tags: ["hugo", "static-site", "architecture", "tooling", "adr"]
-categories: ["tech"]
-personas: ["tech"]
----
+# ADR-001: Choosing a Static Site Generator
 
 ## Status
 

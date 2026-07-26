@@ -1,12 +1,4 @@
----
-title: "ADR-002: Documenting and Highlighting Blog Post Revisions"
-date: 2026-07-26
-draft: false
-description: "Architecture Decision Record — Why and how we track and highlight blog post revisions using markdown footnotes."
-tags: ["blog", "documentation", "revisions", "adr"]
-categories: ["tech"]
-personas: ["tech"]
----
+# ADR-002: Documenting and Highlighting Blog Post Revisions
 
 ## Status
 

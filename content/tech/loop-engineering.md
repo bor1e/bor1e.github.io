@@ -23,6 +23,12 @@ Loop Engineering entfernt den letzten Schritt: **du startest nichts mehr.** Der 
 
 Shawn Wang hat auf dem AI Engineer World's Fair im Juli 2026 den Bogen der letzten drei Jahre auf vier Wörter verdichtet: **Chat → Tools → Goals → Loops.** Chat war 2022. Tools waren 2023–2024. Goals war Post 6. Loops sind dieser Post. Das ist Wangs Bogen.
 
+### Das Henne-Ei-Problem: Warum Goals vor Loops kommen müssen
+
+In manchen theoretischen Modellen der agentischen Evolution steht die Schleife (der Loop) am Anfang: Ein Agent läuft in einer ständigen Feedback-Schleife aus Lesen, Planen und Handeln. In dieser Sichtweise würde Loop Engineering dem Goal Engineering vorausgehen. 
+
+Für den produktiven Software-Alltag ist diese Reihenfolge jedoch eine Einladung zur unkontrollierten Token-Verbrennung. Ein autonomer, im Hintergrund laufender Loop (wie ein Cronjob oder CI-Trigger) ohne ein maschinell verifizierbares Ziel (`GOAL.md`) ist ein Boot ohne Anker. Der Loop läuft unendlich, weil er keine definierte Abbruchbedingung hat. **Goal Engineering ist die notwendige Zähmung des Loops.** Erst wenn wir ein System besitzen, das deterministisch sagen kann *"Aufgabe erfüllt, wir können aufhören"*, können wir den Agenten gefahrlos nachts unbeaufsichtigt laufen lassen.
+
 Dieser Post zeigt, was Loops in Claude Code konkret sind, wie du einen produktiv aufsetzt, und — das ist der ehrliche Teil — warum die Diskussion darüber gerade schon einen Schritt weiter ist. Andrew Ng hat Mitte Juli 2026 einen Kurs veröffentlicht, der Loops als *erste Stufe* einer längeren Progression positioniert, nicht als Endpunkt. Peter Steinberger hat kurz danach die These auf X in einem viel diskutierten Post zugespitzt. Post 8 wird diesen Punkt aufnehmen. Hier reicht die Vorwarnung: Loops sind mächtig, aber sie sind nicht das Ende der Geschichte — und diese Erkenntnis ist keine Zukunftsprognose mehr, sondern die laufende Debatte.
 
 ---

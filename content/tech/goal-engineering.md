@@ -260,6 +260,8 @@ Wolffs Vorbehalt aus Post 5 gilt auch hier: Diese Metriken sind Hinweise, keine 
 
 **Verifier-Kollaps.** Ein Verifier, der selbst ein Modell ist — noch dazu dasselbe wie der Hauptagent — benotet seine eigenen Hausaufgaben. Genau deshalb ist der Verifier hier ein deterministisches Skript: Tests, Lint, Coverage, Diff-Greps führen aus, sie urteilen nicht. Die urteilsbehafteten Kriterien (SOLID, Lesbarkeit) delegierst du an einen separaten Code-Reviewer-Subagenten — dessen Votum das Skript nur als Artefakt prüft, nicht selbst fällt.
 
+**Schatten-Logik im Verifier-Skript.** Wenn das Verifier-Skript (`goal-verify.sh`) zu komplex wird – weil es beispielsweise selbst Test-Setups orchestriert, Datenbank-Zustände manipuliert oder komplizierte Assertions enthält –, wird das Skript zur Schatten-Implementierung des Features. Der Code verlagert sich aus der App in den Test-Harness. Die Regel lautet: Der Verifier führt nur aus (z. B. `pytest`), die fachlichen und logischen Assertions gehören in die Test-Suite der Anwendung.
+
 **Fehlende Budgets.** Ein Ziel ohne Turn- oder Token-Limit ist ein Ziel, das dich Geld kosten kann, während du schläfst. Immer ein Budget. Immer.
 
 **Ziel-Drift.** Wenn Claude während der Arbeit merkt, dass ein Fertig-Kriterium schwer erreichbar ist, ist die Verlockung groß, das Kriterium unauffällig weniger streng zu interpretieren. Die Gegenmaßnahme: `GOAL.md` ist read-only während der Session. Änderungen am Ziel sind menschliche Entscheidungen, nicht agentische Anpassungen.

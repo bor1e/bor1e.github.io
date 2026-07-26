@@ -237,3 +237,5 @@ Post 6 zeigt Goal Engineering: die technische Grundlage dafür, dass eine Aufgab
 - **LiteLLM Observability** — [docs.litellm.ai](https://docs.litellm.ai) für Token-Spend-Aggregation über Anthropic und andere Provider.
 - **Charity Majors, Liz Fong-Jones, George Miranda** — *"Observability Engineering"* (O'Reilly 2022). Für den generellen Observability-Stack. Die Prinzipien übertragen sich sauber auf agentische Systeme.
 - **Kent Beck** — sein Substack [tidyfirst.substack.com](https://tidyfirst.substack.com) behandelt regelmäßig, wie sich Refactoring-Disziplin in agentischen Workflows verändert. Kein einzelner Post zum Verlinken, aber die laufende Reihe lohnt sich.
+- **LangChain / LangSmith Evaluation Docs** — Guides zu Performance-Metriken für AI-Agenten, insbesondere zum *Task Completion Rate (TCR)* und dem Verhältnis von autonomen Aktionen zu Human-in-the-Loop-Interventionen (Autonomy Index).
+- **Towards AI / Vectorize.io Research** — Arbeiten zur Definition der *Self-Correction Rate* (selbstständige Fehlererholung bei Tool- und Linter-Fehltritten) als Kernmaß für agentische Stabilität in CI/CD-Pipelines.

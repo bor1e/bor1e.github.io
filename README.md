@@ -15,6 +15,7 @@ content/
   tech/          # Architecture & AI posts
   lehre/         # Jewish teaching & learning posts
   about/         # About page
+docs/            # Project documentation & decisions (ADRs)
 layouts/
   shortcodes/
     plantuml.html  # PlantUML via server API
@@ -24,6 +25,14 @@ archetypes/
   tech.md        # Template for new tech posts
   lehre.md       # Template for new lehre posts
 ```
+
+## Architecture Decisions (ADRs)
+
+Project decisions, design justifications, and editorial guidelines are documented as Architecture Decision Records (ADRs) in the [docs/](file:///Users/elyahuborodin/Documents/projects/bor1e.github.io/docs) directory:
+
+- [ADR-001: Choosing a Static Site Generator](file:///Users/elyahuborodin/Documents/projects/bor1e.github.io/docs/adr-001-static-site-generator.md) — Rationale for static site tooling.
+- [ADR-002: Documenting and Highlighting Blog Post Revisions](file:///Users/elyahuborodin/Documents/projects/bor1e.github.io/docs/adr-002-blog-post-revision-tracking.md) — Guidelines for tracking edits to published posts via footnotes.
+
 
 ## Development
 

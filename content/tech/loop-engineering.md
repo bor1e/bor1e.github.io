@@ -7,7 +7,7 @@ tags: ["claude-code", "loop-engineering", "cron", "github-actions", "loopcraft",
 categories: ["tech"]
 personas: ["tech"]
 series: ["Vom Hype zum Harness"]
-series_order: 7
+series_order: 8
 ---
 
 > *„Loopcraft: The Art of Stacking Loops."*
@@ -17,11 +17,11 @@ series_order: 7
 
 ## Wo wir stehen
 
-Post 6 hat gezeigt, wie eine Aufgabe autonom bis zum verifizierbaren Ende läuft — Goal Engineering. Aber ein Ziel ist immer noch etwas, das *du* startest. Du öffnest das Terminal, schreibst `GOAL.md`, tippst `claude`, und dann übernimmt das System.
+Post 7 hat gezeigt, wie eine Aufgabe autonom bis zum verifizierbaren Ende läuft — Goal Engineering. Aber ein Ziel ist immer noch etwas, das *du* startest. Du öffnest das Terminal, schreibst `GOAL.md`, tippst `claude`, und dann übernimmt das System.
 
 Loop Engineering entfernt den letzten Schritt: **du startest nichts mehr.** Der Agent läuft, weil ein Timer abgelaufen ist, ein Webhook gefeuert hat, oder eine Bedingung eingetreten ist. Er entscheidet, ob es etwas zu tun gibt. Wenn ja, arbeitet er. Wenn nein, schläft er weiter.
 
-Shawn Wang hat auf dem AI Engineer World's Fair im Juli 2026 den Bogen der letzten drei Jahre auf vier Wörter verdichtet: **Chat → Tools → Goals → Loops.** Chat war 2022. Tools waren 2023–2024. Goals war Post 6. Loops sind dieser Post. Das ist Wangs Bogen.
+Shawn Wang hat auf dem AI Engineer World's Fair im Juli 2026 den Bogen der letzten drei Jahre auf vier Wörter verdichtet: **Chat → Tools → Goals → Loops.** Chat war 2022. Tools waren 2023–2024. Goals war Post 7. Loops sind dieser Post. Das ist Wangs Bogen.
 
 ### Das Henne-Ei-Problem: Warum Goals vor Loops kommen müssen
 
@@ -29,7 +29,7 @@ In manchen theoretischen Modellen der agentischen Evolution steht die Schleife (
 
 Für den produktiven Software-Alltag ist diese Reihenfolge jedoch eine Einladung zur unkontrollierten Token-Verbrennung. Ein autonomer, im Hintergrund laufender Loop (wie ein Cronjob oder CI-Trigger) ohne ein maschinell verifizierbares Ziel (`GOAL.md`) ist ein Boot ohne Anker. Der Loop läuft unendlich, weil er keine definierte Abbruchbedingung hat. **Goal Engineering ist die notwendige Zähmung des Loops.** Erst wenn wir ein System besitzen, das deterministisch sagen kann *"Aufgabe erfüllt, wir können aufhören"*, können wir den Agenten gefahrlos nachts unbeaufsichtigt laufen lassen.
 
-Dieser Post zeigt, was Loops in Claude Code konkret sind, wie du einen produktiv aufsetzt, und — das ist der ehrliche Teil — warum die Diskussion darüber gerade schon einen Schritt weiter ist. Andrew Ng hat Mitte Juli 2026 einen Kurs veröffentlicht, der Loops als *erste Stufe* einer längeren Progression positioniert, nicht als Endpunkt. Peter Steinberger hat kurz danach die These auf X in einem viel diskutierten Post zugespitzt. Post 8 wird diesen Punkt aufnehmen. Hier reicht die Vorwarnung: Loops sind mächtig, aber sie sind nicht das Ende der Geschichte — und diese Erkenntnis ist keine Zukunftsprognose mehr, sondern die laufende Debatte.
+Dieser Post zeigt, was Loops in Claude Code konkret sind, wie du einen produktiv aufsetzt, und — das ist der ehrliche Teil — warum die Diskussion darüber gerade schon einen Schritt weiter ist. Andrew Ng hat Mitte Juli 2026 einen Kurs veröffentlicht, der Loops als *erste Stufe* einer längeren Progression positioniert, nicht als Endpunkt. Peter Steinberger hat kurz danach die These auf X in einem viel diskutierten Post zugespitzt. Post 9 wird diesen Punkt aufnehmen. Hier reicht die Vorwarnung: Loops sind mächtig, aber sie sind nicht das Ende der Geschichte — und diese Erkenntnis ist keine Zukunftsprognose mehr, sondern die laufende Debatte.
 
 ---
 
@@ -38,7 +38,7 @@ Dieser Post zeigt, was Loops in Claude Code konkret sind, wie du einen produktiv
 Ein Loop ist die Kombination aus vier Bausteinen, die diese Serie in den vorherigen Posts einzeln behandelt hat:
 
 1. **Ein Trigger** — Zeit (`cron`), Ereignis (Webhook), oder Zustand (Datei-Watcher, CI-Signal)
-2. **Ein Ziel** — `GOAL.md` aus Post 6, oder eine parametrisierte Variante davon
+2. **Ein Ziel** — `GOAL.md` aus Post 7, oder eine parametrisierte Variante davon
 3. **Ein Verifier** — Stop-Hook + Subagent aus Posts 4 und 6
 4. **Eine Eskalationsregel** — was passiert, wenn das Ziel *nicht* automatisch erreichbar ist
 
@@ -117,11 +117,11 @@ else
 fi
 ```
 
-Was dieser Loop macht: Er läuft um 3:00 Uhr morgens. Er erstellt einen frischen Branch, damit die Loop-Arbeit isoliert bleibt. Er schreibt ein `GOAL.md`, das diese Nacht beschreibt (nicht ein permanentes Ziel). Er startet Claude Code im Headless-Modus mit `-p`. Der Verifier-Subagent aus Post 6 prüft am Ende, ob das Ziel erreicht wurde. Und dann kommt der wichtigste Teil: Er unterscheidet zwischen sauberem Abschluss und Zwischenstand mit offenen Punkten. Bei sauberem Abschluss committet er. Bei allem anderen alarmiert er einen Menschen.
+Was dieser Loop macht: Er läuft um 3:00 Uhr morgens. Er erstellt einen frischen Branch, damit die Loop-Arbeit isoliert bleibt. Er schreibt ein `GOAL.md`, das diese Nacht beschreibt (nicht ein permanentes Ziel). Er startet Claude Code im Headless-Modus mit `-p`. Der Verifier-Subagent aus Post 7 prüft am Ende, ob das Ziel erreicht wurde. Und dann kommt der wichtigste Teil: Er unterscheidet zwischen sauberem Abschluss und Zwischenstand mit offenen Punkten. Bei sauberem Abschluss committet er. Bei allem anderen alarmiert er einen Menschen.
 
 Am Morgen findest du entweder einen PR mit Fixes und dem Loop-Log, oder eine Slack-Nachricht mit einem Zwischenstand. Beides ist ein valides Ergebnis. Nur das Schweigen wäre ein Fehler.
 
-**`--dangerously-skip-permissions` in einem Cron-Loop:** Das Flag existiert, weil ein Loop niemanden hat, der Permission-Prompts beantwortet. Es ist bewusst so benannt — Anthropic hätte es `--non-interactive` nennen können, hat aber "dangerously" gewählt, als expliziten Warnhinweis. Dieser Loop kompensiert mit drei anderen Schutzschichten: der isolierte Branch (kein Schaden am Hauptcode), die expliziten Human-Gates in `GOAL.md` (Grenzen, die das Modell respektieren muss), und die `PreToolUse`-Hooks aus Post 4 (Secret-Scans, die selbst mit übersprungenen Prompts noch feuern). Für höhere Isolation läuft der Loop idealerweise in einem Docker-Container ohne Netzwerkzugriff außer zur Anthropic-API und zu GitHub.
+**`--dangerously-skip-permissions` in einem Cron-Loop:** Das Flag existiert, weil ein Loop niemanden hat, der Permission-Prompts beantwortet. Es ist bewusst so benannt — Anthropic hätte es `--non-interactive` nennen können, hat aber "dangerously" gewählt, als expliziten Warnhinweis. Dieser Loop kompensiert mit drei anderen Schutzschichten: der isolierte Branch (kein Schaden am Hauptcode), die expliziten Human-Gates in `GOAL.md` (Grenzen, die das Modell respektieren muss), und die `PreToolUse`-Hooks aus Post 5 (Secret-Scans, die selbst mit übersprungenen Prompts noch feuern). Für höhere Isolation läuft der Loop idealerweise in einem Docker-Container ohne Netzwerkzugriff außer zur Anthropic-API und zu GitHub.
 
 ---
 
@@ -174,7 +174,7 @@ Der große Unterschied zum Cron-Setup: Berechtigungen laufen über die GitHub-Ac
 
 ## Der Maker/Checker-Split
 
-Der Triage-Loop oben hat einen versteckten Kompromiss: Der gleiche Agent, der die Fixes schreibt, entscheidet auch, ob sie gut genug sind. Der Verifier-Subagent aus Post 6 mildert das ab — er hat keinen Konversationskontext — aber er nutzt dasselbe Modell.
+Der Triage-Loop oben hat einen versteckten Kompromiss: Der gleiche Agent, der die Fixes schreibt, entscheidet auch, ob sie gut genug sind. Der Verifier-Subagent aus Post 7 mildert das ab — er hat keinen Konversationskontext — aber er nutzt dasselbe Modell.
 
 Für höhere Stakes brauchst du einen Maker/Checker-Split: zwei separate Loop-Läufe, mit unterschiedlichen Berechtigungen und unterschiedlichen Verantwortungen.
 
@@ -197,7 +197,7 @@ Ng argumentiert nicht, dass Loops schlecht sind. Er argumentiert, dass sie eine 
 - **Loop-Schwäche 2: Ein Agent, viele Aufgaben.** Ein Loop ist per Definition ein Agent, der iteriert. Multiple Spezialisten, die parallel arbeiten und ihre Ergebnisse teilen — dafür sind Loops nicht gebaut. Das ist die Netzwerk-Stufe.
 - **Loop-Schwäche 3: Keine geteilte Wahrheit.** Der Loop weiß, was er letzte Nacht gemacht hat, weil `STATE.md` es sagt. Aber ein zweiter Loop, der parallel läuft, muss dieselbe Datei lesen und riskiert Konflikte. Für echte Multi-Loop-Systeme brauchst du eine geteilte, konsistente Wissensrepräsentation. Das ist die Graph-Stufe.
 
-Ng's Botschaft: Fang mit Loops an. Miss, wo sie brechen. Investier in die nächste Stufe erst, wenn eine spezifische Loop-Grenze zur bindenden Beschränkung wird. Diese Serie folgt derselben Logik. Post 7 zeigt Loops. Post 8 zeigt, was danach kommt.
+Ng's Botschaft: Fang mit Loops an. Miss, wo sie brechen. Investier in die nächste Stufe erst, wenn eine spezifische Loop-Grenze zur bindenden Beschränkung wird. Diese Serie folgt derselben Logik. Post 8 zeigt Loops. Post 9 zeigt, was danach kommt.
 
 ---
 
@@ -225,7 +225,7 @@ Der praktische Rückschluss aus beiden Stimmen: Loops mit menschlicher Gate-Kont
 
 **Loops ohne Budget.** Ein `cron`-Job, der API-Kosten produziert und keine Obergrenze kennt, ist eine Rechnungsüberraschung, die auf ihren Moment wartet. Immer Token-Budgets in `GOAL.md`. Immer Kill-Switches im Skript.
 
-**Loops als Skalierung eines schlechten Prozesses.** Wenn dein manueller Prozess kaputt ist, wird der automatisierte Loop davon eine schnellere kaputte Version. Loops verstärken, was da ist. Sie reparieren nichts, was der zugrundeliegende Prozess nicht schon reparieren würde. Wolffs Warnung aus Post 5 gilt hier doppelt: Ein Loop, den das Team nicht akzeptiert, wird umgangen — und ein Loop, der umgangen wird, wird nicht besser durch Automatisierung.
+**Loops als Skalierung eines schlechten Prozesses.** Wenn dein manueller Prozess kaputt ist, wird der automatisierte Loop davon eine schnellere kaputte Version. Loops verstärken, was da ist. Sie reparieren nichts, was der zugrundeliegende Prozess nicht schon reparieren würde. Wolffs Warnung aus Post 6 gilt hier doppelt: Ein Loop, den das Team nicht akzeptiert, wird umgangen — und ein Loop, der umgangen wird, wird nicht besser durch Automatisierung.
 
 **Loop-Stapelei ohne Design.** Wangs *Loopcraft: The Art of Stacking Loops* ist bewusst gewählt: Loops zu stapeln ist eine Kunst, kein automatisches Ergebnis. Zwei Loops, die auf denselben Zustand schreiben, brauchen Koordination — sonst überschreiben sie sich gegenseitig, produzieren Konflikte, oder erzeugen inkonsistente Historien. Das ist der Punkt, an dem Loops in Netzwerke übergehen, und Netzwerke in Graphen.
 
@@ -235,7 +235,7 @@ Der praktische Rückschluss aus beiden Stimmen: Loops mit menschlicher Gate-Kont
 
 > *Ein Loop ohne Trigger, Ziel, Verifier und Eskalation ist keine Automatisierung — es ist ein Wunsch mit Cron-Job.*
 
-Wangs Bogen — Chat → Tools → Goals → Loops — beschreibt die letzten drei Jahre. Ng's Progression — Loops → Chains → Networks → Graphs — beschreibt die nächsten drei. Diese Serie hat Post 1 mit Chat begonnen (Vibe Coding), Post 4 mit Tools (Hooks), Post 6 mit Goals, und Post 7 mit Loops. Post 8 nimmt den nächsten Schritt.
+Wangs Bogen — Chat → Tools → Goals → Loops — beschreibt die letzten drei Jahre. Ng's Progression — Loops → Chains → Networks → Graphs — beschreibt die nächsten drei. Diese Serie hat Post 1 mit Chat begonnen (Vibe Coding), Post 5 mit Tools (Hooks), Post 7 mit Goals, und Post 8 mit Loops. Post 9 nimmt den nächsten Schritt.
 
 Loops sind mächtig. Loops sind nicht die letzte Stufe.
 
@@ -245,7 +245,7 @@ Loops sind mächtig. Loops sind nicht die letzte Stufe.
 
 Die Debatte darum, was nach Loops kommt, ist keine Zukunftsfrage mehr — sie läuft gerade. Am 18. Juli 2026, zweieinhalb Wochen nach dem AI Engineer World's Fair, hat Peter Steinberger auf X einen Neun-Wort-Post veröffentlicht: *"Are we still talking loops or did we shift to graphs yet?"* Der Post hat innerhalb weniger Tage über zwei Millionen Views gesammelt und eine ganze Reihe von Reaktionen ausgelöst — Hamel Husains Essay *"Loop Engineering Is Dead. Enter Graph Engineering."*, Andrew Ngs frisch veröffentlichter Graphen-Kurs, und ein Chor von Praktiker-Threads, die das Gleiche aus verschiedenen Blickwinkeln beschreiben.
 
-Post 8 zeigt, was jenseits von Loops liegt: Multi-Agenten-Systeme, die geteilten Zustand über Sessions und über Agenten hinweg persistent halten. Ng nennt das die Graph-Stufe. Anthropic nennt es MCP-basiertes Grounding. Es ist die gleiche Antwort auf zwei Fragen: Wie behalten mehrere Agenten eine gemeinsame Wahrheit, ohne sich gegenseitig Kontexte durchzureichen? Und: Wie erklärt man, warum ein Ergebnis so ist, wie es ist, wenn es aus einem verteilten System kommt?
+Post 9 zeigt, was jenseits von Loops liegt: Multi-Agenten-Systeme, die geteilten Zustand über Sessions und über Agenten hinweg persistent halten. Ng nennt das die Graph-Stufe. Anthropic nennt es MCP-basiertes Grounding. Es ist die gleiche Antwort auf zwei Fragen: Wie behalten mehrere Agenten eine gemeinsame Wahrheit, ohne sich gegenseitig Kontexte durchzureichen? Und: Wie erklärt man, warum ein Ergebnis so ist, wie es ist, wenn es aus einem verteilten System kommt?
 
 Loops und Graphen sind keine konkurrierenden Paradigmen. Sie sind aufeinanderfolgende Stufen — und die meisten Produktivsysteme werden beide brauchen.
 

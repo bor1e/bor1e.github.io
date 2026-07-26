@@ -258,7 +258,7 @@ Keine dieser zehn Schritte ist Theorie. Alle sind heute in Claude Code konfiguri
 
 > *Inferentielles in `CLAUDE.md`, Skills und Rules. Deterministisches in Hooks. Befangenheits­freies in Subagents.*
 
-Das ist die Mechanik des Harness. Die nächsten Posts vertiefen einzelne Schichten — Skills und Context Engineering in Post 3, Hooks als Sensoren in Post 4, Goal Engineering in Post 5. Aber der Bauplan steht.
+Das ist die Mechanik des Harness. Die nächsten Posts vertiefen einzelne Schichten — Skills und Context Engineering in Post 3, Hooks als Sensoren in Post 5, Goal Engineering in Post 6. Aber der Bauplan steht.
 
 ---
 

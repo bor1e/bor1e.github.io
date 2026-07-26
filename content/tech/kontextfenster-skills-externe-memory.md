@@ -155,7 +155,7 @@ Wenn du Goal Engineering (Post 5) ernst meinst, ist `GOAL.md` die Datei, in der 
 Obwohl handgeschriebene Markdown-Dateien hervorragend für konzeptionelles Wissen funktionieren, gibt es für den Entwicklungs-Alltag mittlerweile spezialisierte Werkzeuge, die diesen Prozess automatisieren und Token-Kosten drastisch reduzieren:
 
 ### 1. TokenSave (`tokensave.dev`)
-TokenSave fungiert als lokaler Code-Intelligence-Server über das **Model Context Protocol (MCP)**. 
+TokenSave fungiert als lokaler Code-Intelligence-Server über das **Model Context Protocol (MCP)**[^3]. 
 *   **Funktionsweise**: Es indiziert die Codebase in einen lokalen semantischen Wissensgraphen (`.tokensave/tokensave.db` via libSQL).
 *   **Token-Vorteil**: Statt dass der Agent bei jeder Frage ("Wo wird X aufgerufen?") ganze Verzeichnisse einlesen muss, stellt TokenSave gezielte semantische Suchergebnisse bereit. Das spart repetitive Datei-Scans und verhindert die "Session-Amnesie".
 *   **Sicherheit**: 100 % lokale Ausführung, kein Code verlässt die Entwicklerumgebung.
@@ -280,3 +280,4 @@ Post 4 vertieft Hooks: die Sensor-Schicht. Welche Events gibt es, was kann ein H
 
 [^1]: Update 05.07.2026 (Commit b0e234e): Ergänzung des agnix-Tools zur Überprüfung der Skill-Fitness.
 [^2]: Update 02.07.2026 (Commit 3c8fff4): Hinzufügen der Tooling-Antwort mit TokenSave, RTK und context-mem.
+[^3]: Ende 2025 hat Anthropic die Governance von MCP an die Linux Foundation's Agentic AI Foundation übergeben. Damit ist MCP formal kein Anthropic-Only-Standard mehr — Anthropic bleibt maßgeblicher Beiträger, aber die Governance ist industrieweit.

@@ -53,11 +53,11 @@ Ein Enterprise-Guardrail-Setup adressiert vier Schichten. Alle vier sind mit Wer
 
 **Input-Filter.** Was darf überhaupt ans Modell gehen? Klassische Fälle: PII, die versehentlich im Prompt landet; Secrets aus versehentlich mitkopierten Config-Dateien; kundenidentifizierende Daten in Support-Tickets. Ein `UserPromptSubmit`-Hook aus Post 5 ist der technische Ort — die Neuerung: er wird nicht nur *"aus Bequemlichkeit"* konfiguriert, sondern als Compliance-Nachweis dokumentiert.
 
-**Permission-Boundaries.** Was darf Claude tun, was nicht? MCP-Tool-Allowlists (Post 4), Rules mit Pfad-Scope (Post 2), Subagent-Tool-Restrictions (Posts 6 und 7). Für Auditoren: **jede erlaubte Aktion braucht eine schriftliche Begründung**, nicht nur eine Konfiguration.
+**Permission-Boundaries.** Was darf Claude tun, was nicht? MCP-Tool-Allowlists (Post 4), Rules mit Pfad-Scope (Post 2), Subagent-Tool-Restrictions (Posts 7 und 8). Für Auditoren: **jede erlaubte Aktion braucht eine schriftliche Begründung**, nicht nur eine Konfiguration.
 
 **Output-Filter.** Was darf Claude nach außen geben? Ein `PostToolUse`-Hook, der Ausgaben nach PII scannt bevor sie in Logs, Tickets oder E-Mails landen. Das ist die Ecke der *Lethal Trifecta* (Willison, Post 1), die am wenigsten Aufmerksamkeit bekommt und am meisten Schaden anrichten kann.
 
-**Audit-Trail.** Was ist passiert, wann, warum, durch welchen User? OpenTelemetry-Export aus Claude Code (Posts 6 und 7), LiteLLM-Proxy-Logs (Post 4), Hook-Event-JSONL. Für Auditoren ist das nicht *"nice to have"* — es ist die Voraussetzung dafür, dass das ganze System überhaupt in Produktion darf.
+**Audit-Trail.** Was ist passiert, wann, warum, durch welchen User? OpenTelemetry-Export aus Claude Code (Post 6), LiteLLM-Proxy-Logs (Post 4), Hook-Event-JSONL. Für Auditoren ist das nicht *"nice to have"* — es ist die Voraussetzung dafür, dass das ganze System überhaupt in Produktion darf.
 
 Diese vier Schichten sind mit der Technik aus den Posts 1–9 abbildbar. Was Post 10 hinzufügt: **die Disziplin, sie als Compliance-Artefakt zu behandeln, nicht als Feature.** Ein Guardrail, den kein Auditor kennt, ist keine Compliance. Ein Guardrail, den kein Entwickler versteht, ist keine Sicherheit.
 

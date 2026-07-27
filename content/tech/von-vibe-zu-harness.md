@@ -123,7 +123,7 @@ Die Tiefe dieses Mechanismus kommt in Post 3.
 
 ### Rules (`.claude/rules/`) — Pfad-gebundenes Verhalten
 
-Unterschiedliche Regeln für `backend/`, `frontend/`, `tests/`. Claude wendet die jeweils passenden Regeln an, abhängig davon, welche Datei gerade bearbeitet wird. Tiefe kommt in Post 4.
+Unterschiedliche Regeln für `backend/`, `frontend/`, `tests/`. Claude wendet die jeweils passenden Regeln an, abhängig davon, welche Datei gerade bearbeitet wird. Tiefe kommt in Post 5.
 
 ### Hooks — deterministische Durchsetzung
 
@@ -131,11 +131,11 @@ Ein `PostToolUse`-Hook, der nach jedem Edit den Linter ausführt. Ein `Stop`-Hoo
 
 Faustregel: Wer dem Modell sagt, was richtig ist, dem Harness aber nichts zu sagen hat, verliert die Kontrolle innerhalb von drei Sessions.
 
-Tiefe kommt in Post 4.
+Tiefe kommt in Post 5.
 
 ### Subagents — der isolierte Reviewer
 
-Ein zweiter Durchlauf mit frischem Kontext, eingeschränktem Tool-Zugriff und einer fokussierten Aufgabe: den Diff gegen benannte Kriterien reviewen. Der Subagent bekommt nur den Diff und die Kriterien — den Entstehungskontext bewusst nicht. Das ist sein Vorteil. Tiefe kommt in Post 5.
+Ein zweiter Durchlauf mit frischem Kontext, eingeschränktem Tool-Zugriff und einer fokussierten Aufgabe: den Diff gegen benannte Kriterien reviewen. Der Subagent bekommt nur den Diff und die Kriterien — den Entstehungskontext bewusst nicht. Das ist sein Vorteil. Tiefe kommt in Post 6.
 
 `CLAUDE.md` ist die Schicht, die dieser Post in der Tiefe behandelt — die anderen vier folgen in späteren Beiträgen der Serie.
 

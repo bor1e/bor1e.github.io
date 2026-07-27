@@ -7,7 +7,7 @@ tags: ["claude-code", "hooks", "sensors", "harness", "verifier", "PreToolUse", "
 categories: ["tech"]
 personas: ["tech"]
 series: ["Vom Hype zum Harness"]
-series_order: 4
+series_order: 5
 ---
 
 > *"In the Land of AI Agents, the Verifiers Are King."*
@@ -33,7 +33,7 @@ Tariq Shaukat, CEO von Sonar, hat auf dem AI Engineer World's Fair in San Franci
 
 Die Logik dahinter ist unbequem klar. Wenn Code-Generierung nahezu unendlich und nahezu kostenlos wird, dann verschiebt sich die Knappheit. Was früher knapp war — jemand, der schnell und korrekt Code schreiben kann — ist jetzt Commodity. Was jetzt knapp ist: alles, was zwischen Modell-Output und Produktion steht und *nachweislich* prüfen kann, ob der Output taugt. Tests. Static Analysis. Type-Checker. Security-Scans. Coverage-Gates. Quality-Gates.
 
-Sonar ist in diesem Markt kein neutraler Beobachter — Shaukat verkauft Verifier. Sein Vortrag fiel zeitgleich mit dem Launch von Sonar Vortex zusammen, einem Produkt, das genau das kommerziell anbietet, was Post 4 in Claude-Code-Hooks skizziert: Kontext-Injektion vor dem Write, Verifikation im inneren Loop, ready-to-merge PRs am Ende. Der Marktkampf um Verifier ist also nicht theoretisch — er hat schon Umsatz.
+Sonar ist in diesem Markt kein neutraler Beobachter — Shaukat verkauft Verifier. Sein Vortrag fiel zeitgleich mit dem Launch von Sonar Vortex zusammen, einem Produkt, das genau das kommerziell anbietet, was Post 5 in Claude-Code-Hooks skizziert: Kontext-Injektion vor dem Write, Verifikation im inneren Loop, ready-to-merge PRs am Ende. Der Marktkampf um Verifier ist also nicht theoretisch — er hat schon Umsatz.
 
 Aber die Marktbeobachtung stimmt trotzdem: Die Werkzeuge, die vor drei Jahren *"nice to have"* waren, sind die, die jetzt entscheiden, ob eine Agenten-Session in Produktion landet oder in einem Rollback endet.
 
@@ -181,7 +181,7 @@ Die Neuerfindung passiert in zwei Schichten, und beide sind in Claude Code heute
 
 **Erste Schicht — Hooks als kontinuierliches Review.** Was ein Reviewer früher am Ende gefunden hätte (Lint, Types, Coverage, Secrets), findet der Hook in dem Moment, in dem der Code entsteht. Das ist kein Ersatz für Review — es ist eine Vorverlagerung des mechanischen Anteils. Was am Ende bleibt, ist der Teil, den nur ein Mensch prüfen kann.
 
-**Zweite Schicht — Subagents als spezialisierter Review-Kontext.** Post 2 hat Subagents als isolierten Reviewer eingeführt. Post 5 wird das vertiefen. Der Punkt für hier: Ein `code-reviewer`-Subagent, der Diffs gegen benannte Kriterien prüft (SOLID, Code Smells, Hard Rules), ist eine andere Klasse von Review als Zeile-für-Zeile. Er skaliert mit dem Agenten-Output, weil er selbst Agent ist. Und er hat den Vorteil, den kein menschlicher Reviewer mehr hat: **frischen Kontext**.
+**Zweite Schicht — Subagents als spezialisierter Review-Kontext.** Post 2 hat Subagents als isolierten Reviewer eingeführt. Post 6 wird das vertiefen. Der Punkt für hier: Ein `code-reviewer`-Subagent, der Diffs gegen benannte Kriterien prüft (SOLID, Code Smells, Hard Rules), ist eine andere Klasse von Review als Zeile-für-Zeile. Er skaliert mit dem Agenten-Output, weil er selbst Agent ist. Und er hat den Vorteil, den kein menschlicher Reviewer mehr hat: **frischen Kontext**.
 
 Voss' Provokation ist also technisch beantwortbar. Die schwierigere Frage ist die daraus folgende: *Wenn Hooks das mechanische Review erledigen und Subagents das strukturelle Review erledigen — was macht der Mensch dann eigentlich noch?*
 
@@ -191,7 +191,7 @@ Das ist der Punkt, an dem Geoffrey Litt in die Diskussion tritt.
 
 ## Der Gegenpol: Verstehen ist der neue Engpass
 
-Geoffrey Litt (Design Engineer bei Notion) hat auf derselben Bühne die einzige Formulierung geliefert, die Post 4 daran hindert, in Automatisierungs-Triumphalismus zu kippen. Sein Vortrag hieß **"Understanding is the new bottleneck."**
+Geoffrey Litt (Design Engineer bei Notion) hat auf derselben Bühne die einzige Formulierung geliefert, die Post 5 daran hindert, in Automatisierungs-Triumphalismus zu kippen. Sein Vortrag hieß **"Understanding is the new bottleneck."**
 
 Litts eigenes Argument: Wir verstehen Code nicht, um ihn zu verifizieren — dafür werden Agenten gut. Wir verstehen ihn, um aktive Teilnehmer an dem System zu bleiben, das wir bauen. Ein Projekt ist nie ein einzelner Loop; es sind hunderte, und das mentale Modell in deinem Kopf ist das, was dich befähigt, den nächsten sinnvoll zu entwerfen. Verlierst du das mentale Modell — weil du zu viel outsourct, zu wenig liest, zu selten das Warum hinter dem Code kennst — dann hast du still und leise deine Fähigkeit begrenzt, das Ganze zu steuern.
 
@@ -296,7 +296,7 @@ Die Verifier-Ökonomie, die Shaukat beschreibt, ist real. Die Neuerfindung des C
 
 ## Was kommt als nächstes
 
-Post 5 zeigt Goal Engineering: Aufgaben, die laufen, bis ein verifizierbares "fertig" erreicht ist. Der `Stop`-Hook aus diesem Post ist die technische Grundlage — ein Ziel ohne Stop-Hook ist ein Wunsch. Post 6 zeigt dann Loops: Aufgaben, die gar nicht mehr von dir gestartet werden. Shawn Wang hat dafür den Bogen geliefert: **Chat → Tools → Goals → Loops.** Post 5 ist Goals, Post 6 ist Loops. Sensor first.
+Post 7 zeigt Goal Engineering: Aufgaben, die laufen, bis ein verifizierbares "fertig" erreicht ist. Der `Stop`-Hook aus diesem Post ist die technische Grundlage — ein Ziel ohne Stop-Hook ist ein Wunsch. Post 8 zeigt dann Loops: Aufgaben, die gar nicht mehr von dir gestartet werden. Shawn Wang hat dafür den Bogen geliefert: **Chat → Tools → Goals → Loops.** Post 7 ist Goals, Post 8 ist Loops. Sensor first.
 
 ---
 
@@ -308,7 +308,7 @@ Post 5 zeigt Goal Engineering: Aufgaben, die laufen, bis ein verifizierbares "fe
 - **Claude Code Hooks-Dokumentation** — [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — kanonische Referenz zu Event-Typen, `settings.json`-Struktur, Exit-Codes und stderr-Verhalten.
 - **Martin Fowler** — *"Harness Engineering for Coding Agent Users."* Die abstrakte Framework-Ebene: warum Guides und Sensoren getrennte Kategorien sind, und wie sie zusammenspielen.
 - **Simon Willison** — *"The Lethal Trifecta."* Für den Sicherheits-Hook-Teil: welche Angriffs­flächen ein PreToolUse-Hook konkret verkleinert und welche nicht.
-- **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) läuft parallel zur Verifier-Debatte. Post 6 greift diese Stimmen konkret auf.
+- **Zum Feld:** Die Loop-Engineering-Diskussion (Shawn Wang, Peter Steinberger, Geoff Huntley, Dex Horthy) läuft parallel zur Verifier-Debatte. Post 8 greift diese Stimmen konkret auf.
 
 [^1]: Update 26.07.2026 (Commit 8b0640f): Hinzufügen des PreToolUse-Bypass-Schutz-Skripts (`prevent-bypass.sh`).
 [^2]: Update 07.07.2026 (Commit 179aa65): Ergänzung des `verify.sh`-Beispiels zur Lösung der Stop-Hook-Endlosschleife.

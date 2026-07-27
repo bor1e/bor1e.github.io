@@ -7,7 +7,7 @@ tags: ["claude-code", "metriken", "dora", "measurement", "observability", "cost"
 categories: ["tech"]
 personas: ["tech"]
 series: ["Vom Hype zum Harness"]
-series_order: 5
+series_order: 6
 ---
 
 > *Miss den Verifier, nicht den Generator. Miss das Team, nicht den Entwickler. Miss den Outcome, nicht den Output.*
@@ -16,13 +16,13 @@ series_order: 5
 
 ## Wo wir stehen
 
-Post 4 hat Tariq Shaukats These vorgestellt: *In the Land of AI Agents, the Verifiers Are King.* Wenn Codegenerierung nahezu unendlich und nahezu kostenlos wird, verschiebt sich der Wert von den Generatoren zu den Verifiern. Das ist eine ökonomische Aussage. Sie hat eine unbequeme Konsequenz: **Alles, was du bisher gemessen hast, misst jetzt das Falsche.**
+Post 5 hat Tariq Shaukats These vorgestellt: *In the Land of AI Agents, the Verifiers Are King.* Wenn Codegenerierung nahezu unendlich und nahezu kostenlos wird, verschiebt sich der Wert von den Generatoren zu den Verifiern. Das ist eine ökonomische Aussage. Sie hat eine unbequeme Konsequenz: **Alles, was du bisher gemessen hast, misst jetzt das Falsche.**
 
 DORA-Metriken — Deployment Frequency, Lead Time, Change Failure Rate, MTTR — wurden von Nicole Forsgren und Team für eine Welt entworfen, in der Menschen den Code schreiben. Sie messen den Fluss vom Entwickler-Commit bis zur Produktion. Wenn Agenten committen, kollabiert dieser Fluss auf Sekundenbruchteile. Cycle Time geht gegen Null. Deployment Frequency explodiert. Nach DORA-Logik ist dein Team plötzlich *Elite Performer* — aber die Codebase brennt.
 
 Dieser Post zeigt drei Dinge: Was DORA in agentischer Entwicklung noch aussagt und was nicht. Welche drei Ebenen von Metriken die Lücke füllen. Und warum die technischen Metriken, die wir hier definieren, ohne den soziotechnischen Kontext, den Eberhard Wolff einfordert, gefährlich in die Irre führen können.
 
-Dieser Post ist die operative Antwort auf Post 4. Post 4 hat argumentiert, dass Verifier knapp und wertvoll sind. Post 5 zeigt, wie du weißt, dass deine Verifier funktionieren.
+Dieser Post ist die operative Antwort auf Post 5. Post 5 hat argumentiert, dass Verifier knapp und wertvoll sind. Post 6 zeigt, wie du weißt, dass deine Verifier funktionieren.
 
 ---
 
@@ -79,7 +79,7 @@ Diese Metriken beantworten: *Wird das Team als Ganzes produktiver, oder nur der 
 - **Feature Cycle Time** — von Idee zu Produktion, inklusive Review und Merge. Nicht agent-only Zeit.
 - **Defect Rate auf agent-generierten PRs** — bezogen auf alle agent-getriebenen PRs, gemessen über die ersten 30 Tage nach Merge.
 - **Coverage-Trend** — steigt oder fällt die Test-Coverage über Sprints hinweg? Ein Team, das mit Claude schneller wird, aber Coverage verliert, kauft Geschwindigkeit auf Kredit.
-- **Review-Zeit** — hat sie sich verkürzt? Wenn ja: gut oder schlecht? Voss' *Death of the Code Review*-Argument aus Post 4 sagt: kürzere Reviews sind *inhärent* zweideutig, weil das Ziel des Reviews sich verschoben hat.
+- **Review-Zeit** — hat sie sich verkürzt? Wenn ja: gut oder schlecht? Voss' *Death of the Code Review*-Argument aus Post 5 sagt: kürzere Reviews sind *inhärent* zweideutig, weil das Ziel des Reviews sich verschoben hat.
 - **PR-Größe** — bleibt sie konstant oder wachsen die PRs, weil Agenten "einfach mehr" generieren? Große PRs mit oberflächlichem Review sind der klassische Vorhof zur nächsten Katastrophe.
 
 ### Ebene 3 — Organisatorische Metriken (pro Quartal)
@@ -89,7 +89,7 @@ Diese Metriken beantworten: *Zahlt sich die Investition in agentische Entwicklun
 - **Cost per Developer per Month (Token-Spend)** — die einzige Zahl, die dein CFO wirklich versteht. Der konkrete Wert hängt von Subscription-Modell und Nutzungsintensität ab, aber er muss in dein Reporting.
 - **Time-to-Productivity für neue Entwickler** — wenn das Harness (`CLAUDE.md`, Skills, Rules) gut ist, sollten neue Team-Mitglieder schneller produktiv sein. Wenn nicht — was misst du dann?
 - **Incident-Rate** — Shaukats Warnung vor *"technical debt at machine speed"* wird hier messbar. Ein steigender Incident-Trend bei gleichzeitig steigendem Deployment-Trend ist der Kanarienvogel im Kohlebergwerk.
-- **Retention und Zufriedenheit** — die einzige Metrik dieser Ebene, die nicht aus Logs kommt. Aber sie zählt. Ein Team, das sein Handwerk verliert (Litts *"understanding is the new bottleneck"* aus Post 4), wird unglücklich, bevor die technischen Metriken es zeigen.
+- **Retention und Zufriedenheit** — die einzige Metrik dieser Ebene, die nicht aus Logs kommt. Aber sie zählt. Ein Team, das sein Handwerk verliert (Litts *"understanding is the new bottleneck"* aus Post 5), wird unglücklich, bevor die technischen Metriken es zeigen.
 
 ---
 
@@ -218,13 +218,13 @@ Die letzte Sektion ist entscheidend. Ohne die qualitative Ergänzung ist das Das
 
 > *Miss den Verifier, nicht den Generator. Miss das Team, nicht den Entwickler. Miss den Outcome, nicht den Output. Und miss nicht ohne zu reden.*
 
-Der erste Halbsatz ist Shaukats Verifier-Ökonomie aus Post 4, in Metrik-Form. Der zweite ist die Einsicht, dass agentische Entwicklung individuelle Beiträge unsichtbarer macht — Team-Metriken sind der einzige ehrliche Kompass. Der dritte trennt Vanity Metrics von echter Wert-Messung. Und der vierte ist Wolffs Vorbehalt: Zahlen ohne Gespräche sind Präzision ohne Wahrheit.
+Der erste Halbsatz ist Shaukats Verifier-Ökonomie aus Post 5, in Metrik-Form. Der zweite ist die Einsicht, dass agentische Entwicklung individuelle Beiträge unsichtbarer macht — Team-Metriken sind der einzige ehrliche Kompass. Der dritte trennt Vanity Metrics von echter Wert-Messung. Und der vierte ist Wolffs Vorbehalt: Zahlen ohne Gespräche sind Präzision ohne Wahrheit.
 
 ---
 
 ## Was kommt als nächstes
 
-Post 6 zeigt Goal Engineering: die technische Grundlage dafür, dass eine Aufgabe *"fertig"* ist — nicht *"scheint fertig"*. Die Metriken aus diesem Post werden dort zu Done-Kriterien: Ein `Stop`-Hook, der Coverage prüft, ist der operative Weg, wie *"Test-Coverage ≥ 90%"* aus einem KPI zu einem verifizierbaren Ziel wird. Post 7 setzt darauf Loops auf. Post 8 fragt, was Metriken *nicht* messen können.
+Post 7 zeigt Goal Engineering: die technische Grundlage dafür, dass eine Aufgabe *"fertig"* ist — nicht *"scheint fertig"*. Die Metriken aus diesem Post werden dort zu Done-Kriterien: Ein `Stop`-Hook, der Coverage prüft, ist der operative Weg, wie *"Test-Coverage ≥ 90%"* aus einem KPI zu einem verifizierbaren Ziel wird. Post 8 setzt darauf Loops auf. Post 9 fragt, was Metriken *nicht* messen können.
 
 ---
 

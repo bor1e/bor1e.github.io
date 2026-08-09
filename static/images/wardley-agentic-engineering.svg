@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 790" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .mono { font-family: "Courier New", Courier, monospace; }
+    .node-label { font-size: 14px; fill: #1a1a1a; }
+    .stage-label { font-size: 13px; font-style: italic; fill: #333; }
+    .corner-label { font-size: 13px; font-weight: bold; fill: #1a1a1a; }
+    .axis-label { font-size: 15px; font-weight: bold; fill: #1a1a1a; }
+    .ann-text { font-size: 13px; fill: #1a1a1a; }
+  </style>
+
+  <rect x="0" y="0" width="1000" height="790" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="20" y="32" font-size="22" font-weight="bold" fill="#111">Agentic Engineering — was kommoditisiert und was nicht</text>
+
+  <!-- Plot background -->
+  <rect x="40" y="55" width="920" height="580" fill="#f2f2f2" stroke="#999" stroke-width="1"/>
+
+  <!-- Stage boundaries -->
+  <line x1="215.7" y1="55" x2="215.7" y2="635" stroke="#bbb" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="432.8" y1="55" x2="432.8" y2="635" stroke="#bbb" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="854.2" y1="55" x2="854.2" y2="635" stroke="#bbb" stroke-width="1" stroke-dasharray="2,3"/>
+
+  <!-- Corner labels -->
+  <text x="50" y="72" class="corner-label">Uncharted</text>
+  <text x="950" y="72" text-anchor="end" class="corner-label">Industrialised</text>
+
+  <!-- Value chain axis (left) -->
+  <line x1="40" y1="55" x2="40" y2="635" stroke="#111" stroke-width="1.5"/>
+  <text x="18" y="345" class="axis-label" transform="rotate(-90 18 345)">Value Chain</text>
+
+  <!-- Evolution axis (bottom) -->
+  <line x1="40" y1="635" x2="955" y2="635" stroke="#111" stroke-width="1.5"/>
+  <polygon points="955,635 946,630 946,640" fill="#111"/>
+
+  <!-- Dependency edges (gray, solid) -->
+  <line x1="432.7" y1="100" x2="344.4" y2="153" stroke="#888" stroke-width="1.3"/>
+  <line x1="344.4" y1="153" x2="165.9" y2="204" stroke="#888" stroke-width="1.3"/>
+  <line x1="165.9" y1="204" x2="451.9" y2="309" stroke="#888" stroke-width="1.3"/>
+  <line x1="451.9" y1="309" x2="484" y2="390" stroke="#888" stroke-width="1.3"/>
+  <line x1="451.9" y1="309" x2="165.9" y2="543" stroke="#888" stroke-width="1.3"/>
+  <line x1="165.9" y1="543" x2="235" y2="606" stroke="#888" stroke-width="1.3"/>
+
+  <!-- Distinctive solid red trajectory: Agentic Factory -> future Design System -->
+  <line x1="432.7" y1="100" x2="662.5" y2="153" stroke="#d33" stroke-width="1.6"/>
+
+  <!-- Evolution arrows (red, dashed) source -> target -->
+  <g stroke="#d33" stroke-width="1.3" stroke-dasharray="5,4" fill="none" marker-end="url(#arrow)">
+    <line x1="352" y1="153" x2="654" y2="153"/>
+    <line x1="174" y1="204" x2="318" y2="204"/>
+    <line x1="460" y1="309" x2="650" y2="309"/>
+    <line x1="492" y1="390" x2="846" y2="390"/>
+    <line x1="174" y1="543" x2="318" y2="543"/>
+    <line x1="248" y1="606" x2="416" y2="606"/>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d33"/>
+    </marker>
+  </defs>
+
+  <!-- Nodes: source (black) -->
+  <g>
+    <circle cx="344.4" cy="153" r="6" fill="#fff" stroke="#111" stroke-width="1.8"/>
+    <text x="344.4" y="172" text-anchor="middle" class="node-label mono">Design System</text>
+
+    <circle cx="165.9" cy="204" r="6" fill="#fff" stroke="#111" stroke-width="1.8"/>
+    <text x="165.9" y="223" text-anchor="middle" class="node-label mono">Specification</text>
+
+    <circle cx="451.9" cy="309" r="6" fill="#fff" stroke="#111" stroke-width="1.8"/>
+    <text x="451.9" y="328" text-anchor="middle" class="node-label mono">Agent</text>
+
+    <circle cx="484" cy="390" r="6" fill="#fff" stroke="#111" stroke-width="1.8"/>
+    <text x="484" y="409" text-anchor="middle" class="node-label mono">Frontier model</text>
+
+    <circle cx="165.9" cy="543" r="6" fill="#fff" stroke="#111" stroke-width="1.8"/>
+    <text x="165.9" y="562" text-anchor="middle" class="node-label mono" font-weight="bold">Harness</text>
+
+    <circle cx="235" cy="606" r="6" fill="#fff" stroke="#111" stroke-width="1.8"/>
+    <text x="235" y="625" text-anchor="middle" font-size="12" class="node-label mono">AI-native Architecture</text>
+
+    <text x="432.7" y="94" text-anchor="middle" class="node-label mono">Agentic Factory</text>
+  </g>
+
+  <!-- Nodes: target (red) -->
+  <g>
+    <circle cx="662.5" cy="153" r="6" fill="#fff" stroke="#d33" stroke-width="1.8"/>
+    <text x="662.5" y="172" text-anchor="middle" class="node-label mono">Design System</text>
+
+    <circle cx="326.1" cy="204" r="6" fill="#fff" stroke="#d33" stroke-width="1.8"/>
+    <text x="326.1" y="223" text-anchor="middle" class="node-label mono">Specification</text>
+
+    <circle cx="657.9" cy="309" r="6" fill="#fff" stroke="#d33" stroke-width="1.8"/>
+    <text x="657.9" y="328" text-anchor="middle" class="node-label mono">Agent</text>
+
+    <circle cx="854.7" cy="390" r="6" fill="#fff" stroke="#d33" stroke-width="1.8"/>
+    <text x="854.7" y="409" text-anchor="middle" class="node-label mono">Frontier model</text>
+
+    <circle cx="326.1" cy="543" r="6" fill="#fff" stroke="#d33" stroke-width="1.8"/>
+    <text x="326.1" y="562" text-anchor="middle" class="node-label mono" font-weight="bold">Harness</text>
+
+    <circle cx="430" cy="606" r="6" fill="#fff" stroke="#d33" stroke-width="1.8"/>
+    <text x="430" y="625" text-anchor="middle" font-size="12" class="node-label mono">AI-native Architecture</text>
+  </g>
+
+  <!-- Annotation markers -->
+  <circle cx="854.7" cy="390" r="12" fill="#fff" stroke="#333" stroke-width="1.3"/>
+  <text x="854.7" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#111">2</text>
+
+  <circle cx="542" cy="543" r="12" fill="#fff" stroke="#333" stroke-width="1.3"/>
+  <text x="542" y="548" text-anchor="middle" font-size="13" font-weight="bold" fill="#111">1</text>
+
+  <!-- Stage labels -->
+  <text x="50" y="655" class="stage-label">Genesis</text>
+  <text x="222" y="655" class="stage-label">Custom-Built</text>
+  <text x="440" y="655" class="stage-label">Product (+rental)</text>
+  <text x="860" y="655" class="stage-label" text-anchor="end">Commodity (+utility)</text>
+  <text x="955" y="655" text-anchor="end" class="axis-label">Evolution</text>
+
+  <!-- Annotation box -->
+  <rect x="40" y="675" width="920" height="95" fill="#fff" stroke="#111" stroke-width="1.3"/>
+  <text x="52" y="695" class="ann-text mono" font-weight="bold" text-decoration="underline">Annotations:</text>
+  <text x="52" y="718" class="ann-text mono">1. April: Harness Richtung Product gemappt, als würde es uns jemand verkaufen. August: revidiert —</text>
+  <text x="65" y="736" class="ann-text mono">es bleibt custom-built, gebunden an die Anwendung.</text>
+  <text x="52" y="756" class="ann-text mono">2. Modelle kommoditisieren. Die Schichten, die sie einrahmen, nicht.</text>
+</svg>

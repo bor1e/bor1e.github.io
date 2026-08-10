@@ -1,5 +1,5 @@
 ---
-title: "Modelle werden Commodity. Das Harness nicht — weil es deine Use Cases ist"
+title: "Modelle werden Commodity. Das Harness nicht — weil es deine Use Cases sind"
 date: 2026-08-09
 draft: false
 description: "Post 9 hat gezeigt, wie man vom Use Case zum Harness kommt. Dieser Nachtrag beantwortet die Frage, die ein CTO danach stellt: Warum selbst bauen, statt kaufen? Die Antwort kommt von einer Wardley-Map, einem korrigierten Strategiepapier und Steve Yegges Beobachtung, dass sein eigenes wiederverwendbares Harness an einer einzigen Modellgeneration zerbrochen ist."

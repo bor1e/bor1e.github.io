@@ -1,0 +1,88 @@
+{{ define "main" }}
+{{ $c := .Params.chapter }}
+{{ $book := index hugo.Data.publikationen .Params.publication }}
+{{ $pages := .Parent.Pages.ByWeight }}
+<article class="post publication" id="publication">
+  <header class="post-header">
+    <div class="post-meta">
+      <span class="post-section-badge badge-lehre">Publikation</span>
+      <a href="{{ .Parent.RelPermalink }}">{{ $book.title }}</a>
+    </div>
+    <h1>{{ .Title }}</h1>
+    {{ partial "publication-status.html" $book }}
+
+    <div class="publication-toggles" role="group" aria-label="Anzeige">
+      <label><input type="checkbox" data-hide="hebrew" checked> Original</label>
+      <label><input type="checkbox" data-hide="commentary" checked> Kommentar</label>
+      <label><input type="checkbox" data-hide="footnotes" checked> Anmerkungen</label>
+    </div>
+  </header>
+
+  <div class="post-content publication-text">
+    {{ range $c.blocks }}
+      {{ if eq .type "verse" }}
+        <div class="verse">
+          <div class="verse-de">{{ $.RenderString (dict "display" "block") .german }}</div>
+          <div class="verse-he" lang="he" dir="rtl">{{ $.RenderString (dict "display" "block") .hebrew }}</div>
+          {{ with .source }}<p class="verse-source">{{ . }}</p>{{ end }}
+        </div>
+      {{ else if eq .type "commentary" }}
+        <aside class="commentary" aria-label="Kommentar">{{ $.RenderString (dict "display" "block") .text }}</aside>
+      {{ else if eq .type "heading" }}
+        {{ $level := add .level 0 | math.Max 2 | math.Min 4 }}
+        {{ printf "<h%d>%s</h%d>" (int $level) ($.RenderString .text) (int $level) | safeHTML }}
+      {{ else }}
+        <div class="block-{{ .type }}">{{ $.RenderString (dict "display" "block") .text }}</div>
+      {{ end }}
+    {{ end }}
+
+    {{ with $c.footnotes.de }}
+      <section class="footnotes footnotes-de" aria-label="Anmerkungen">
+        <h2>Anmerkungen</h2>
+        <ul>
+          {{ range . }}
+            <li id="fn-de-{{ .n }}"><span class="fn-key">{{ .key }}</span> {{ $.RenderString .text }} <a href="#ref-de-{{ .n }}" class="fn-back" aria-label="Zurück zum Text">↩</a></li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+
+    {{ with $c.footnotes.he }}
+      <section class="footnotes footnotes-he" aria-label="Anmerkungen im Original">
+        <h2>Anmerkungen im Original</h2>
+        <ul lang="he" dir="rtl">
+          {{ range . }}
+            <li id="fn-he-{{ .n }}"><span class="fn-key">{{ .key }}</span> {{ $.RenderString .text }} <a href="#ref-he-{{ .n }}" class="fn-back" aria-label="Zurück zum Text">↩</a></li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+  </div>
+
+  <footer class="post-footer">
+    <nav class="post-nav" aria-label="Abschnitte">
+      {{/* Hugo's Pages.Next/.Prev run against the sort order: .Next = earlier. */}}
+      {{ with $pages.Next . }}<a href="{{ .RelPermalink }}" class="post-nav-prev">&larr; {{ .Title }}</a>{{ end }}
+      {{ with $pages.Prev . }}<a href="{{ .RelPermalink }}" class="post-nav-next">{{ .Title }} &rarr;</a>{{ end }}
+    </nav>
+  </footer>
+</article>
+
+<script>
+  // Anzeige-Schalter; die Wahl bleibt für alle Abschnitte erhalten.
+  (function () {
+    var root = document.getElementById('publication');
+    root.querySelectorAll('[data-hide]').forEach(function (box) {
+      var name = box.getAttribute('data-hide');
+      var key = 'publication-show-' + name;
+      try { if (localStorage.getItem(key) === '0') box.checked = false; } catch (e) {}
+      var apply = function () {
+        root.classList.toggle('hide-' + name, !box.checked);
+        try { localStorage.setItem(key, box.checked ? '1' : '0'); } catch (e) {}
+      };
+      box.addEventListener('change', apply);
+      apply();
+    });
+  })();
+</script>
+{{ end }}

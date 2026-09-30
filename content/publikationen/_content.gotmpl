@@ -1,0 +1,34 @@
+{{/*
+  Content adapter: builds the Publikationen pages from data/publikationen/<slug>.json.
+  One JSON file per book, pushed here by the book's own repo (e.g.
+  bor1e/inyaneitorashachassidus → scripts/export_web.py). Do not edit the JSON by hand.
+
+  Per book:    /publikationen/<slug>/            (kind section, table of contents)
+  Per chapter: /publikationen/<slug>/<chapter>/  (kind page)
+
+  build.list = local keeps chapters out of site.RegularPages, so they do not
+  appear under "Neueste Beiträge" or in the site-wide RSS feed. All three
+  build keys must be given: omitted keys become empty, and an empty
+  "render" silently suppresses the chapter pages.
+*/}}
+{{ range $key, $book := hugo.Data.publikationen }}
+  {{ $updated := time.AsTime $book.exported }}
+  {{ $.AddPage (dict
+    "path" $book.slug
+    "kind" "section"
+    "title" $book.title
+    "dates" (dict "date" $updated "lastmod" $updated)
+    "params" (dict "publication" $book.slug)
+  ) }}
+  {{ range $book.chapters }}
+    {{ $.AddPage (dict
+      "path" (printf "%s/%s" $book.slug .slug)
+      "kind" "page"
+      "title" .title
+      "weight" .weight
+      "dates" (dict "date" $updated "lastmod" $updated)
+      "build" (dict "list" "local" "render" "always" "publishResources" true)
+      "params" (dict "publication" $book.slug "chapter" .)
+    ) }}
+  {{ end }}
+{{ end }}

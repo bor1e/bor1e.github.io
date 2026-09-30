@@ -18,3 +18,8 @@
 {{ end }}
 
 <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+{{ if eq .Section "publikationen" }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400;700&display=swap">
+{{ end }}

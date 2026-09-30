@@ -1,0 +1,55 @@
+{{ define "main" }}
+{{ with .Params.publication }}
+  {{/* ── Ein Buch: Titelei + Inhaltsverzeichnis ── */}}
+  {{ $book := index hugo.Data.publikationen . }}
+  <section class="section-header section-lehre publication-header">
+    <p class="publication-kicker">Publikation</p>
+    <h1>{{ $book.title }}</h1>
+    <p class="publication-hebrew" lang="he" dir="rtl">{{ $book.title_hebrew }}</p>
+    {{ with $book.title_transliterated }}<p class="publication-translit">{{ . }}</p>{{ end }}
+    {{ with $book.author }}<p class="publication-author">{{ . }}</p>{{ end }}
+    {{ with $book.description }}<p class="section-description">{{ . }}</p>{{ end }}
+    {{ partial "publication-status.html" $book }}
+  </section>
+
+  <nav class="publication-toc post-list" aria-label="Inhalt">
+    <h2>Inhalt</h2>
+    <ol>
+      {{ range $.Pages.ByWeight }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ol>
+  </nav>
+{{ else }}
+  {{/* ── Übersicht aller Publikationen ── */}}
+  <section class="section-header section-lehre">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="section-description">{{ . }}</p>{{ end }}
+  </section>
+
+  <section class="post-list">
+    {{ $books := .Sections.ByTitle }}
+    {{ if eq (len $books) 0 }}
+      <p class="empty-section">Noch keine Publikationen.</p>
+    {{ else }}
+      <div class="post-grid">
+        {{ range $books }}
+          {{ $book := index hugo.Data.publikationen .Params.publication }}
+          <article class="post-card" data-persona="lehre">
+            <a href="{{ .RelPermalink }}">
+              <div class="post-card-meta">
+                <span class="post-section-badge badge-lehre">Publikation</span>
+                <span>{{ len .Pages }} Abschnitte</span>
+              </div>
+              <h3>{{ $book.title }}</h3>
+              <p class="publication-hebrew" lang="he" dir="rtl">{{ $book.title_hebrew }}</p>
+              {{ with $book.author }}<p>{{ . }}</p>{{ end }}
+              {{ with $book.status }}<p class="publication-status-inline">{{ . }}</p>{{ end }}
+            </a>
+          </article>
+        {{ end }}
+      </div>
+    {{ end }}
+  </section>
+{{ end }}
+{{ end }}

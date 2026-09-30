@@ -332,6 +332,51 @@ img { max-width: 100%; height: auto; }
 .about-content { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.5rem; }
 .about-content h1 { font-size: 2rem; margin-bottom: 1.5rem; }
 
+/* ── Publikationen ── */
+.publication-kicker { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--lehre-accent); }
+.publication-hebrew { font-family: 'Noto Serif Hebrew', serif; font-size: 1.35rem; margin-top: 0.3rem; }
+.post-card .publication-hebrew { font-size: 1.1rem; color: var(--text); }
+.publication-translit { font-style: italic; color: var(--text-muted); }
+.publication-author { margin-top: 0.5rem; }
+.publication-status { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem; }
+.publication-status-label, .publication-status-inline { color: var(--lehre-accent); font-weight: 600; }
+.publication-toc { max-width: var(--max-width); }
+.publication-toc h2 { margin-bottom: 0.75rem; }
+.publication-toc ol { list-style: none; max-width: var(--max-width); }
+.publication-toc li { padding: 0.45rem 0; border-bottom: 1px solid var(--border); }
+.publication-toc a { text-decoration: none; }
+.publication-toc a:hover { text-decoration: underline; }
+
+.publication { max-width: var(--max-width-wide); }
+.publication-toggles { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 1rem; font-size: 0.9rem; }
+.publication-toggles label { cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; }
+
+.verse { display: grid; grid-template-columns: 3fr 2fr; gap: 0 2rem; margin: 1.75rem 0 1rem; }
+.verse-de p:last-child, .verse-he p:last-child { margin-bottom: 0; }
+.verse-he { font-family: 'Noto Serif Hebrew', serif; font-size: 1.12rem; line-height: 1.9; text-align: right; }
+.verse-source { grid-column: 1 / -1; font-size: 0.8rem; font-style: italic; color: var(--text-muted); text-align: right; }
+.commentary { background: var(--lehre-bg); border-left: 3px solid var(--lehre-accent); padding: 0.8rem 1rem; margin: 0 0 1.5rem; font-size: 0.95rem; border-radius: 0 var(--radius) var(--radius) 0; }
+.commentary p:last-child { margin-bottom: 0; }
+
+sup.fn { font-size: 0.72em; line-height: 0; }
+sup.fn a { text-decoration: none; color: var(--lehre-accent); padding: 0 0.1em; }
+.footnotes { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.88rem; }
+.footnotes h2 { font-size: 1rem !important; margin: 0 0 0.75rem !important; }
+.footnotes ul { list-style: none; margin: 0 !important; }
+.footnotes li { margin-bottom: 0.5rem; }
+.footnotes li:target { background: var(--lehre-accent-light); }
+.fn-key { font-weight: 600; color: var(--lehre-accent); margin-inline-end: 0.3rem; }
+.fn-back { text-decoration: none; color: var(--text-muted); }
+.footnotes-he ul { font-family: 'Noto Serif Hebrew', serif; font-size: 1rem; line-height: 1.8; }
+
+.publication.hide-hebrew .verse { grid-template-columns: 1fr; }
+.publication.hide-hebrew .verse-he,
+.publication.hide-hebrew .footnotes-he,
+.publication.hide-hebrew sup.fn-he,
+.publication.hide-commentary .commentary,
+.publication.hide-footnotes .footnotes,
+.publication.hide-footnotes sup.fn { display: none; }
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   html { font-size: 16px; }
@@ -341,4 +386,5 @@ img { max-width: 100%; height: auto; }
   .nav-links { gap: 1rem; }
   .footer-content { flex-direction: column; gap: 0.75rem; text-align: center; }
   .post-grid { grid-template-columns: 1fr; }
+  .verse { grid-template-columns: 1fr; gap: 0.75rem; }
 }

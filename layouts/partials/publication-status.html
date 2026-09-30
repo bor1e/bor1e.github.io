@@ -1,0 +1,6 @@
+{{/* Arbeitsstand eines Buches. Kontext: das Buch-Objekt aus hugo.Data.publikationen. */}}
+<p class="publication-status">
+  {{ with .status }}<span class="publication-status-label">{{ . }}</span>{{ end }}
+  {{ with .version }}<span>Version {{ . }}</span>{{ end }}
+  {{ with .exported }}<span>Stand {{ time.Format "02.01.2006" (time.AsTime .) }}</span>{{ end }}
+</p>
